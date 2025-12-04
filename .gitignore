@@ -1,0 +1,49 @@
+# Personal data - keep structure but ignore content
+knowledge/**/*
+!knowledge/**/.gitkeep
+!knowledge/**/README.md
+
+# Initiatives and backlog content (keep structure)
+initiatives/**/*
+!initiatives/**/.gitkeep
+!initiatives/README.md
+
+# Archive content (keep structure)
+archive/**/*
+!archive/**/.gitkeep
+
+# MCP specific
+mcp/**/*.log
+mcp/**/__pycache__/
+mcp/**/*.pyc
+mcp/**/.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.obsidian/
+.cursor/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Build artifacts (if using MCP servers)
+*.pyc
+__pycache__/
+
+# Environment variables folder
+.env/*
+!.env/.gitignore
+!.env/README.md
+!.env/.env.example

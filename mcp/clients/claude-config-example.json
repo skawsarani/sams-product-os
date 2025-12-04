@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "pm-copilot-example": {
+      "command": "python",
+      "args": ["/absolute/path/to/pm-copilot/mcp/servers/example-server.py"]
+    }
+  }
+}
+

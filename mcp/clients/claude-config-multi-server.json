@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "pm-copilot-example": {
+      "command": "python",
+      "args": ["/absolute/path/to/pm-copilot/mcp/servers/example-server.py"]
+    },
+    "jira-integration": {
+      "command": "python",
+      "args": ["/absolute/path/to/pm-copilot/mcp/servers/jira-server.py"]
+    },
+    "analytics": {
+      "command": "python",
+      "args": ["/absolute/path/to/pm-copilot/mcp/servers/analytics-server.py"]
+    }
+  }
+}
+

@@ -1,0 +1,35 @@
+# MCP Server Requirements
+
+# Core MCP dependencies
+mcp>=0.1.0
+
+# For environment variables
+python-dotenv>=1.0.0
+
+# Optional: Add dependencies for your specific integrations
+
+# For Jira integration
+# jira>=3.5.0
+
+# For Linear integration
+# gql>=3.4.0
+
+# For Google Analytics
+# google-analytics-data>=0.17.0
+
+# For Slack integration
+# slack-sdk>=3.23.0
+
+# For Notion integration
+# notion-client>=2.0.0
+
+# For Airtable
+# pyairtable>=2.1.0
+
+# For HTTP requests
+# requests>=2.31.0
+# httpx>=0.25.0
+
+# For async operations
+# aiohttp>=3.9.0
+
