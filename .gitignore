@@ -1,15 +1,18 @@
 # Personal data - keep structure but ignore content
 knowledge/**/*
+!knowledge/**/
 !knowledge/**/.gitkeep
 !knowledge/**/README.md
 
 # Initiatives and backlog content (keep structure)
 initiatives/**/*
+!initiatives/**/
 !initiatives/**/.gitkeep
 !initiatives/README.md
 
 # Archive content (keep structure)
 archive/**/*
+!archive/**/
 !archive/**/.gitkeep
 
 # MCP specific
