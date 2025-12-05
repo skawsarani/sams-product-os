@@ -62,7 +62,7 @@ Create `knowledge/about-me/about-me.md`:
 
 ## Step 2: Brain Dump Ideas (3 min)
 
-Open `BACKLOG.md` and add some ideas:
+Open `BACKLOG.md` and add ideas, tasks, notes - everything:
 
 ```markdown
 ## Mobile App Crashes
@@ -75,11 +75,16 @@ Open `BACKLOG.md` and add some ideas:
 - **Context**: Need SAML SSO for 500 users
 - **Why now**: Blocker for $500K deal
 
-## Dashboard Redesign
-- **Source**: User feedback
-- **Context**: Current dashboard cluttered, low engagement
-- **Why now**: Competitor just launched cleaner version
+## Follow up with Sarah about Q4 goals
+- Need to align on OKRs
+- Due: End of week
+
+## Meeting notes: Engineering sync
+- Discussed API rate limiting
+- Need to follow up on infrastructure costs
 ```
+
+Don't worry about categorizing - just capture everything. The AI will categorize when you process.
 
 ---
 
@@ -99,10 +104,15 @@ Or tell AI:
 
 AI will:
 1. Read your backlog items
-2. Create initiative files (one per item)
-3. Add opportunity assessment structure
-4. Prioritize as P0-P3
-5. Clear processed items from BACKLOG.md
+2. **Categorize each item** into:
+   - **Initiatives** → `initiatives/` folder
+   - **Tasks** → `tasks/` folder
+   - **References** → `knowledge/references/`
+   - **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md`
+3. **Deduplication** across all categories
+4. Create structured files for each category
+5. Archive remaining inbox to `knowledge/notes/YYYY-MM-DD.md`
+6. Clear `BACKLOG.md` for next day
 
 ### Result:
 
@@ -110,19 +120,24 @@ You'll get files like:
 ```
 initiatives/
 ├── mobile-app-crashes.md
-├── enterprise-sso-request.md
-└── dashboard-redesign.md
+└── enterprise-sso-request.md
+
+tasks/
+└── follow-up-sarah-q4-goals.md
+
+knowledge/notes/
+└── 2024-12-02.md  # Archived inbox snapshot
 ```
 
-Each with:
-- Objective
-- Target customer
-- Success metrics
-- What we know
-- Research needed
-- Solution ideas
-- Risks
-- Questions to validate
+**Initiatives** include:
+- Objective, Target customer, Success metrics
+- What we know, Research needed
+- Solution ideas, Risks, Questions to validate
+- Priority (P0-P3)
+
+**Tasks** include:
+- Frontmatter: title, category, priority, status, dates
+- Context, Next Actions, Progress Log
 
 ---
 
@@ -222,9 +237,13 @@ Or explore:
 - Be specific in BACKLOG.md about sources and data
 
 **Q: How often should I process backlog?**
-- Weekly is typical
-- Daily if high volume
+- Daily is recommended (keeps inbox clean)
+- Weekly if lower volume
 - Ad-hoc when needed
+
+**Q: What happens to meeting notes and random thoughts?**
+- They get archived in `knowledge/notes/YYYY-MM-DD.md` with the inbox snapshot
+- You can search archived notes later if needed
 
 ---
 

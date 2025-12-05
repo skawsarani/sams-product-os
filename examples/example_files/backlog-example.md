@@ -6,44 +6,69 @@ Example of how to use BACKLOG.md for capturing raw ideas.
 
 ## How It Works
 
-1. **Brain dump** - Add ideas, requests, bugs without structure
-2. **Process weekly** - Say: `"process my backlog"` or `/backlog`
-3. **AI creates initiatives** - Turns items into opportunity assessments in `initiatives/`
+1. **Brain dump** - Add ideas, requests, bugs, tasks, notes, references - everything goes here
+2. **Process daily/weekly** - Say: `"process my backlog"` or `/backlog`
+3. **AI categorizes** - Items become:
+   - **Initiatives** → `initiatives/` folder (opportunity assessments)
+   - **Tasks** → `tasks/` folder (actionable items)
+   - **References** → `knowledge/references/` (useful info)
+   - **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md` (meeting notes, random thoughts)
 4. **Review** - Adjust priorities and add details
 
 ---
 
 ## Example Entries
 
-### Mobile App Performance Issues
+### Initiatives (Strategic Work)
+
+#### Mobile App Performance Issues
 - **Source**: Customer support (15 tickets this week)
 - **Context**: App crashes on Android 12, checkout flow timing out
 - **Why now**: Affecting 20% of mobile users, impacting conversion
 
-### Enterprise SSO Request  
+#### Enterprise SSO Request  
 - **Source**: Acme Corp (potential $500K deal)
 - **Context**: They need SAML SSO for 500+ users
 - **Why now**: Blocker for Q1 expansion deal
 
-### Dashboard Redesign
+#### Dashboard Redesign
 - **Source**: User research, internal feedback
 - **Context**: Current dashboard is cluttered, low engagement (15% DAU)
 - **Why now**: Competitor X launched cleaner version, losing mindshare
 
-### API Rate Limiting
-- **Source**: Engineering team
-- **Context**: Seeing abuse patterns, need better rate limits
-- **Why now**: Infrastructure costs increasing 30% MoM
+### Tasks (Actionable Items)
 
-### Dark Mode Request
-- **Source**: 200+ user requests in community forum
-- **Context**: Top-requested feature, affects brand perception
-- **Why now**: Industry standard now, we look outdated
+#### Follow up with Sarah about Q4 goals
+- Need to align on OKRs for next quarter
+- Due: End of week
 
-### Onboarding Flow Improvements
-- **Source**: Analytics (60% drop-off after signup)
-- **Context**: Too many steps, confusing value prop
-- **Why now**: Acquisition costs up, need to improve activation
+#### Update metrics dashboard
+- Add new conversion funnel visualization
+- Reference: analytics team request
+
+#### Email design team about dark mode mockups
+- They said they'd have something by Friday
+
+### References (Useful Info)
+
+#### Competitor X launched feature Y
+- Link: [article URL]
+- Notes: They're using AI-powered recommendations, we should evaluate
+
+#### Article about PM frameworks
+- Link: [article URL]
+- Notes: Good framework for prioritization, might adapt for our team
+
+### Uncategorized (Meeting Notes, Random Thoughts)
+
+#### Meeting with engineering lead
+- Discussed API rate limiting concerns
+- They mentioned seeing abuse patterns
+- Need to follow up on infrastructure costs
+
+#### Random thought: What if we added a mobile app?
+- Not sure if this is strategic yet
+- Need to research market first
 
 ---
 

@@ -136,12 +136,12 @@ Create `knowledge/about-me/about-me.md`:
 
 ### Add Ideas to BACKLOG.md
 
-Open `BACKLOG.md` and brain dump ideas:
+Open `BACKLOG.md` and brain dump ideas, tasks, notes - everything:
 
 ```markdown
 # Backlog
 
-Drop raw notes or todos here. Say `process my backlog` when you're ready for triage.
+Your daily inbox for all notes, ideas, tasks, and thoughts. Capture everything here throughout the day.
 
 ## Mobile Performance Issues
 - Source: Support tickets (15 this week)
@@ -153,13 +153,16 @@ Drop raw notes or todos here. Say `process my backlog` when you're ready for tri
 - Context: Need SAML for security compliance
 - Impact: $500K deal blocker
 
-## User Onboarding Improvements
-- Source: Analytics (60% drop-off after signup)
-- Context: Too many steps, confusing flow
-- Impact: Losing potential customers
+## Follow up with Sarah about Q4 goals
+- Need to align on OKRs
+- Due: End of week
+
+## Meeting notes: Engineering sync
+- Discussed API rate limiting
+- Need to follow up on infrastructure costs
 ```
 
-Don't worry about format - just capture ideas with enough context.
+Don't worry about format - just capture everything with enough context. Items will be categorized when you process.
 
 See `examples/example_files/backlog-example.md` for more examples.
 
@@ -183,33 +186,49 @@ Or simply:
 
 **What happens**:
 1. AI reads `BACKLOG.md`
-2. Creates structured initiative files in `initiatives/`
-3. Suggests priorities (P0-P3)
-4. Flags duplicates
-5. Clears processed items from backlog
+2. **Categorizes items** into:
+   - **Initiatives** → `initiatives/` folder (opportunity assessments)
+   - **Tasks** → `tasks/` folder (actionable items)
+   - **References** → `knowledge/references/` (useful info)
+   - **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md` (meeting notes, random thoughts)
+3. **Deduplication** across all categories
+4. Creates structured files for each category
+5. Archives remaining inbox to `knowledge/notes/YYYY-MM-DD.md`
+6. Clears `BACKLOG.md` for next day
 
 ### Review Output
 
-Check `initiatives/` folder for new files like:
+Check the created files:
 
 ```
 initiatives/
-├── mobile-performance.md      # Full opportunity assessment
+├── mobile-performance.md      # Opportunity assessment
 ├── enterprise-sso.md
-├── user-onboarding.md
-└── dark-mode.md
+└── user-onboarding.md
+
+tasks/
+├── follow-up-sarah-q4-goals.md  # Actionable task
+
+knowledge/references/
+└── competitor-feature-notes.md   # Useful reference
+
+knowledge/notes/
+└── 2024-12-02.md                 # Archived inbox snapshot
 ```
 
-Each contains:
-- Objective
-- Target customer
-- Success metrics
-- What we know
-- What to research
-- Solution ideas
-- Risks
-- Questions to validate
+**Initiatives** contain:
+- Objective, Target customer, Success metrics
+- What we know, What to research
+- Solution ideas, Risks, Questions to validate
 - Priority
+
+**Tasks** contain:
+- Frontmatter: title, category, priority, status, dates
+- Context, Next Actions, Progress Log
+
+**References** contain useful info, links, context
+
+**Archived notes** contain meeting notes, random thoughts, uncategorized items
 
 ---
 
@@ -372,9 +391,11 @@ After setup, you should have:
 - [ ] `knowledge/product-strategy/2024-strategy.md`
 - [ ] `knowledge/about-me/about-me.md`
 
-**Backlog & Initiatives**:
+**Backlog & Organization**:
 - [ ] `BACKLOG.md` processed (or ready to process)
 - [ ] At least 1 initiative in `initiatives/`
+- [ ] At least 1 task in `tasks/` (if applicable)
+- [ ] `config.yaml` exists at root (for task management)
 - [ ] Initiatives have priorities (P0-P3)
 
 **Tested Workflows**:
