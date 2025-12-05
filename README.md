@@ -50,7 +50,7 @@ PM Co-Pilot turns your AI coding assistant (Cursor, Claude Code, etc.) into an i
 ## Core Workflow
 
 ```
-Raw Idea → BACKLOG.md → Initiative Assessment → Expand & Research → PRD → Build
+Raw Idea → BACKLOG.md → Categorize (Initiatives/Tasks/References) → Expand & Research → PRD → Build
 ```
 
 ### 1. Brain Dump → BACKLOG.md
@@ -67,11 +67,15 @@ Drop ideas into `BACKLOG.md` without structure:
 - Source: Sales (Acme Corp - $500K deal)
 - Context: Need SAML for 500 users
 - Why now: Deal blocker
+
+## Follow up with Sarah about Q4 goals
+- Need to align on OKRs
+- Due: End of week
 ```
 
 See `examples/example_files/backlog-example.md` for more examples and tips.
 
-### 2. Process → Initiatives
+### 2. Process → Categorize
 
 Tell AI:
 ```
@@ -82,15 +86,21 @@ or
 /backlog
 ```
 
-AI creates structured **opportunity assessments** in `initiatives/`:
-- Objective
-- Target customer
-- Success metrics
-- What we know
-- What we should research
-- Solution ideas
-- Risks
-- Questions to validate
+AI **categorizes** each item into:
+- **Initiatives** → `initiatives/` folder (opportunity assessments)
+- **Tasks** → `tasks/` folder (actionable items with frontmatter)
+- **References** → `knowledge/references/` (useful info, links)
+- **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md` (meeting notes, random thoughts)
+
+**Initiatives** include:
+- Objective, Target customer, Success metrics
+- What we know, What we should research
+- Solution ideas, Risks, Questions to validate
+- Priority (P0-P3)
+
+**Tasks** include:
+- Frontmatter: title, category, priority, status, dates
+- Context, Next Actions, Progress Log
 
 ### 3. Expand Before Building
 
@@ -125,8 +135,12 @@ pm-copilot/
 ├── README.md                     # This file
 ├── GETTING-STARTED.md            # Setup guide
 ├── CONTRIBUTING.md               # How to contribute
+├── config.yaml                   # Task management configuration
 │
 ├── initiatives/                  # Opportunity assessments (gitignored content)
+│   └── README.md
+│
+├── tasks/                        # Actionable tasks (gitignored content)
 │   └── README.md
 │
 ├── knowledge/                    # Your context (gitignored content)
@@ -176,10 +190,20 @@ AI understands YOUR context:
 - Your strategy (`knowledge/product-strategy/`)
 - Your voice (`knowledge/voice-samples/`)
 
+### 📋 Task Management
+
+Built-in task system for actionable work:
+- Auto-categorization using `config.yaml` keywords
+- Frontmatter tracking (priority, status, dates, categories)
+- Task aging and pruning
+- Status management (not_started, started, blocked, done)
+- Integrated with backlog processing
+
 ### 📚 Comprehensive Workflows
 
 15 workflow categories covering:
-- Backlog processing
+- Backlog processing (creates initiatives, tasks, references)
+- Task management
 - Document generation
 - Prioritization & planning
 - Research & analysis
@@ -192,8 +216,8 @@ AI understands YOUR context:
 
 ### 🎓 Learning System
 
-- **4 tutorials** (90 min total) from beginner to advanced
-- **Example files** showing real outputs
+- **5 tutorials** (135 min total) from beginner to advanced
+- **Example files** showing real outputs (including task examples)
 - **Voice samples** demonstrating format
 - **Structured prompts** for complex workflows
 
@@ -240,11 +264,16 @@ Use workflows as shortcuts in Cursor or Claude Code:
 
 **Daily**:
 - `/plan` - Daily planning
-- `/backlog` - Process ideas
+- `/backlog` - Process ideas into initiatives, tasks, references
 
 **Initiatives**:
 - `/expand-initiative [name]` - Add research before building
 - `/create-initiative [topic]` - New opportunity assessment
+
+**Tasks**:
+- Manage tasks - Update status, priority, category
+- Find tasks - Search by age, status, category
+- Prune tasks - Archive completed tasks
 
 **Documents**:
 - `/spec [initiative]` - Generate spec
@@ -270,6 +299,7 @@ Use workflows as shortcuts in Cursor or Claude Code:
 ### Advanced (Week 2+)
 3. [Tutorial 3: Memory & Context](examples/tutorials/03-memory-and-context.md) - 25 min
 4. [Tutorial 4: Voice Training](examples/tutorials/04-voice-training.md) - 30 min
+5. [Tutorial 5: Advanced Workflows](examples/tutorials/05-advanced-workflows.md) - 45 min
 
 **See**: `examples/tutorials/README.md` for complete learning path
 
@@ -285,10 +315,12 @@ Use workflows as shortcuts in Cursor or Claude Code:
 - Tutorials
 - Workflow definitions
 - MCP configurations (without secrets)
+- `config.yaml` (task management configuration)
 
 ### ❌ Gitignored (personal data)
 - Everything in `knowledge/` (except READMEs)
 - Everything in `initiatives/` (except README)
+- Everything in `tasks/` (except README)
 - Everything in `archive/`
 - Everything in `.env/`
 - Content of `BACKLOG.md` (optional - you decide)

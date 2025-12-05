@@ -16,6 +16,8 @@ Before you begin:
 - [ ] Optional: Python 3.10+ (only for MCP servers)
 - [ ] Tip: Use Obsidian along Cursor or Claude code for better markdown support
 
+**Note**: The `config.yaml` file is already included in the repo and configured for task management. You can customize it later if needed.
+
 ---
 
 ## Step 1: Clone and Setup (5 minutes)
@@ -188,13 +190,15 @@ Or simply:
 1. AI reads `BACKLOG.md`
 2. **Categorizes items** into:
    - **Initiatives** → `initiatives/` folder (opportunity assessments)
-   - **Tasks** → `tasks/` folder (actionable items)
+   - **Tasks** → `tasks/` folder (actionable items with frontmatter)
    - **References** → `knowledge/references/` (useful info)
    - **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md` (meeting notes, random thoughts)
-3. **Deduplication** across all categories
+3. **Deduplication** across all categories (using `config.yaml` settings)
 4. Creates structured files for each category
 5. Archives remaining inbox to `knowledge/notes/YYYY-MM-DD.md`
 6. Clears `BACKLOG.md` for next day
+
+**Task Management**: Tasks are auto-categorized using keywords from `config.yaml` and include frontmatter with title, category, priority, status, dates, and resource references.
 
 ### Review Output
 
@@ -395,8 +399,9 @@ After setup, you should have:
 - [ ] `BACKLOG.md` processed (or ready to process)
 - [ ] At least 1 initiative in `initiatives/`
 - [ ] At least 1 task in `tasks/` (if applicable)
-- [ ] `config.yaml` exists at root (for task management)
+- [ ] `config.yaml` exists at root (already included - customize if needed)
 - [ ] Initiatives have priorities (P0-P3)
+- [ ] Tasks have proper frontmatter (category, priority, status)
 
 **Tested Workflows**:
 - [ ] `/backlog` creates initiatives from backlog

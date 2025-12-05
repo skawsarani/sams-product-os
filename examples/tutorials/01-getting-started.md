@@ -105,11 +105,11 @@ Or tell AI:
 AI will:
 1. Read your backlog items
 2. **Categorize each item** into:
-   - **Initiatives** → `initiatives/` folder
-   - **Tasks** → `tasks/` folder
-   - **References** → `knowledge/references/`
-   - **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md`
-3. **Deduplication** across all categories
+   - **Initiatives** → `initiatives/` folder (opportunity assessments)
+   - **Tasks** → `tasks/` folder (actionable items with frontmatter)
+   - **References** → `knowledge/references/` (useful info, links)
+   - **Uncategorized** → Archived in `knowledge/notes/YYYY-MM-DD.md` (meeting notes, random thoughts)
+3. **Deduplication** across all categories (using `config.yaml` settings)
 4. Create structured files for each category
 5. Archive remaining inbox to `knowledge/notes/YYYY-MM-DD.md`
 6. Clear `BACKLOG.md` for next day
@@ -136,8 +136,9 @@ knowledge/notes/
 - Priority (P0-P3)
 
 **Tasks** include:
-- Frontmatter: title, category, priority, status, dates
+- Frontmatter: title, category (auto-assigned from `config.yaml` keywords), priority, status (n/s/b/d), dates, resource_refs
 - Context, Next Actions, Progress Log
+- Auto-categorized using keywords in `config.yaml`
 
 ---
 
@@ -207,7 +208,7 @@ Reduce mobile app crash rate from 1.8% to <0.5%
 
 ✅ Added your context  
 ✅ Created your first backlog  
-✅ Processed ideas into structured initiatives  
+✅ Processed ideas into structured initiatives and tasks  
 ✅ Learned how to use workflows  
 ✅ Created your first spec
 

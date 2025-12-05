@@ -102,6 +102,7 @@ Want to master the system?
 **Core Concepts**:
 - BACKLOG.md as inbox
 - Initiative opportunity format
+- Task management system
 - Basic workflows (/backlog, /plan)
 - Processing raw ideas into structure
 
@@ -110,6 +111,7 @@ Want to master the system?
 - Personal context
 - First backlog
 - First initiatives
+- First tasks (if applicable)
 
 ---
 
