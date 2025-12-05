@@ -204,7 +204,7 @@ examples/example_files/
 └── pricing-strategy-example.md
 
 examples/workflows/
-└── documents.md (updated to reference new template)
+└── generate-docs.md (updated to reference new template)
 ```
 
 ### 📋 New Workflows

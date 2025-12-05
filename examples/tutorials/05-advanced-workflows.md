@@ -524,11 +524,11 @@ Reference files:
 ### Explore Advanced Workflows
 
 See `examples/workflows/` for specialized workflows:
-- `research.md` - Research synthesis patterns
-- `decisions.md` - Decision documentation
-- `launch.md` - Launch planning
-- `planning.md` - Strategic planning
-- `communication.md` - Stakeholder updates
+- `synthesize-research.md` - Research synthesis patterns
+- `document-decision.md` - Decision documentation
+- `plan-launch.md` - Launch planning
+- `prioritize-work.md` - Strategic planning
+- `write-update.md` - Stakeholder updates
 
 ### Create Your Own Patterns
 

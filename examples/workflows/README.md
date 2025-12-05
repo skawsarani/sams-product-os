@@ -54,26 +54,43 @@ AI-powered workflows for product management. These are your slash commands for C
 
 ---
 
-## Category Index
+## Workflow Index (Action-Based)
 
-Browse detailed workflows by category:
+Browse workflows by action:
 
-- [backlog.md](backlog.md) - Backlog & organization
-- [documents.md](documents.md) - Document generation
-- [planning.md](planning.md) - Prioritization & planning
-- [research.md](research.md) - Research & analysis
-- [metrics.md](metrics.md) - Metrics & success
-- [communication.md](communication.md) - Stakeholder communication
-- [decisions.md](decisions.md) - Decision making
-- [technical.md](technical.md) - Technical collaboration
-- [github.md](github.md) - GitHub & pull requests
-- [bugs.md](bugs.md) - Bug & issue management
-- [process.md](process.md) - Process improvement
-- [frameworks.md](frameworks.md) - Templates & frameworks
-- [maintenance.md](maintenance.md) - Maintenance & cleanup
-- [goals.md](goals.md) - Goal setting & strategy
-- [collaboration.md](collaboration.md) - Collaboration
-- [launch.md](launch.md) - Launch & rollout
+### Process & Organize
+- [process-backlog.md](process-backlog.md) - Process backlog items into initiatives, tasks, references
+- [archive-completed.md](archive-completed.md) - Archive completed work
+
+### Generate & Create
+- [generate-docs.md](generate-docs.md) - Generate specs, PRDs, briefs, user stories
+- [use-structured-prompts.md](use-structured-prompts.md) - Use structured workflow prompts
+
+### Plan & Prioritize
+- [prioritize-work.md](prioritize-work.md) - Prioritize work, create roadmaps, plan sprints
+- [plan-launch.md](plan-launch.md) - Plan launches and rollouts
+- [set-goals.md](set-goals.md) - Set OKRs and align to strategy
+
+### Research & Analyze
+- [synthesize-research.md](synthesize-research.md) - Synthesize research and interviews
+- [track-metrics.md](track-metrics.md) - Track and analyze metrics
+
+### Communicate
+- [write-update.md](write-update.md) - Write stakeholder updates and communications
+
+### Document & Decide
+- [document-decision.md](document-decision.md) - Document decisions and evaluate options
+
+### Manage & Collaborate
+- [manage-tasks.md](manage-tasks.md) - Manage tasks
+- [triage-bugs.md](triage-bugs.md) - Triage and manage bugs
+- [collaborate-engineering.md](collaborate-engineering.md) - Collaborate with engineering
+- [collaborate-team.md](collaborate-team.md) - Collaborate with team
+
+### Review & Improve
+- [review-pr.md](review-pr.md) - Review pull requests
+- [improve-process.md](improve-process.md) - Improve processes
+- [apply-framework.md](apply-framework.md) - Apply PM frameworks
 
 ---
 
@@ -107,9 +124,9 @@ Always reference:
 ```json
 {
   "cascade.shortcuts": {
-    "/plan": "Read @examples/workflows/planning.md",
-    "/backlog": "Read @examples/workflows/backlog.md",
-    "/spec": "Read @examples/workflows/documents.md and generate spec"
+    "/plan": "Read @examples/workflows/prioritize-work.md",
+    "/backlog": "Read @examples/workflows/process-backlog.md",
+    "/spec": "Read @examples/workflows/generate-docs.md and generate spec"
   }
 }
 ```
@@ -118,9 +135,11 @@ Always reference:
 
 ## Core Workflows Explained
 
-### 1. Backlog Processing
+### 1. Process Backlog
 
 **Trigger**: `/backlog` or "Process my backlog"
+
+**Workflow**: [process-backlog.md](process-backlog.md)
 
 **What it does**:
 1. Reads items from `BACKLOG.md`
@@ -153,6 +172,8 @@ Always reference:
 
 **Trigger**: `/expand-initiative [name]`
 
+**Workflow**: [prioritize-work.md](prioritize-work.md)
+
 **What it does**:
 Before generating a PRD, expand the initiative with:
 - Detailed research plan
@@ -178,6 +199,8 @@ Before generating a PRD, expand the initiative with:
 ### 3. Generate PRD from Initiative
 
 **Trigger**: `/prd [initiative-name]`
+
+**Workflow**: [generate-docs.md](generate-docs.md)
 
 **What it does**:
 Converts initiative to full Product Requirements Document:
@@ -287,26 +310,43 @@ Don't expect perfection first try:
 
 ---
 
-## Workflow Files
+## All Workflow Files
 
 Each `.md` file in this directory contains detailed workflows:
 
-- **backlog.md** (53 lines) - Process & organize
-- **documents.md** (140 lines) - Generate docs
-- **planning.md** (137 lines) - Prioritize & plan
-- **research.md** (120 lines) - Synthesize & analyze
-- **metrics.md** (93 lines) - Metrics & dashboards
-- **communication.md** (125 lines) - Stakeholder updates
-- **decisions.md** (69 lines) - Document decisions
-- **technical.md** (73 lines) - Tech collaboration
-- **github.md** (67 lines) - GitHub & pull requests
-- **bugs.md** (71 lines) - Bug management
-- **process.md** (76 lines) - Process improvement
-- **frameworks.md** (71 lines) - Apply frameworks
-- **maintenance.md** (77 lines) - Cleanup & archive
-- **goals.md** (78 lines) - OKRs & strategy
-- **collaboration.md** (93 lines) - Team workflows
-- **launch.md** (83 lines) - Launch planning
+**Process & Organize**:
+- **process-backlog.md** - Process backlog items
+- **archive-completed.md** - Archive completed work
+
+**Generate & Create**:
+- **generate-docs.md** - Generate specs, PRDs, briefs
+- **use-structured-prompts.md** - Structured workflow prompts
+
+**Plan & Prioritize**:
+- **prioritize-work.md** - Prioritize and plan work
+- **plan-launch.md** - Plan launches
+- **set-goals.md** - Set goals and OKRs
+
+**Research & Analyze**:
+- **synthesize-research.md** - Synthesize research
+- **track-metrics.md** - Track metrics
+
+**Communicate**:
+- **write-update.md** - Write updates
+
+**Document & Decide**:
+- **document-decision.md** - Document decisions
+
+**Manage & Collaborate**:
+- **manage-tasks.md** - Manage tasks
+- **triage-bugs.md** - Triage bugs
+- **collaborate-engineering.md** - Collaborate with engineering
+- **collaborate-team.md** - Collaborate with team
+
+**Review & Improve**:
+- **review-pr.md** - Review PRs
+- **improve-process.md** - Improve processes
+- **apply-framework.md** - Apply frameworks
 
 ---
 
@@ -315,7 +355,7 @@ Each `.md` file in this directory contains detailed workflows:
 - **Tutorials**: See `examples/tutorials/` for step-by-step guides
 - **Examples**: See `examples/example_files/` for sample outputs
 - **Templates**: See `templates/` for document templates
-- **AGENTS.md**: How AI processes these workflows
+- **AGENTS.md**: How AI processes these workflows (lean reference guide)
 - **BACKLOG.md**: Your inbox for raw ideas
 - **initiatives/**: Where processed ideas live
 

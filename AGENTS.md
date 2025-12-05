@@ -39,135 +39,23 @@ When asked to create specs or make decisions:
 6. Reference `knowledge/product-analytics/` for data-driven insights
 7. Cross-reference `knowledge/proposals/` for alignment
 
-## Core Workflows
-
-### 1. Backlog Processing
-
-When asked to "process backlog" or "organize ideas":
-
-1. Read items from `BACKLOG.md` (single file at root)
-2. For each item, create an **Initiative Opportunity Assessment** in `initiatives/` folder
-3. Use this format for each initiative:
-   - **Objective**: What we're trying to achieve
-   - **Target Customer**: Who this serves
-   - **Success Metrics**: How we measure impact (specific, measurable)
-   - **What We Know**: Current data, insights, evidence
-   - **What We Should Research**: Open questions, validation needed
-   - **Solution Ideas**: Potential approaches (not decisions yet)
-   - **Risks**: What could go wrong
-   - **Questions to Validate**: Key assumptions to test
-4. Prioritize each initiative:
-   - **P0 (Critical)**: Blockers, urgent customer issues, time-sensitive opportunities
-   - **P1 (High)**: This sprint/cycle, aligned with current roadmap
-   - **P2 (Medium)**: Next 1-2 quarters, strategic initiatives
-   - **P3 (Low)**: Future considerations, research needed
-5. Flag duplicates and related initiatives
-6. Clear processed items from BACKLOG.md
-7. Summarize what was created
-
-### 2. Requirement Generation
-
-When asked to "write requirements" or "create a spec":
-
-**Use this flow:**
-
-1. **Understand the Problem**
-   - What user need are we solving?
-   - What business goal does this support?
-   - What's the current experience vs. desired?
-
-2. **Define Success**
-   - What metrics will improve?
-   - What does success look like for users?
-   - What's the business impact?
-
-3. **Generate Structure** (Use template from `templates/`)
-   - Executive Summary
-   - Problem Statement
-   - User Stories & Jobs-to-be-Done
-   - Functional Requirements
-   - Non-Functional Requirements
-   - Technical Considerations
-   - Success Metrics
-   - Open Questions
-   - Out of Scope
-
-4. **Validate Alignment**
-   - Check against product strategy
-   - Ensure metrics alignment
-   - Flag any conflicts with existing work
-
-### 3. Research Synthesis
-
-When asked to "synthesize research" or "summarize interviews":
-
-1. Read from `knowledge/transcripts/` or provided content
-2. Extract:
-   - **Key Insights**: Pattern across multiple sources
-   - **User Needs**: Explicit and implicit needs
-   - **Pain Points**: Current friction
-   - **Opportunities**: Potential solutions or gaps
-   - **Quotes**: Verbatim user feedback
-3. Organize by theme/category
-4. Prioritize by frequency and impact
-5. Generate "So What?" - actionable recommendations
-
-### 4. Strategic Planning
-
-When asked about roadmap, prioritization, or strategy:
-
-1. **Review Strategy Docs**: Check `knowledge/product-strategy/`
-2. **Apply Framework**: 
-   - Impact vs. Effort matrix
-   - RICE scoring (Reach, Impact, Confidence, Effort)
-   - Value vs. Complexity
-   - Strategic alignment assessment
-3. **Generate Recommendation**: Clear rationale with tradeoffs
-4. **Create Visual**: Table or matrix showing options
-5. **Define Next Steps**: What decisions need to be made
-
-### 5. Stakeholder Communication
-
-When asked to "draft an update" or "write to stakeholders":
-
-1. **Know Your Audience**: Exec vs. team vs. cross-functional
-2. **Structure**:
-   - **TL;DR**: One sentence summary
-   - **Context**: What's happening and why
-   - **Progress**: What's done, what's in flight
-   - **Blockers**: What needs help
-   - **Next Steps**: What's coming
-   - **Asks**: Decisions or support needed
-3. **Use Data**: Reference `knowledge/product-analytics/` for metrics
-4. **Apply Their Style**: Check `knowledge/voice-samples/` for writing style if drafting communication
-4. **Be Crisp**: Executives want clarity, not detail
-
-### 6. Decision Documentation
-
-When a decision is made:
-
-1. Create entry in `knowledge/proposals/` or appropriate location
-2. Use format:
-   - **Decision**: What was decided
-   - **Context**: Why this came up
-   - **Options Considered**: What else we looked at
-   - **Rationale**: Why we chose this
-   - **Tradeoffs**: What we're giving up
-   - **Success Criteria**: How we'll know it was right
-   - **Date & Owner**: When and who
-
 ## Workflow Library Integration
 
 Reference `examples/workflows/` directory for pre-built workflows. Read the workflow file and follow its instructions. Common patterns:
 
-- `"/backlog"` or `"Process my backlog"` → Read BACKLOG.md, create initiative files
-- `"/expand-initiative [name]"` → Add research and details to initiative before building
-- `"/prd [initiative]"` → Generate PRD from initiative opportunity assessment
-- `"/spec [initiative]"` → Generate spec from initiative
-- `"What should I prioritize?"` → Strategic recommendation based on strategy and frameworks
-- `"/synthesize"` → Research synthesis from transcripts
-- `"/exec-update"` → Draft stakeholder update with metrics and voice
-- `"/decide [decision]"` → Document decision with options and rationale
+- `"/backlog"` or `"Process my backlog"` → See `examples/workflows/process-backlog.md`
+- `"/expand-initiative [name]"` → See `examples/workflows/prioritize-work.md`
+- `"/prd [initiative]"` or `"/spec [initiative]"` → See `examples/workflows/generate-docs.md`
+- `"What should I prioritize?"` → See `examples/workflows/prioritize-work.md`
+- `"/synthesize"` → See `examples/workflows/synthesize-research.md`
+- `"/exec-update"` → See `examples/workflows/write-update.md`
+- `"/decide [decision]"` → See `examples/workflows/document-decision.md`
+- `"Manage tasks"` → See `examples/workflows/manage-tasks.md`
+
+**How to use workflows:**
+1. When a task matches a trigger, read the corresponding workflow file
+2. Follow the workflow's step-by-step instructions
+3. The workflow may reference files in `knowledge/` for context (e.g., voice samples)
 
 ## Best Practices
 
@@ -198,15 +86,15 @@ Reference `examples/workflows/` directory for pre-built workflows. Read the work
 
 ### Where to Save What
 
-- **Raw Ideas**: Capture in `BACKLOG.md` (single file at root)
-- **Evaluated Ideas**: Process into `initiatives/` folder as opportunity assessments
-- **Reference Material**: Move to `knowledge/references/`
+- **Raw Notes/Ideas**: Capture in `BACKLOG.md` (daily inbox at root)
+- **Initiatives**: Process into `initiatives/` folder as opportunity assessments
+- **Tasks**: Process into `tasks/` folder as actionable items
+- **References**: Process into `knowledge/references/` (useful info, links, context)
+- **Archived Inbox**: Daily snapshots in `knowledge/notes/YYYY-MM-DD.md` (meeting notes, random thoughts, uncategorized items)
 - **Completed Specs**: Archive in `knowledge/briefs-and-specs/` or within initiative subdirectories
 - **Old Projects**: Move to `archive/` with date prefix
 - **Templates**: Always use from `templates/`, never modify originals
 - **Examples**: All example files go in `examples/example_files/`
-
-### Naming Conventions
 
 ### Naming Conventions
 
@@ -250,7 +138,8 @@ Reference `examples/workflows/` directory for pre-built workflows. Read the work
 - Suggest improvements to process
 - Keep documents living (iterate as you learn)
 
-## ## Interaction Style
+## Interaction Style
+
 - Be direct, friendly, and concise.
 - Batch follow-up questions.
 - Offer best-guess suggestions with confirmation instead of stalling.
@@ -288,4 +177,3 @@ You're here to amplify the PM's strategic thinking, not replace it. Your job is 
 - Help them make better decisions faster
 
 Always ask: "How can I help you focus on what matters most?"
-
