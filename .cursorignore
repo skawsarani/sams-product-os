@@ -1,1 +1,33 @@
-# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Cursor Ignore
+# Files and directories excluded from all Cursor features (indexing, Tab, Agent, Inline Edit, @ references)
+
+# Archives and old content
+archive/
+
+# Build artifacts
+mcp/**/__pycache__/
+mcp/**/*.pyc
+node_modules/
+dist/
+build/
+
+# Environment and secrets
+.env/
+*.env
+*.env.local
+
+# Large binary files
+*.mp4
+*.mov
+*.mp3
+*.zip
+*.tar.gz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.obsidian/
