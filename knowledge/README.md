@@ -15,7 +15,7 @@ knowledge/
 ├── notes/                # Archived inbox snapshots, meeting notes, uncategorized items
 ├── processes/            # How your team works
 ├── product-analytics/    # KPIs, dashboards, performance data
-│   └── metrics/          # Metric definitions and historical data
+│   └── interac-metrics/  # Metric definitions and historical data
 ├── product-strategy/     # Vision, strategy, roadmap
 ├── proposals/            # Decision docs, RFCs, proposals
 ├── references/           # Links, articles, competitive analysis

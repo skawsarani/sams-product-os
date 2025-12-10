@@ -23,7 +23,7 @@ Before making suggestions or generating documents, familiarize yourself with:
 - `knowledge/product-strategy/` - Product vision, roadmap, strategic pillars
 - `knowledge/frameworks/` - PM frameworks and methodologies used
 - `knowledge/processes/` - How this team works (rituals, frameworks, decision-making)
-- `knowledge/product-analytics/` - Success metrics, KPIs, current performance data
+- `knowledge/product-analytics/` - Success metrics, KPIs, current performance data (interac metrics stored in `interac-metrics/`)
 - `knowledge/briefs-and-specs/` - Product specs, feature briefs, technical documentation
 - `knowledge/transcripts/` - User interviews, stakeholder meetings, research sessions
 - `knowledge/voice-samples/` - Writing samples for matching communication style
