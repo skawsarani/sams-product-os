@@ -113,6 +113,28 @@ due_date: YYYY-MM-DD (if applicable)
 ---
 ```
 
+### Task Manager MCP (Optional)
+
+If you've installed the task-manager MCP server (`core/task-manager/server.py`), use these tools for fast programmatic task operations:
+
+**Available MCP tools:**
+1. **list_tasks** - Filter tasks by priority, status, category, age
+2. **get_task** - Read single task details by filename
+3. **create_task** - Create new task (auto-categorizes, enforces caps)
+4. **update_task_status** - Change status (n/s/b/d)
+5. **update_task_priority** - Change priority (enforces caps)
+6. **get_task_summary** - Statistics (counts by priority/status/category)
+7. **find_stale_tasks** - Tasks started but inactive 14+ days
+8. **find_overdue_tasks** - Tasks past due_date
+9. **prune_completed_tasks** - Delete done tasks older than 90 days
+10. **check_duplicates** - Check for similar tasks before creating
+
+**When to use MCP tools:**
+- **Prefer MCP for:** Fast operations, bulk queries, validation checks, statistics
+- **Use conversational for:** User-facing explanations, complex reasoning, when MCP not installed
+
+**Setup:** See `core/README.md` for MCP installation instructions.
+
 ## File Locations
 
 - **Brain dump** → `BACKLOG.md` (root)
