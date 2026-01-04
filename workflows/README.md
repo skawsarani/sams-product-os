@@ -21,6 +21,43 @@ PM Co-Pilot workflows for common tasks.
 
 ---
 
+### Weekly Review
+
+**Command:** "Run weekly review" or "Help me review this week"
+
+**What it does:**
+- Reviews completed work from the past week
+- Checks progress against quarterly goals (from GOALS.md)
+- Identifies blocked or stalled tasks
+- Plans priorities for next week
+
+**Best timing:** Friday afternoon, Sunday evening, or Monday morning
+
+**See:** [weekly-review.md](weekly-review.md)
+
+---
+
+### Daily Planning
+
+**Command:** "What should I work on today?" or "Help me plan my day"
+
+**What it does:**
+- Shows top 3 priority tasks for today
+- Identifies blocked items needing attention
+- Provides time estimates and goal alignment
+- Helps focus on what matters most
+
+**Best timing:** First thing in morning, before checking communications
+
+**Variations:**
+- "I only have 2 hours" - Time-constrained plan
+- "What's the ONE thing?" - Overwhelmed mode
+- "Remind me what I was working on yesterday" - Context recovery
+
+**See:** [daily-planning.md](daily-planning.md)
+
+---
+
 ## Skills (Auto-Invoked)
 
 Most PM work is handled by skills that AI invokes automatically:
