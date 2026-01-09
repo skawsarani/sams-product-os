@@ -61,3 +61,6 @@ core/evals/results/
 
 # Project todos
 TODO.md
+
+# MCP files
+.mcp.json

@@ -50,14 +50,20 @@ python3 -m pip install -r requirements.txt
 
 Add to your MCP client configuration (e.g., Claude Code, Cursor):
 
-**For Claude Code** (`.claude/mcp_settings.json` in project root):
+**For Claude Code** (`.mcp.json` in project root):
 
 ```json
 {
   "mcpServers": {
     "pm-tasks": {
-      "command": "python3",
-      "args": ["./core/task-manager/server.py"]
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "./core/task-manager",
+        "python",
+        "server.py"
+      ]
     }
   }
 }
@@ -69,8 +75,14 @@ Add to your MCP client configuration (e.g., Claude Code, Cursor):
 {
   "mcpServers": {
     "pm-tasks": {
-      "command": "python3",
-      "args": ["./core/task-manager/server.py"]
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "./core/task-manager",
+        "python",
+        "server.py"
+      ]
     }
   }
 }

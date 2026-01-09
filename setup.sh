@@ -36,6 +36,10 @@ echo ""
 echo "  3. Setting up BACKLOG.md"
 echo "     • Your daily inbox for notes, ideas, and tasks"
 echo ""
+echo "  4. Configuring AI assistant integration"
+echo "     • Symlinks for skills/commands auto-discovery"
+echo "     • Task Manager MCP server configuration"
+echo ""
 echo -e "${YELLOW}Note:${NC} Existing directories and files will be preserved."
 echo -e "      The script will only create what's missing."
 echo ""
@@ -371,14 +375,18 @@ echo -e "${BLUE}Step 5: AI Assistant Integration (Optional)${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
-echo -e "${YELLOW}Create symlinks for skills/commands to help AI assistants auto-discover them?${NC}"
+echo -e "${YELLOW}Which AI assistants do you want to configure?${NC}"
 echo ""
-echo "  1) Both .claude and .cursor directories"
-echo "  2) Only .claude directory (Claude Code)"
-echo "  3) Only .cursor directory (Cursor AI)"
-echo "  4) Skip (create manually later)"
+echo "This will:"
+echo "  • Create symlinks for skills/commands auto-discovery"
+echo "  • Set up Task Manager MCP server configuration"
 echo ""
-read -p "Choose option (1-4) > " symlink_choice
+echo "  1) Both Claude Code and Cursor"
+echo "  2) Only Claude Code"
+echo "  3) Only Cursor"
+echo "  4) Skip (configure manually later)"
+echo ""
+read -p "Choose option (1-4) > " ai_choice
 echo ""
 
 # Function to create symlinks for a directory
@@ -408,29 +416,95 @@ create_symlinks_for_dir() {
     fi
 }
 
-case "$symlink_choice" in
+# Function to setup MCP config for Claude Code (.mcp.json in root)
+setup_mcp_claude() {
+    local mcp_file=".mcp.json"
+
+    if [ -f "$mcp_file" ]; then
+        echo -e "${YELLOW}ℹ️  ${mcp_file} already exists${NC}"
+        echo -e "   To add the Task Manager MCP, merge this into your existing config:"
+        echo ""
+        echo -e "${BLUE}   {${NC}"
+        echo -e "${BLUE}     \"mcpServers\": {${NC}"
+        echo -e "${BLUE}       \"pm-tasks\": {${NC}"
+        echo -e "${BLUE}         \"command\": \"uv\",${NC}"
+        echo -e "${BLUE}         \"args\": [\"run\", \"--directory\", \"./core/task-manager\", \"python\", \"server.py\"]${NC}"
+        echo -e "${BLUE}       }${NC}"
+        echo -e "${BLUE}     }${NC}"
+        echo -e "${BLUE}   }${NC}"
+        echo ""
+    else
+        cp "core/task-manager/mcp.json.sample" "$mcp_file"
+        echo -e "${GREEN}✓ Created ${mcp_file} with Task Manager MCP configuration${NC}"
+    fi
+}
+
+# Function to setup MCP config for Cursor (.cursor/mcp.json)
+setup_mcp_cursor() {
+    local mcp_dir=".cursor"
+    local mcp_file="${mcp_dir}/mcp.json"
+
+    # Create .cursor directory if needed
+    if [ ! -d "$mcp_dir" ]; then
+        mkdir -p "$mcp_dir"
+    fi
+
+    if [ -f "$mcp_file" ]; then
+        echo -e "${YELLOW}ℹ️  ${mcp_file} already exists${NC}"
+        echo -e "   To add the Task Manager MCP, merge this into your existing config:"
+        echo ""
+        echo -e "${BLUE}   {${NC}"
+        echo -e "${BLUE}     \"mcpServers\": {${NC}"
+        echo -e "${BLUE}       \"pm-tasks\": {${NC}"
+        echo -e "${BLUE}         \"command\": \"uv\",${NC}"
+        echo -e "${BLUE}         \"args\": [\"run\", \"--directory\", \"./core/task-manager\", \"python\", \"server.py\"]${NC}"
+        echo -e "${BLUE}       }${NC}"
+        echo -e "${BLUE}     }${NC}"
+        echo -e "${BLUE}   }${NC}"
+        echo ""
+    else
+        cp "core/task-manager/mcp.json.sample" "$mcp_file"
+        echo -e "${GREEN}✓ Created ${mcp_file} with Task Manager MCP configuration${NC}"
+    fi
+}
+
+case "$ai_choice" in
     1)
-        echo -e "${BLUE}Creating symlinks for both .claude and .cursor...${NC}"
+        echo -e "${BLUE}Configuring both Claude Code and Cursor...${NC}"
         echo ""
+        echo -e "${BLUE}Creating symlinks...${NC}"
         create_symlinks_for_dir ".claude"
-        echo ""
         create_symlinks_for_dir ".cursor"
+        echo ""
+        echo -e "${BLUE}Setting up MCP configuration...${NC}"
+        setup_mcp_claude
+        setup_mcp_cursor
         echo ""
         ;;
     2)
-        echo -e "${BLUE}Creating symlinks for .claude only...${NC}"
+        echo -e "${BLUE}Configuring Claude Code...${NC}"
         echo ""
+        echo -e "${BLUE}Creating symlinks...${NC}"
         create_symlinks_for_dir ".claude"
+        echo ""
+        echo -e "${BLUE}Setting up MCP configuration...${NC}"
+        setup_mcp_claude
         echo ""
         ;;
     3)
-        echo -e "${BLUE}Creating symlinks for .cursor only...${NC}"
+        echo -e "${BLUE}Configuring Cursor...${NC}"
         echo ""
+        echo -e "${BLUE}Creating symlinks...${NC}"
         create_symlinks_for_dir ".cursor"
+        echo ""
+        echo -e "${BLUE}Setting up MCP configuration...${NC}"
+        setup_mcp_cursor
         echo ""
         ;;
     *)
-        echo -e "${YELLOW}Skipped symlink creation. You can create them manually later if needed.${NC}"
+        echo -e "${YELLOW}Skipped AI assistant configuration.${NC}"
+        echo -e "   You can configure manually later using the sample at:"
+        echo -e "   core/task-manager/mcp.json.sample"
         echo ""
         ;;
 esac
@@ -446,6 +520,9 @@ echo "  ✓ Tasks directory"
 echo "  ✓ Template files for essential context"
 echo "  ✓ BACKLOG.md (your daily inbox)"
 echo "  ✓ GOALS.md (your quarterly goals)"
+if [[ "$ai_choice" =~ ^[1-3]$ ]]; then
+echo "  ✓ AI assistant configuration (symlinks + MCP)"
+fi
 echo ""
 
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -482,10 +559,9 @@ echo "   • Say: '/backlog' to process it"
 echo "   • Say: '/spec [opportunity-name]' to generate spec"
 echo ""
 
-echo -e "${BLUE}6. Optional: Install Task Manager MCP (for faster task ops):${NC}"
-echo "   • cd core/task-manager"
-echo "   • python3 -m pip install -r requirements.txt"
-echo "   • See core/README.md for configuration"
+echo -e "${BLUE}6. Install Task Manager MCP dependencies (for faster task ops):${NC}"
+echo "   • cd core/task-manager && python3 -m pip install -r requirements.txt"
+echo "   • Restart your AI assistant to load the MCP server"
 echo ""
 
 echo -e "${BLUE}7. Learn more:${NC}"

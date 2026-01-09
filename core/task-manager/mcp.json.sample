@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "pm-tasks": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "./core/task-manager",
+        "python",
+        "server.py"
+      ]
+    }
+  }
+}
