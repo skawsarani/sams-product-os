@@ -43,7 +43,7 @@ The task management MCP server provides fast, programmatic access to your tasks 
 
 ```bash
 cd core/task-manager-mcp
-python3 -m pip install -r requirements.txt
+uv sync
 ```
 
 #### 2. Configure MCP Client

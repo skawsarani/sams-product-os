@@ -135,7 +135,7 @@ For faster task operations, install the task management MCP server:
 
 ```bash
 cd core/task-manager-mcp
-python3 -m pip install -r requirements.txt
+uv sync
 ```
 
 Then configure your AI assistant to use `core/task-manager-mcp/server.py` (see `core/README.md` for setup).

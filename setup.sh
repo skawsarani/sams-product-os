@@ -576,7 +576,7 @@ echo "   • Say: '/spec [opportunity-name]' to generate spec"
 echo ""
 
 echo -e "${BLUE}6. Install Task Manager MCP dependencies (for faster task ops):${NC}"
-echo "   • cd core/task-manager-mcp && python3 -m pip install -r requirements.txt"
+echo "   • cd core/task-manager-mcp && uv sync"
 echo "   • Restart your AI assistant to load the MCP server"
 echo ""
 
