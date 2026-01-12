@@ -2,7 +2,9 @@
 
 > Turn your AI assistant into a product management partner. Process ideas, generate specs, prioritize strategically.
 
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-orange.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Star this repo](https://img.shields.io/github/stars/skawsarani/pm-copilot?style=social)](https://github.com/skawsarani/pm-copilot)
+
 
 ---
 
