@@ -190,16 +190,24 @@ def is_ambiguous(text: str) -> tuple[bool, str]:
     if len(text) < 10:
         return True, "Item too short (less than 10 characters)"
 
-    # Check for action verbs
+    # Check for action verbs or urgency indicators
     action_verbs = [
         "add", "update", "fix", "create", "write", "review", "send", "email",
         "call", "schedule", "research", "analyze", "implement", "deploy",
         "design", "test", "document", "refactor", "contact", "follow up",
-        "debug", "investigate", "explore", "consider", "evaluate", "assess"
+        "debug", "investigate", "explore", "consider", "evaluate", "assess",
+        "patch", "restore", "resolve", "address", "handle", "complete", "finish"
+    ]
+    # Words that imply action is needed even without explicit verb
+    urgency_indicators = [
+        "bug", "vulnerability", "downtime", "outage", "broken", "failing",
+        "urgent", "critical", "immediate", "asap", "need to", "needs to",
+        "must", "required", "deadline", "due", "blocked", "blocking"
     ]
     has_action = any(verb in text.lower() for verb in action_verbs)
+    has_urgency = any(indicator in text.lower() for indicator in urgency_indicators)
 
-    if not has_action:
+    if not has_action and not has_urgency:
         return True, "No clear action verb found"
 
     # Check for vague language
@@ -900,17 +908,55 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
         if not backlog_content or backlog_content == "":
             return [TextContent(type="text", text="BACKLOG.md is empty")]
 
-        # Parse backlog items (simple line-by-line for now)
-        lines = [line.strip() for line in backlog_content.split('\n') if line.strip()]
+        # Parse backlog items - supports two formats:
+        # 1. Structured: ## Title followed by description lines
+        # 2. Simple: bullet points (- item)
+        lines = backlog_content.split('\n')
         items = []
+        current_item = None
 
         for line in lines:
-            # Skip markdown headers, empty lines
-            if line.startswith('#') or len(line) < 5:
+            stripped = line.strip()
+
+            # Skip empty lines
+            if not stripped:
                 continue
-            # Remove bullet points
-            item_text = line.lstrip('- ').lstrip('* ').lstrip('+ ')
-            items.append(item_text)
+
+            # Skip top-level header (# Backlog, # Test Backlog, etc.)
+            if stripped.startswith('# ') and not stripped.startswith('## '):
+                continue
+
+            # New item: ## heading format
+            if stripped.startswith('## '):
+                # Save previous item if exists
+                if current_item:
+                    items.append(current_item)
+                # Start new item with title from heading
+                title = stripped[3:].strip()
+                current_item = {"title": title, "description": ""}
+
+            # Bullet point format (standalone items)
+            elif stripped.startswith(('- ', '* ', '+ ')) and current_item is None:
+                item_text = stripped.lstrip('- ').lstrip('* ').lstrip('+ ')
+                if len(item_text) >= 5:
+                    items.append({"title": item_text, "description": ""})
+
+            # Description line for current structured item
+            elif current_item is not None:
+                # Skip sub-bullets within meeting notes, etc.
+                if stripped.startswith(('- ', '* ', '+ ')):
+                    # This is a sub-item, add to description
+                    current_item["description"] += stripped + "\n"
+                else:
+                    # Regular description text
+                    if current_item["description"]:
+                        current_item["description"] += " " + stripped
+                    else:
+                        current_item["description"] = stripped
+
+        # Don't forget the last item
+        if current_item:
+            items.append(current_item)
 
         if not items:
             return [TextContent(type="text", text="No actionable items found in BACKLOG.md")]
@@ -918,40 +964,80 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
         # Analyze each item
         tasks_to_create = []
         opportunities = []
+        references = []
+        notes_to_archive = []
         ambiguous_items = []
         duplicates = []
 
         existing_tasks = get_all_tasks()
 
         for item in items:
-            # Check ambiguity
-            is_amb, reason = is_ambiguous(item)
+            title = item["title"]
+            description = item.get("description", "")
+            full_text = f"{title} {description}".strip()
+
+            # Auto-categorize using both title and description
+            category = auto_categorize(title, description, config)
+
+            # 1. Check if it's a reference (has URL) - these don't need action verbs
+            url_pattern = r'https?://[^\s]+'
+            has_url = bool(re.search(url_pattern, full_text))
+            # Only classify as reference if it has a URL or explicit reference phrases
+            reference_phrases = ["found article", "found link", "read this", "source:", "reference:"]
+            has_reference_phrase = any(phrase in full_text.lower() for phrase in reference_phrases)
+            is_reference = has_url or has_reference_phrase
+
+            if is_reference:
+                references.append({
+                    "title": title,
+                    "description": description,
+                    "category": "reference"
+                })
+                continue
+
+            # 2. Check if it's notes to archive (meeting notes, random notes)
+            notes_keywords = ["notes", "meeting notes", "standup", "retrospective"]
+            is_notes = any(kw in title.lower() for kw in notes_keywords) and description.startswith("-")
+
+            if is_notes:
+                notes_to_archive.append({
+                    "title": title,
+                    "description": description
+                })
+                continue
+
+            # 3. Check if it's an opportunity (strategic, user pain point, not immediately actionable)
+            # More specific: requires combination of user-related + pain point keywords
+            opportunity_indicators = [
+                "explore", "investigate", "consider", "opportunity", "idea", "strategy",
+                "users complaining", "user feedback", "users want", "users requesting",
+                "performance issue", "slow startup", "slow loading"
+            ]
+            is_opportunity = any(indicator in full_text.lower() for indicator in opportunity_indicators)
+
+            if is_opportunity:
+                opportunities.append({
+                    "title": title,
+                    "description": description,
+                    "category": category
+                })
+                continue
+
+            # 4. Check ambiguity only for items that look like tasks
+            is_amb, reason = is_ambiguous(full_text)
             if is_amb:
-                questions = generate_clarification_questions(item)
+                questions = generate_clarification_questions(full_text)
                 ambiguous_items.append({
-                    "item": item,
+                    "item": title,
+                    "description": description,
                     "reason": reason,
                     "questions": questions
                 })
                 continue
 
-            # Auto-categorize
-            category = auto_categorize(item, "", config)
-
-            # Check if it's an opportunity (strategic) vs task (actionable)
-            opportunity_keywords = ["explore", "investigate", "consider", "opportunity", "idea", "strategy"]
-            is_opportunity = any(kw in item.lower() for kw in opportunity_keywords)
-
-            if is_opportunity:
-                opportunities.append({
-                    "title": item,
-                    "category": category
-                })
-                continue
-
             # Check for duplicates
             proposed = {
-                "title": item,
+                "title": title,
                 "keywords": [],
                 "category": category
             }
@@ -964,14 +1050,16 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
 
             if similar:
                 duplicates.append({
-                    "item": item,
+                    "item": title,
+                    "description": description,
                     "similar": similar
                 })
                 continue
 
             # This is a valid task
             tasks_to_create.append({
-                "title": item,
+                "title": title,
+                "description": description,
                 "category": category,
                 "priority": "P2"  # Default to P2, user can adjust
             })
@@ -984,18 +1072,41 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             result += f"## ✓ Tasks to Create ({len(tasks_to_create)})\n\n"
             for task in tasks_to_create:
                 result += f"- **{task['title']}**\n"
+                if task.get('description'):
+                    result += f"  {task['description'][:100]}{'...' if len(task['description']) > 100 else ''}\n"
                 result += f"  Category: {task['category'] or 'uncategorized'} | Priority: {task['priority']}\n\n"
 
         if opportunities:
             result += f"## 💡 Opportunities Identified ({len(opportunities)})\n\n"
             for opp in opportunities:
-                result += f"- {opp['title']}\n"
+                result += f"- **{opp['title']}**\n"
+                if opp.get('description'):
+                    result += f"  {opp['description'][:100]}{'...' if len(opp['description']) > 100 else ''}\n"
                 result += f"  Category: {opp['category'] or 'uncategorized'}\n\n"
+
+        if references:
+            result += f"## 📚 References to Save ({len(references)})\n\n"
+            for ref in references:
+                result += f"- **{ref['title']}**\n"
+                if ref.get('description'):
+                    result += f"  {ref['description'][:100]}{'...' if len(ref['description']) > 100 else ''}\n"
+                result += "\n"
+
+        if notes_to_archive:
+            result += f"## 📝 Notes to Archive ({len(notes_to_archive)})\n\n"
+            for note in notes_to_archive:
+                result += f"- **{note['title']}**\n"
+                if note.get('description'):
+                    desc_preview = note['description'].replace('\n', ' ')[:80]
+                    result += f"  {desc_preview}{'...' if len(note['description']) > 80 else ''}\n"
+                result += "\n"
 
         if ambiguous_items:
             result += f"## ⚠️  Ambiguous Items Needing Clarification ({len(ambiguous_items)})\n\n"
             for amb in ambiguous_items:
                 result += f"**Item:** {amb['item']}\n"
+                if amb.get('description'):
+                    result += f"**Description:** {amb['description'][:100]}{'...' if len(amb['description']) > 100 else ''}\n"
                 result += f"**Issue:** {amb['reason']}\n"
                 result += f"**Questions:**\n"
                 for q in amb['questions']:
@@ -1006,6 +1117,8 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             result += f"## 🔄 Possible Duplicates ({len(duplicates)})\n\n"
             for dup in duplicates:
                 result += f"**Item:** {dup['item']}\n"
+                if dup.get('description'):
+                    result += f"**Description:** {dup['description'][:100]}{'...' if len(dup['description']) > 100 else ''}\n"
                 result += f"**Similar to:**\n"
                 for task, sim in dup['similar'][:2]:  # Show top 2
                     result += f"  - {task['title']} ({task['file']}) - {int(sim*100)}% match\n"
@@ -1037,11 +1150,11 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
                     "updated_date": now,
                 }
 
-                # Generate smart content
+                # Generate smart content using description as context
                 body = generate_task_content(
                     task_data["title"],
                     task_data["category"],
-                    ""
+                    task_data.get("description", "")
                 )
 
                 write_task_file(task_file, frontmatter, body)
