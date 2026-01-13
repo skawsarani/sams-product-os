@@ -398,6 +398,15 @@ Contributions should:
 
 ---
 
+## Acknowledgements
+
+This project was inspired by the work of several amazing builders in the space. Special thanks to:
+
+- [Aman Khan](<https://github.com/amanaiproduct>) - PersonalOS
+- [Tal Raviv](https://www.talraviv.co) - LinkedIn Content + Articles
+
+---
+
 ## License
 This work is licensed under CC BY-NC-SA 4.0.
 

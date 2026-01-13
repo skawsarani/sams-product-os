@@ -20,6 +20,7 @@ This folder contains core system components for PM Co-Pilot. These files provide
   - `pyproject.toml` - Python project config and dependencies
   - `uv.lock` - Dependency lockfile
   - `README.md` - Detailed tool documentation and testing guide
+  - `mcp-config.json` - Template MCP config for task manager that can be copied to your `mcp.json` file
   - Programmatic access to tasks via MCP protocol
   - Auto-categorization, priority enforcement, backlog processing
 
