@@ -15,21 +15,32 @@ description: Create a git commit with conventional commit format and emoji
 
 Create well-formatted commits using conventional commit messages with emoji.
 
-If user provided arguments: $ARGUMENTS
-- If it's a message, use it as the commit message
+**IMPORTANT:** If user provided arguments: $ARGUMENTS
+- **If it's a commit message, USE IT DIRECTLY** - only add emoji/type prefix if missing
 - If `--no-verify`, skip pre-commit verification
+- **DO NOT auto-generate a different message when user provides one**
 
 ## Workflow
 
-### 1. Check Staged Files
+### 1. Check User-Provided Message
+
+**If user provided a message in $ARGUMENTS:**
+1. Check if it already has emoji + type prefix (e.g., "🔧 chore: message")
+2. If yes, use it exactly as-is
+3. If no, analyze changes to determine appropriate emoji + type, then prepend to their message
+4. Skip to step 5 (create commit)
+
+**If no message provided, follow steps 2-4 below to auto-generate.**
+
+### 2. Check Staged Files
 - Run `git status` to check staged files
 - If nothing staged, stage all modified/new files with `git add -A`
 
-### 2. Analyze Changes
+### 3. Analyze Changes
 - Run `git diff --cached` to understand what's being committed
 - Detect if changes span multiple concerns (see splitting guidelines below)
 
-### 3. Smart Commit Splitting
+### 4. Smart Commit Splitting
 If changes touch multiple unrelated concerns, suggest splitting into separate commits:
 
 **Split when:**
@@ -45,7 +56,7 @@ Instead of one large commit, suggest:
 3. 📝 docs: update API documentation
 ```
 
-### 4. Create Commit Message
+### 5. Create Commit Message (if auto-generating)
 
 **Format:** `<emoji> <type>: <description>`
 
@@ -84,7 +95,22 @@ Instead of one large commit, suggest:
 
 ## Examples
 
-**Good commits:**
+**User-provided messages:**
+```
+User: /commit "template cleanup"
+→ Analyze changes (template files removed)
+→ Use: 🔧 chore: template cleanup
+
+User: /commit "🐛 fix: auth token expiry"
+→ Already has emoji + type
+→ Use exactly: 🐛 fix: auth token expiry
+
+User: /commit "update docs"
+→ Analyze changes (docs updated)
+→ Use: 📝 docs: update docs
+```
+
+**Auto-generated commits (no user message):**
 ```
 ✨ feat: add daily planning command with goal alignment
 🐛 fix: resolve task duplication in backlog processing
