@@ -22,6 +22,7 @@ Check these folders for context before making suggestions:
 | `knowledge/opportunities/` | Strategic ideas from backlog |
 | `knowledge/briefs-and-specs/` | Past specs, briefs, initiatives |
 | `knowledge/transcripts/` | User interviews, stakeholder input |
+| `knowledge/references/` | Competitive research, market analysis, reference materials |
 | `knowledge/voice-samples/` | Writing samples for tone matching |
 
 ## Skills (Auto-Invoked)
@@ -38,6 +39,7 @@ Available skills:
 - **i18n-translator** - French translation (Canadian/European), localization
 - **user-research-analysis** - Interview analysis, personas, research synthesis
 - **notion-research-documentation** - Notion search, synthesis, research docs
+- **competitive-research** - Comprehensively analyze single competitor (features, pricing, customers, strengths, gaps, testimonials)
 - **prototype-builder** - Working prototypes from PRDs/briefs
 - **internal-comms** - Status reports, updates, FAQs
 
@@ -48,6 +50,7 @@ Self-contained slash commands for common PM workflows. Located in `workflows/` f
 | Command | Purpose |
 |---------|---------|
 | `/process-backlog` | Process BACKLOG.md into tasks, opportunities, references |
+| `/competitor-research` | Research multiple competitors in parallel, generate comparison matrix |
 | `/daily-planning` | Plan your day with priorities, blockers, goal alignment |
 | `/weekly-review` | Review the week, check goals, plan next week |
 | `/today` | Quick view of due/overdue tasks |
