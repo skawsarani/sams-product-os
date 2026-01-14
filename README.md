@@ -112,6 +112,12 @@ Skills are specialized tools AI uses automatically:
 - `/user-stories [name]`, `/decision [topic]`
 - Auto-pulls context from knowledge base
 
+**Product Metrics Analysis (`product-metrics-analysis` skill):**
+- Analyze product metrics (usage, retention, conversion, funnels)
+- Apply PM frameworks (AARRR, cohort analysis, PMF, North Star)
+- Calculate metrics, identify patterns, and provide actionable recommendations
+- Works with CSV, JSON, SQL results, or dashboard descriptions
+
 **UX Copy (`ux-copy` skill):**
 - Translate to Canadian French
 - Create UI copy, error messages, microcopy

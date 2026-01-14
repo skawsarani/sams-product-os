@@ -33,6 +33,7 @@ Check these folders for context before making suggestions:
 Available skills:
 
 - **product-docs** - `/prd`, `/spec`, `/brief`, `/user-stories`, `/decision`
+- **product-metrics-analysis** - Analyze product metrics,  identify patterns, and provide data-driven insights
 - **ux-copy** - UI copy, error messages, microcopy, notifications
 - **i18n-translator** - French translation (Canadian/European), localization
 - **user-research-analysis** - Interview analysis, personas, research synthesis
