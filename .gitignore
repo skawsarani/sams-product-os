@@ -55,6 +55,9 @@ BACKLOG.md
 # Personal goals (private quarterly objectives)
 GOALS.md
 
+# Personal voice guide (writing style preferences)
+VOICE-GUIDE.md
+
 # Evals (test results and backups)
 core/evals/results/
 *.backup

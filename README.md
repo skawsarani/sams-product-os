@@ -210,10 +210,10 @@ knowledge/
 
 ### Step 2: Run Voice Analysis
 
-Ask Claude, Cursor (or your agent) to analyze your samples:
+Ask your agent to analyze your samples:
 
 ```
-Read all files in Knowledge/voice-samples/ and analyze my writing style.
+Read all files in knowledge/voice-samples/ and analyze my writing style.
 Extract specific patterns for:
 1. Sentence structure and length
 2. How I open and close messages
@@ -222,7 +222,7 @@ Extract specific patterns for:
 5. Tone and formality level
 6. How I structure arguments
 
-Create a voice guide I can add to my agent instructions file (AGENTS.md)
+Create a voice guide.
 ```
 
 ### Step 3: Review the Voice Guide
@@ -260,24 +260,21 @@ Your agent will produce something like:
 - Public posts: Confident but not salesy
 ```
 
-### Step 4: Add to Your Agent Instructions
-Add the voice guide to your agent instructions file (AGENTS.md) so it applies to all sessions:
+### Step 4: Save It (Optional)
 
-```md
-## Writing Style Guidelines
-
-[Paste your generated voice guide here]
-
-When drafting any writing for me:
-1. Apply these patterns
-2. Read a sample from Knowledge/voice-samples/ if unsure
-3. Ask me to review before finalizing
+**Option A: Save to VOICE-GUIDE.md** (faster, more consistent)
 ```
+Save this to VOICE-GUIDE.md in the project root.
+```
+This file is gitignored. The agent automatically checks for it when drafting content.
+
+**Option B: Skip saving** (simpler, always fresh)
+Let the agent read from `knowledge/voice-samples/` each time you ask it to match your voice.
 
 ### Step 5: Test and Refine
 ```
 Draft an email to my VP about pushing the launch date back one week.
-Use my voice - check Knowledge/voice-samples/ for reference.
+Match my voice from VOICE-GUIDE.md (or knowledge/voice-samples/).
 ```
 
 Compare the output to how you'd actually write it. Give feedback:
@@ -303,6 +300,7 @@ What patterns have changed? What's new?
 pm-copilot/
 ├── BACKLOG.md              # Daily inbox (gitignored)
 ├── AGENTS.md               # AI instructions
+├── VOICE-GUIDE.md          # Your writing style (optional, gitignored)
 ├── setup.sh                # Setup script
 │
 ├── core/                   # System components
@@ -346,6 +344,7 @@ pm-copilot/
 **Gitignored (your data):**
 - `BACKLOG.md`
 - `GOALS.md`
+- `VOICE-GUIDE.md`
 - Content in `knowledge/`, `tasks/`, `prototypes/`
 
 ---

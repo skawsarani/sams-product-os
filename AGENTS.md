@@ -81,9 +81,12 @@ Self-contained slash commands for common PM workflows. Located in `workflows/` f
 - If an item lacks context, priority, or a clear next step, STOP and ask the user for clarification before creating the task.
 - Offer best-guess suggestions with confirmation instead of stalling.
 - Never delete or rewrite user notes outside the defined flow.
-- Match writing style from `knowledge/voice-samples/`
+- Match writing style from `VOICE-GUIDE.md` (if present) or `knowledge/voice-samples/`
 - Check `templates/` before creating new doc types
 - Flag assumptions: "I'm assuming X, is that right?"
+
+# Voice Guide
+See `VOICE-GUIDE.md` for detailed voice and tone guidelines.
 
 ---
 
