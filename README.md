@@ -13,7 +13,7 @@
 PM Co-Pilot is a simple system that turns AI assistants (Cursor, Claude Code) into PM tools:
 
 - **Priority-Focused Workflow** - Max 3 P0 tasks keeps you focused
-- **Backlog Processing** - Brain dump → Organized tasks/opportunities
+- **Backlog Processing** - Brain dump → Organized tasks/initiatives
 - **Document Generation** - Specs, briefs, PRDs from conversation
 - **Research Synthesis** - Transform interviews into insights
 - **Voice Training** - Match your writing style
@@ -61,12 +61,12 @@ See `templates/` for examples.
 
 **Process your backlog:**
 ```
-/backlog
+/process-backlog
 ```
 
 AI categorizes into:
 - **Tasks** → `tasks/` (P0-P3 priority, max 3 P0 tasks)
-- **Opportunities** → `knowledge/opportunities/` (ideas to explore)
+- **Initiatives** → `knowledge/initiatives/` (strategic ideas to explore)
 - **References** → `knowledge/references/` (useful context)
 
 **Generate docs when ready:**
@@ -102,14 +102,15 @@ pm-copilot/
 │   ├── product-strategy/
 │   ├── company-context/
 │   ├── frameworks/
-│   ├── opportunities/
+│   ├── initiatives/
 │   ├── briefs-and-specs/
 │   ├── transcripts/
 │   ├── voice-samples/
 │   ├── references/
 │   └── notes/             # Archived backlog snapshots
 │
-├── workflows/              # Slash command workflows (symlinked as 'commands' for AI compatibility)
+├── skills/                 # AI capabilities and specialized workflows
+├── workflows/              # Slash command workflows
 ├── templates/              # Document templates
 ├── mcp/                    # Custom MCP servers (optional)
 └── prototypes/             # Code prototypes (gitignored)
@@ -121,8 +122,9 @@ pm-copilot/
 
 **Committed (shared structure):**
 - Directory structure
-- Documentation, templates
+- Documentation, templates, workflows
 - `core/` folder (config.yaml, task-manager-mcp, evals)
+- `skills/` folder (AI capabilities)
 - `AGENTS.md`
 
 **Gitignored (your data):**
@@ -136,12 +138,12 @@ pm-copilot/
 ## Core Workflow
 
 ```
-BACKLOG.md → /backlog → Tasks (P0≤3) / Opportunities / References
+BACKLOG.md → /process-backlog → Tasks (P0≤3) / Initiatives / References
 ```
 
 1. **Brain dump** to `BACKLOG.md` throughout the day
-2. **Process** with `/backlog` - AI categorizes and enforces priority caps
-3. **Work** - Focus on your 3 P0 tasks, explore opportunities, generate docs
+2. **Process** with `/process-backlog` - AI categorizes and enforces priority caps
+3. **Work** - Focus on your 3 P0 tasks, explore initiatives, generate docs
 
 ---
 
@@ -154,7 +156,7 @@ Tasks use P0-P3 with strict caps to prevent overwhelm:
 - **P2** (Medium): Max 15 tasks - This month
 - **P3** (Low): Unlimited - Backlog
 
-When `/backlog` processing would exceed caps, AI asks you to deprioritize.
+When `/process-backlog` would exceed caps, AI asks you to deprioritize.
 
 ---
 
@@ -167,6 +169,10 @@ Skills are specialized tools AI uses automatically:
 - `/user-stories [name]`, `/decision [topic]`
 - Auto-pulls context from knowledge base
 
+**Doc Co-Authoring (`doc-coauthoring` skill):**
+- Guided workflow for collaborative documentation
+- Proposals, technical specs, decision docs
+
 **Product Metrics Analysis (`product-metrics-analysis` skill):**
 - Analyze product metrics (usage, retention, conversion, funnels)
 - Apply PM frameworks (AARRR, cohort analysis, PMF, North Star)
@@ -174,19 +180,41 @@ Skills are specialized tools AI uses automatically:
 - Works with CSV, JSON, SQL results, or dashboard descriptions
 
 **UX Copy (`ux-copy` skill):**
-- Translate to Canadian French
-- Create UI copy, error messages, microcopy
-- Follows OQLF guidelines
+- Create UI copy, error messages, microcopy, notifications
+- English interface text and UX writing
+
+**i18n Translator (`i18n-translator` skill):**
+- French translation (Canadian/European)
+- UI localization and cultural adaptation
 
 **User Research (`user-research-analysis` skill):**
 - Analyze interviews and transcripts
 - Synthesize research, create personas
 
+**Competitive Research (`competitive-research` skill):**
+- Analyze single competitor comprehensively
+- Features, pricing, strengths, gaps, testimonials
+
+**Notion Research (`notion-research-documentation` skill):**
+- Search and synthesize from Notion workspace
+- Create research documentation with citations
+
 **Prototyping (`prototype-builder` skill):**
 - Build working prototypes from specs
+- React, TypeScript, Shadcn/ui
 
 **Internal Comms (`internal-comms` skill):**
 - Status reports, updates, FAQs
+
+**MCP Builder (`mcp-builder` skill):**
+- Create MCP servers for external integrations
+- Python (FastMCP) or Node/TypeScript
+
+**Skill Creator (`skill-creator` skill):**
+- Create new skills to extend AI capabilities
+
+**Slash Command Builder (`slash-command-builder` skill):**
+- Build custom slash command workflows
 
 ---
 
@@ -213,9 +241,16 @@ Then configure your AI assistant to use `core/task-manager-mcp/server.py` (see `
 
 **Daily:**
 - "What should I work on today?" - Review P0/P1 tasks
-- `/backlog` - Process ideas into tasks/opportunities
+- `/process-backlog` - Process ideas into tasks/initiatives
+- `/today` - Quick view of due/overdue tasks
+- `/daily-planning` - Plan your day with priorities
+
+**Weekly:**
+- `/upcoming` - Tasks due in next 7 days
+- `/weekly-review` - Review the week, plan next week
 
 **Tasks:**
+- `/tasks` - View all tasks with filters
 - "Mark task [name] as complete"
 - "Find stale tasks"
 - "Prune completed tasks" - Delete tasks older than 90 days
@@ -225,8 +260,16 @@ Then configure your AI assistant to use `core/task-manager-mcp/server.py` (see `
 - `/spec [name]` - Generate spec
 - `/brief [name]` - Generate brief
 
+**Research:**
+- `/competitor-research [names]` - Research multiple competitors, generate matrix
+
+**Git:**
+- `/commit` - Commit with conventional format and emoji
+- `/pr` - Create pull request
+- `/push` - Push to remote
+
 **Natural language works too:**
-- "Create a spec for the mobile performance opportunity"
+- "Create a spec for the mobile performance initiative"
 - "Analyze the user interviews in knowledge/transcripts/"
 - "What are my P0 tasks?"
 
@@ -354,7 +397,7 @@ What patterns have changed? What's new?
 **Daily:**
 - Morning: "What should I work on today?"
 - Throughout day: Brain dump to BACKLOG.md
-- Weekly: `/backlog` to process
+- Weekly: `/process-backlog` to process
 
 **Context:**
 - Start small - add context as you go

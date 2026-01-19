@@ -38,8 +38,8 @@ backup_existing_data() {
     if [ -d "$PROJECT_ROOT/tasks" ]; then
         cp -r "$PROJECT_ROOT/tasks" "$RESULTS_DIR/backup_tasks" 2>/dev/null || true
     fi
-    if [ -d "$PROJECT_ROOT/knowledge/opportunities" ]; then
-        cp -r "$PROJECT_ROOT/knowledge/opportunities" "$RESULTS_DIR/backup_opportunities" 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/knowledge/initiatives" ]; then
+        cp -r "$PROJECT_ROOT/knowledge/initiatives" "$RESULTS_DIR/backup_initiatives" 2>/dev/null || true
     fi
     if [ -d "$PROJECT_ROOT/knowledge/references" ]; then
         cp -r "$PROJECT_ROOT/knowledge/references" "$RESULTS_DIR/backup_references" 2>/dev/null || true
@@ -53,7 +53,7 @@ backup_existing_data() {
 clean_test_data() {
     echo "Cleaning test data..."
     rm -f "$PROJECT_ROOT/tasks"/*.md 2>/dev/null || true
-    rm -rf "$PROJECT_ROOT/knowledge/opportunities" 2>/dev/null || true
+    rm -rf "$PROJECT_ROOT/knowledge/initiatives" 2>/dev/null || true
     rm -f "$PROJECT_ROOT/knowledge/references"/*.md 2>/dev/null || true
     rm -rf "$PROJECT_ROOT/knowledge/notes" 2>/dev/null || true
     rm -f "$PROJECT_ROOT/BACKLOG.md" 2>/dev/null || true
@@ -65,8 +65,8 @@ restore_backup() {
     if [ -d "$RESULTS_DIR/backup_tasks" ]; then
         cp -r "$RESULTS_DIR/backup_tasks"/* "$PROJECT_ROOT/tasks/" 2>/dev/null || true
     fi
-    if [ -d "$RESULTS_DIR/backup_opportunities" ]; then
-        cp -r "$RESULTS_DIR/backup_opportunities" "$PROJECT_ROOT/knowledge/opportunities" 2>/dev/null || true
+    if [ -d "$RESULTS_DIR/backup_initiatives" ]; then
+        cp -r "$RESULTS_DIR/backup_initiatives" "$PROJECT_ROOT/knowledge/initiatives" 2>/dev/null || true
     fi
     if [ -d "$RESULTS_DIR/backup_references" ]; then
         cp -r "$RESULTS_DIR/backup_references"/* "$PROJECT_ROOT/knowledge/references/" 2>/dev/null || true
@@ -90,16 +90,16 @@ validate_task_count() {
     fi
 }
 
-# Validate opportunity count
-validate_opportunity_count() {
+# Validate initiative count
+validate_initiative_count() {
     local expected=$1
-    local actual=$(find "$PROJECT_ROOT/knowledge/opportunities" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+    local actual=$(find "$PROJECT_ROOT/knowledge/initiatives" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 
     if [ "$actual" -eq "$expected" ]; then
-        echo -e "${GREEN}✓${NC} Opportunity count: $actual (expected: $expected)"
+        echo -e "${GREEN}✓${NC} Initiative count: $actual (expected: $expected)"
         return 0
     else
-        echo -e "${RED}✗${NC} Opportunity count: $actual (expected: $expected)"
+        echo -e "${RED}✗${NC} Initiative count: $actual (expected: $expected)"
         return 1
     fi
 }
@@ -191,8 +191,8 @@ run_test() {
     # Save outputs
     mkdir -p "$RESULTS_DIR/${test_name}"
     cp -r "$PROJECT_ROOT/tasks" "$RESULTS_DIR/${test_name}/" 2>/dev/null || true
-    if [ -d "$PROJECT_ROOT/knowledge/opportunities" ]; then
-        cp -r "$PROJECT_ROOT/knowledge/opportunities" "$RESULTS_DIR/${test_name}/" 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/knowledge/initiatives" ]; then
+        cp -r "$PROJECT_ROOT/knowledge/initiatives" "$RESULTS_DIR/${test_name}/" 2>/dev/null || true
     fi
     if [ -d "$PROJECT_ROOT/knowledge/references" ]; then
         cp -r "$PROJECT_ROOT/knowledge/references" "$RESULTS_DIR/${test_name}/" 2>/dev/null || true
@@ -217,7 +217,7 @@ if run_test "basic-categorization"; then
     TEST_PASSED=true
 
     validate_task_count 2 || TEST_PASSED=false
-    validate_opportunity_count 1 || TEST_PASSED=false
+    validate_initiative_count 1 || TEST_PASSED=false
     validate_reference_count 1 || TEST_PASSED=false
     validate_task_category "authentication" "technical" || TEST_PASSED=false
     validate_task_category "Email Sarah" "outreach" || TEST_PASSED=false

@@ -1,170 +1,84 @@
 ---
 allowed-tools: process_backlog, clear_backlog, check_duplicates, create_task, list_tasks, Glob, Read, Write
 argument-hint:
-description: Process BACKLOG.md into organized tasks, opportunities, and references
+description: Process BACKLOG.md into organized tasks, initiatives, and references
 ---
 
 ## Context
 
-Configuration for backlog processing is in `core/config.yaml`:
-- Priority caps: P0 max 3, P1 max 7, P2 max 15
-- Category keywords for auto-assignment
-- Duplicate detection thresholds
+- Config: `core/config.yaml` (priority caps, category keywords, duplicate thresholds)
+- Today's date: $TODAY
 
-Today's date: $TODAY
+## Workflow
 
-## Your Task
+**Always present findings for user review before creating anything.**
 
-Process all items from `BACKLOG.md` into organized tasks, opportunities, and references.
+### Step 1: Analyze Backlog
 
-## Using MCP Tools (Preferred)
+Read `BACKLOG.md` and categorize each item:
 
-If the task-manager-mcp server is available, use these tools:
+| Category | Destination | Examples |
+|----------|-------------|----------|
+| **Tasks** | `tasks/` | "Email Sarah about Q4", "Review PRD draft" - clear action + completion criteria |
+| **Initiatives** | `knowledge/initiatives/` | "Mobile perf issues", "Enterprise SSO" - strategic ideas to explore |
+| **References** | `knowledge/references/` | Articles, competitor info, research - context to save |
+| **Notes** | Archive | Meeting notes, incomplete thoughts |
 
-1. **process_backlog** (auto_create=false) - Preview with:
-   - Automatic categorization
-   - Duplicate detection
-   - Ambiguity checking
+If MCP available, use **process_backlog** (auto_create=false). Otherwise, read files directly.
 
-2. Review ambiguous items and duplicates with user
+### Step 2: Check for Duplicates
 
-3. **process_backlog** (auto_create=true) - Create approved tasks
+Compare against existing items in `tasks/`, `knowledge/initiatives/`, `knowledge/references/`.
 
-4. **clear_backlog** - Archive and clear BACKLOG.md
+### Step 3: Present Findings
 
-## Manual Processing (Fallback)
+Show user a summary with:
+- **Tasks**: Table with title, category, priority, due date
+- **Initiatives**: Bullet list with name + description
+- **References**: Bullet list
+- **Ambiguous items**: Items needing clarification
+- **Possible duplicates**: Similar existing items
+- **Notes to archive**: Remaining content
 
-If MCP tools unavailable, mention "Note: Using direct file reading (MCP unavailable)" and follow these steps:
+### Step 4: Get Confirmation
 
-### Step 1: Read BACKLOG.md
+Ask: "How would you like to proceed?"
 
-Read all items from `BACKLOG.md` (root file).
+**Wait for user response before creating anything.**
 
-### Step 2: Categorize Each Item
+### Step 5: Resolve Ambiguities
 
-Assign each item to one category:
+For vague items, ask:
+- What specific action should be taken?
+- When does this need to be done?
+- Why does this matter?
 
-**Tasks** - Actionable, time-bound work → `tasks/` folder
-- Examples: "Email Sarah about Q4 goals", "Review PRD draft", "Update roadmap"
-- Must have clear action and completion criteria
+### Step 6: Enforce Priority Caps
 
-**Opportunities** - Strategic ideas to explore → `knowledge/opportunities/` folder
-- Examples: "Mobile performance issues", "Enterprise SSO request", "AI-powered search"
-- Product opportunities, features, strategic initiatives
+Check caps from `core/config.yaml` before creating. If exceeded:
+1. Show current tasks at that priority
+2. Ask user to demote existing or downgrade new task
+3. Wait for decision
 
-**References** - Useful context, links, info → `knowledge/references/`
-- Examples: Competitor analysis, articles, links, research notes
-- No action needed, just context to save
+### Step 7: Create Approved Items
 
-**Uncategorized** - Everything else stays in BACKLOG.md (will be archived)
-- Examples: Meeting notes, random thoughts, incomplete ideas
+**Tasks**: Use template from `templates/task-template.md` or create with frontmatter:
+- title, category (from config keywords), priority, status: n, created_date, due_date
+- Link to relevant goal from `GOALS.md` in Context section
 
-### Step 3: Check for Duplicates
+**Initiatives**: Use template from `templates/initiative-template.md`
 
-Before creating new files, check against existing items:
-
-- Scan existing tasks in `tasks/`
-- Scan existing opportunities in `knowledge/opportunities/`
-- Scan existing references in `knowledge/references/`
-- If similar item exists, suggest merging or linking instead of duplicating
-
-### Step 4: Create Task Files
-
-For each task, create file in `tasks/` with frontmatter:
-
-```yaml
----
-title: Task name
-category: auto-assigned from core/config.yaml keywords
-priority: P0/P1/P2/P3
-status: n
-created_date: YYYY-MM-DD
-due_date: YYYY-MM-DD (if mentioned in backlog)
----
-
-## Context
-[Why this task matters, link to relevant goal from GOALS.md]
-
-## Next Actions
-- [ ] First step
-- [ ] Second step
-
-## Progress Log
-- YYYY-MM-DD: Task created
-```
-
-**Priority assignment:**
-- P0 (Critical): Urgent, blocks other work, time-sensitive
-- P1 (High): Important, has deadline this week
-- P2 (Medium): Normal work, this month
-- P3 (Low): Nice to have, backlog
-
-**Auto-categorization:**
-- Use `category_keywords` from `core/config.yaml` to auto-assign
-- Default to "other" if no keywords match
-
-### Step 5: Enforce Priority Caps
-
-Check caps from `core/config.yaml`:
-- P0: Max 3 tasks
-- P1: Max 7 tasks
-- P2: Max 15 tasks
-- P3: Unlimited
-
-If caps exceeded:
-1. Count existing tasks at each priority level
-2. Ask user: "You already have [N] P0 tasks. Should I demote one to P1, or make this new task P1 instead?"
-3. Show current P0/P1 tasks for context
-4. Wait for user decision before proceeding
-
-### Step 6: Create Opportunity Files
-
-For each opportunity, create file in `knowledge/opportunities/`:
-
-```markdown
-# [Opportunity Name]
-
-## Description
-[What this opportunity is about]
-
-## Strategic Context
-[Why it matters, alignment with product vision]
-
-## What We Know
-- Current data, insights, evidence
-- User feedback or requests
-- Business impact
-
-## What We Should Research
-- Open questions
-- Validation needed
-- Assumptions to test
-
-## Initial Thoughts
-[Potential approaches, not decisions - exploratory]
-```
-
-### Step 7: Create/Update References
-
-For references:
-- Add to existing reference file if related topic exists
-- Create new file in `knowledge/references/` if new topic
-- Use descriptive filenames: `competitor-analysis.md`, `pricing-research.md`
+**References**: Add to existing file if related topic exists, or create new file
 
 ### Step 8: Archive & Clear
 
-After processing all items:
-1. Archive remaining BACKLOG.md content to `knowledge/notes/YYYY-MM-DD.md`
-2. Clear `BACKLOG.md` completely
-3. Summarize what was created:
-   - "Created X tasks (P0: N, P1: N, P2: N, P3: N)"
-   - "Created N opportunities"
-   - "Added N references"
-   - "Archived remaining items to knowledge/notes/YYYY-MM-DD.md"
+1. Archive remaining content to `knowledge/notes/YYYY-MM-DD.md`
+2. Clear `BACKLOG.md`
+3. Summarize: tasks created (by priority), initiatives, references, archived items
 
 ## Key Reminders
 
-- Ask for clarification on ambiguous items BEFORE creating
-- Link tasks to goals from GOALS.md in the Context section
-- If no goal fits an item, ask user whether to create a new goal or clarify why the work matters
-- Better to create fewer, clearer items than many vague ones
+- **Never auto-create** - Always present findings first
+- **Ask for clarification** on ambiguous items before creating
+- **Link to goals** - If no goal fits, ask user to clarify why it matters
+- Fewer clear items > many vague ones

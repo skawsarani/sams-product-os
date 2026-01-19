@@ -21,7 +21,20 @@ If user provided arguments: $ARGUMENTS
 - "one thing" or "overwhelmed" → Use Focus Mode variation
 - "yesterday" or "context" → Use Context Recovery variation
 
-## Step 1: Identify Today's Top Priorities
+## Step 1: Process Yesterday's Transcripts
+
+**Actions:**
+1. Invoke `/process-transcripts 1` to check for and process transcripts from yesterday
+2. The process-transcripts workflow will:
+   - Find any unprocessed transcripts from the previous day
+   - Present detailed findings (tasks, initiatives, references)
+   - Ask for confirmation before creating items
+3. If no transcripts found, note "No transcripts from yesterday to process"
+4. Proceed to priority identification after transcript processing completes
+
+**Note:** This ensures action items from yesterday's meetings are captured before planning today's work.
+
+## Step 2: Identify Today's Top Priorities
 
 **Actions:**
 1. Read `tasks/` directory for:
@@ -54,7 +67,7 @@ If user provided arguments: $ARGUMENTS
 **Next action:** [First step]
 ```
 
-## Step 2: Check for Blocked Items
+## Step 3: Check for Blocked Items
 
 **Actions:**
 1. Find tasks with status `b` (blocked)
@@ -70,7 +83,7 @@ If user provided arguments: $ARGUMENTS
 [If none: "No blocked items today."]
 ```
 
-## Step 3: Offer Support
+## Step 4: Offer Support
 
 ```
 **Ready to start?**
@@ -85,7 +98,7 @@ If user provided arguments: $ARGUMENTS
 
 ### Time-Constrained Day
 
-**Trigger:** User says "I only have 2 hours" or specifies time limit
+**When to use:** User specifies a time constraint like "2 hours" or passes time argument
 
 ```
 ## [X]-Hour Focus Plan
@@ -101,7 +114,7 @@ If user provided arguments: $ARGUMENTS
 
 ### Focus Mode (Overwhelmed)
 
-**Trigger:** User says "What's the ONE thing?" or "I'm overwhelmed"
+**When to use:** User passes "one thing" argument or indicates feeling overwhelmed
 
 ```
 ## Your ONE Thing Today
@@ -115,7 +128,7 @@ Everything else can wait.
 
 ### Context Recovery
 
-**Trigger:** User says "What was I working on yesterday?" or "Remind me"
+**When to use:** User passes "yesterday" or "context" argument to recover previous work context
 
 **Actions:**
 1. Find tasks with status `s` (started)

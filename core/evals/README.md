@@ -5,7 +5,7 @@ Automated evaluation system to validate backlog processing workflow.
 ## Purpose
 
 Ensures the backlog processing workflow continues to work correctly as the system evolves. Validates:
-- Categorization (tasks, opportunities, references)
+- Categorization (tasks, initiatives, references)
 - Auto-categorization using core/config.yaml keywords
 - Priority assignment
 - Priority caps enforcement (P0≤3, P1≤7, P2≤15)
@@ -48,7 +48,7 @@ cd evals
 
 ### What Happens
 
-1. **Backup** - Saves your existing tasks/opportunities/references
+1. **Backup** - Saves your existing tasks/initiatives/references
 2. **Run Tests** - Processes test backlogs one by one
 3. **Validate** - Checks outputs against expected results
 4. **Restore** - Returns your original data
@@ -66,13 +66,13 @@ Some tests require manual interaction:
 ### 1. Basic Categorization
 
 **Tests:**
-- Items correctly categorized as tasks, opportunities, references
+- Items correctly categorized as tasks, initiatives, references
 - Uncategorized items archived to knowledge/notes/
 - BACKLOG.md cleared
 
 **Expected:**
 - 2 tasks created
-- 1 opportunity created
+- 1 initiative created
 - 1 reference created
 - 1 item archived
 
@@ -144,7 +144,7 @@ Add test case to the script following existing patterns.
 
 ```
 ✓ Task count: 2 (expected: 2)
-✓ Opportunity count: 1 (expected: 1)
+✓ Initiative count: 1 (expected: 1)
 ✓ Test PASSED: basic-categorization
 ```
 
@@ -160,7 +160,7 @@ Add test case to the script following existing patterns.
 All test outputs saved to `results/YYYY-MM-DD-HHMMSS/`:
 - Input backlogs used
 - Tasks created
-- Opportunities created
+- Initiatives created
 - References created
 - Backup of your original data
 

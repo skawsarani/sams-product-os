@@ -98,7 +98,7 @@ check_and_create_dir "knowledge/frameworks" "PM frameworks and methodologies (RI
 check_and_create_dir "knowledge/processes" "How your team works (rituals, frameworks, decision-making)"
 check_and_create_dir "knowledge/product-analytics" "Success metrics, KPIs, current performance data (content gitignored)"
 check_and_create_dir "knowledge/briefs-and-specs" "Product specs, feature briefs, technical documentation"
-check_and_create_dir "knowledge/opportunities" "Strategic opportunities identified from backlog"
+check_and_create_dir "knowledge/initiatives" "Strategic initiatives identified from backlog"
 check_and_create_dir "knowledge/transcripts" "User interviews, stakeholder meetings, research sessions"
 check_and_create_dir "knowledge/voice-samples" "Writing samples for matching communication style"
 check_and_create_dir "knowledge/references" "Useful info, links, competitive analysis"

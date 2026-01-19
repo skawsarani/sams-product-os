@@ -12,6 +12,9 @@ categories:
   - research       # Learning, analysis, investigation
   - writing        # Documentation, blogs, reports
   - admin          # Administrative, organizational
+  - strategy       # Vision, roadmaps, OKRs, prioritization
+  - stakeholder    # Executive updates, alignment, presentations
+  - discovery      # User research, interviews, problem definition
   - other          # Miscellaneous
 
 # Priority levels
@@ -101,4 +104,32 @@ category_keywords:
     - calendar
     - filing
     - review
+  strategy:
+    - roadmap
+    - vision
+    - okr
+    - prioritize
+    - strategy
+    - planning
+    - north star
+    - metric
+    - goal
+  stakeholder:
+    - executive
+    - leadership
+    - alignment
+    - present
+    - stakeholder
+    - update
+    - buy-in
+    - communicate
+  discovery:
+    - interview
+    - user research
+    - customer
+    - pain point
+    - problem
+    - discovery
+    - validate
+    - persona
 

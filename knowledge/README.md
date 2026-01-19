@@ -11,7 +11,7 @@ knowledge/
 ├── company-context/      # Company info, mission, org structure
 ├── frameworks/           # PM frameworks, methodologies, mental models
 ├── notes/                # Archived inbox snapshots, meeting notes, uncategorized items
-├── opportunities/        # Strategic opportunities identified from backlog
+├── initiatives/          # Strategic initiatives identified from backlog
 ├── processes/            # How your team works
 ├── product-analytics/    # KPIs, dashboards, performance data (content gitignored)
 ├── product-strategy/     # Vision, strategy, roadmap
@@ -28,7 +28,7 @@ knowledge/
 - **company-context/** - Mission, vision, values, products, team structure
 - **frameworks/** - PM methodologies (RICE, OKRs, Jobs-to-be-Done)
 - **notes/** - Archived inbox snapshots (`YYYY-MM-DD.md`), meeting notes
-- **opportunities/** - Strategic opportunities identified from backlog processing
+- **initiatives/** - Strategic initiatives identified from backlog processing
 - **processes/** - Development process, sprint planning, decision-making
 - **product-analytics/** - Metrics definitions, performance data, dashboards
 - **product-strategy/** - Vision, strategic priorities, roadmap, OKRs
@@ -48,7 +48,7 @@ Run `./setup.sh` or manually create:
 
 ## How AI Uses Context
 
-AI reads files in order: AGENTS.md → about-me/ → product-strategy/ → frameworks/ → opportunities/ → briefs-and-specs/
+AI reads files in order: AGENTS.md → about-me/ → product-strategy/ → frameworks/ → initiatives/ → briefs-and-specs/
 
 Reference files explicitly: `@knowledge/product-strategy/2024-strategy.md`
 

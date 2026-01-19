@@ -360,7 +360,7 @@ async def list_tools() -> list[Tool]:
                     },
                     "category": {
                         "type": "string",
-                        "description": "Filter by category (technical, outreach, research, writing, admin)",
+                        "description": "Filter by category (technical, outreach, research, writing, admin, strategy, stakeholder, discovery)",
                     },
                     "days_old": {
                         "type": "integer",
@@ -510,7 +510,7 @@ async def list_tools() -> list[Tool]:
                 "properties": {
                     "auto_create": {
                         "type": "boolean",
-                        "description": "If true, automatically create tasks/opportunities. If false (default), only return summary for review.",
+                        "description": "If true, automatically create tasks/initiatives. If false (default), only return summary for review.",
                     }
                 },
             },
@@ -963,7 +963,7 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
 
         # Analyze each item
         tasks_to_create = []
-        opportunities = []
+        initiatives = []
         references = []
         notes_to_archive = []
         ambiguous_items = []
@@ -1006,17 +1006,17 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
                 })
                 continue
 
-            # 3. Check if it's an opportunity (strategic, user pain point, not immediately actionable)
+            # 3. Check if it's an initiative (strategic, user pain point, not immediately actionable)
             # More specific: requires combination of user-related + pain point keywords
-            opportunity_indicators = [
+            initiative_indicators = [
                 "explore", "investigate", "consider", "opportunity", "idea", "strategy",
                 "users complaining", "user feedback", "users want", "users requesting",
                 "performance issue", "slow startup", "slow loading"
             ]
-            is_opportunity = any(indicator in full_text.lower() for indicator in opportunity_indicators)
+            is_initiative = any(indicator in full_text.lower() for indicator in initiative_indicators)
 
-            if is_opportunity:
-                opportunities.append({
+            if is_initiative:
+                initiatives.append({
                     "title": title,
                     "description": description,
                     "category": category
@@ -1076,13 +1076,13 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
                     result += f"  {task['description'][:100]}{'...' if len(task['description']) > 100 else ''}\n"
                 result += f"  Category: {task['category'] or 'uncategorized'} | Priority: {task['priority']}\n\n"
 
-        if opportunities:
-            result += f"## 💡 Opportunities Identified ({len(opportunities)})\n\n"
-            for opp in opportunities:
-                result += f"- **{opp['title']}**\n"
-                if opp.get('description'):
-                    result += f"  {opp['description'][:100]}{'...' if len(opp['description']) > 100 else ''}\n"
-                result += f"  Category: {opp['category'] or 'uncategorized'}\n\n"
+        if initiatives:
+            result += f"## 💡 Initiatives Identified ({len(initiatives)})\n\n"
+            for init in initiatives:
+                result += f"- **{init['title']}**\n"
+                if init.get('description'):
+                    result += f"  {init['description'][:100]}{'...' if len(init['description']) > 100 else ''}\n"
+                result += f"  Category: {init['category'] or 'uncategorized'}\n\n"
 
         if references:
             result += f"## 📚 References to Save ({len(references)})\n\n"

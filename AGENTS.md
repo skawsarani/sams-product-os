@@ -19,7 +19,7 @@ Check these folders for context before making suggestions:
 | `knowledge/about-me/` | Working style, preferences, voice |
 | `knowledge/company-context/` | Company vision, team structure |
 | `knowledge/frameworks/` | PM frameworks (RICE, OKRs, etc.) |
-| `knowledge/opportunities/` | Strategic ideas from backlog |
+| `knowledge/initiatives/` | Strategic initiatives from backlog |
 | `knowledge/briefs-and-specs/` | Past specs, briefs, initiatives |
 | `knowledge/transcripts/` | User interviews, stakeholder input |
 | `knowledge/references/` | Competitive research, market analysis, reference materials |
@@ -49,7 +49,7 @@ Self-contained slash commands for common PM workflows. Located in `workflows/` f
 
 | Command | Purpose |
 |---------|---------|
-| `/process-backlog` | Process BACKLOG.md into tasks, opportunities, references |
+| `/process-backlog` | Process BACKLOG.md into tasks, initiatives, references |
 | `/competitor-research` | Research multiple competitors in parallel, generate comparison matrix |
 | `/daily-planning` | Plan your day with priorities, blockers, goal alignment |
 | `/weekly-review` | Review the week, check goals, plan next week |
@@ -64,7 +64,7 @@ Self-contained slash commands for common PM workflows. Located in `workflows/` f
 
 **Status:** `n` = not started, `s` = started, `b` = blocked, `d` = done
 
-**Files:** Tasks in `tasks/`, opportunities in `knowledge/opportunities/`, brain dump in `BACKLOG.md`
+**Files:** Tasks in `tasks/`, initiatives in `knowledge/initiatives/`, brain dump in `BACKLOG.md`
 
 **MCP:** If task-manager-mcp is installed, prefer MCP tools over file operations.
 
