@@ -70,4 +70,5 @@ mcp/**/*
 !mcp/**/
 !mcp/**/.gitkeep
 !mcp/**/README.md
+!mcp/task-manager/*
 .mcp.json

@@ -1,5 +1,5 @@
 ---
-allowed-tools: Skill, Read, Write, Glob, Bash(npm:*), Bash(python:*), Bash(pip:*)
+allowed-tools: Skill, Read, Write, Glob, Bash(npm:*), Bash(python:*), Bash(uv:*)
 argument-hint: [MCP server name or description]
 description: Create an MCP server with guided workflow
 ---

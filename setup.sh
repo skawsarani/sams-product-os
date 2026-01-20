@@ -419,7 +419,7 @@ create_symlinks_for_dir() {
 # Function to merge pm-tasks config into an MCP config file
 merge_mcp_config() {
     local mcp_file="$1"
-    local pm_tasks_config='{"command": "uv", "args": ["run", "--directory", "./mcp/task-manager", "python", "server.py"]}'
+    local pm_tasks_config='{"command": "uv", "args": ["run", "python", "mcp/task-manager/server.py"]}'
 
     python3 << EOF
 import json
@@ -576,7 +576,7 @@ echo "   • Say: '/spec [opportunity-name]' to generate spec"
 echo ""
 
 echo -e "${BLUE}6. Install Task Manager MCP dependencies (for faster task ops):${NC}"
-echo "   • cd mcp/task-manager && uv sync"
+echo "   • uv sync"
 echo "   • Restart your AI assistant to load the MCP server"
 echo ""
 

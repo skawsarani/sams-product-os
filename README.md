@@ -92,7 +92,6 @@ pm-copilot/
 ├── mcp/                    # MCP servers
 │   └── task-manager/       # Task management MCP server
 │       ├── server.py       # MCP server
-│       ├── pyproject.toml  # Python project config
 │       └── README.md       # MCP tool documentation
 │
 ├── tasks/                  # Your tasks (gitignored)
@@ -223,7 +222,6 @@ Skills are specialized tools AI uses automatically:
 For faster task operations, install the task management MCP server:
 
 ```bash
-cd mcp/task-manager
 uv sync
 ```
 
@@ -421,8 +419,7 @@ What patterns have changed? What's new?
 Test that your system is working correctly after making changes:
 
 ```bash
-cd evals
-./run_evals.sh
+uv run pytest evals/ -v
 ```
 
 This validates:

@@ -713,7 +713,7 @@ Before finalizing your Python MCP server implementation, ensure:
 - [ ] Constants are defined at module level in UPPER_CASE
 
 ### Testing
-- [ ] Server runs successfully: `python your_server.py --help`
+- [ ] Server runs successfully: `uv run python your_server.py --help`
 - [ ] All imports resolve correctly
 - [ ] Sample tool calls work as expected
 - [ ] Error scenarios handled gracefully

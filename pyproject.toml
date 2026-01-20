@@ -1,0 +1,36 @@
+[project]
+name = "pm-copilot"
+version = "0.1.0"
+description = "AI-powered PM co-pilot"
+readme = "README.md"
+authors = [
+    { name = "Sam Kawsarani" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.1.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+integrations = [
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.0",
+    "google-auth>=2.0.0",
+    "google-api-python-client>=2.0.0",
+]
+evals = [
+    "pytest>=7.0.0",
+    "anthropic>=0.39.0",
+]
+dev = [
+    "pytest>=7.0.0",
+]
+all = [
+    "pm-copilot[integrations,evals,dev]",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::pytest.PytestAssertRewriteWarning",
+]

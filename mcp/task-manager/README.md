@@ -6,10 +6,13 @@ Detailed documentation for the PM Co-Pilot task management MCP server.
 
 ### 1. Install Dependencies
 
+From the project root:
+
 ```bash
-cd mcp/task-manager
 uv sync
 ```
+
+Dependencies are managed in the root `pyproject.toml`.
 
 ### 2. Configure MCP Client
 
@@ -22,13 +25,7 @@ Add to your MCP client configuration (e.g., Claude Code, Cursor):
   "mcpServers": {
     "pm-tasks": {
       "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "./mcp/task-manager",
-        "python",
-        "server.py"
-      ]
+      "args": ["run", "python", "mcp/task-manager/server.py"]
     }
   }
 }
@@ -41,13 +38,7 @@ Add to your MCP client configuration (e.g., Claude Code, Cursor):
   "mcpServers": {
     "pm-tasks": {
       "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "./mcp/task-manager",
-        "python",
-        "server.py"
-      ]
+      "args": ["run", "python", "mcp/task-manager/server.py"]
     }
   }
 }
@@ -385,9 +376,10 @@ Tasks created via `create_task` or `process_backlog` use category-specific templ
 
 ### Running Tests
 
+From the project root:
+
 ```bash
-cd mcp/task-manager
-python3 -m pytest test_server.py -v
+uv run pytest mcp/task-manager/test_server.py -v
 ```
 
 ### Test Coverage
