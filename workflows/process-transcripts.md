@@ -6,7 +6,7 @@ description: Extract action items from recent meeting transcripts and present fo
 
 ## Context
 
-- Config: `core/config.yaml` (priority caps, category keywords, duplicate thresholds)
+- Config: `config.yaml` (priority caps, category keywords, duplicate thresholds)
 - Today's date: $TODAY
 - Time window: Past 3 days (or user-specified via `$ARGUMENTS`)
 
@@ -54,7 +54,7 @@ Ask: "How would you like to proceed?"
 
 ### Step 6: Enforce Priority Caps
 
-Check caps from `core/config.yaml` before creating. If exceeded:
+Check caps from `config.yaml` before creating. If exceeded:
 1. Show current tasks at that priority
 2. Ask user to demote existing or downgrade new task
 3. Wait for decision

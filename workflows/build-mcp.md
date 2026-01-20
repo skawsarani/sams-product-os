@@ -30,5 +30,4 @@ User input: $ARGUMENTS
 **Important:**
 - The mcp-builder will handle the full workflow (language selection, tool design, implementation, etc.)
 - MCP servers can be in Python (FastMCP) or Node/TypeScript (MCP SDK)
-- Reference existing MCP: `core/task-manager-mcp/` for task management tools
 - MCP servers expose tools that Claude can invoke during conversations

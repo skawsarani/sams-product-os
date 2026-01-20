@@ -85,16 +85,15 @@ pm-copilot/
 ├── BACKLOG.md              # Daily inbox (gitignored)
 ├── AGENTS.md               # AI instructions
 ├── VOICE-GUIDE.md          # Your writing style (optional, gitignored)
+├── config.yaml             # Priority caps, categories (customizable)
 ├── setup.sh                # Setup script
 │
-├── core/                   # System components
-│   ├── config.yaml         # Priority caps, categories (customizable)
-│   ├── task-manager-mcp/   # Task management MCP
-│   │   ├── server.py       # MCP server
-│   │   ├── pyproject.toml  # Python project config
-│   │   └── uv.lock         # Dependency lockfile
-│   ├── evals/              # Automated tests
-│   └── README.md           # Core system docs
+├── evals/                  # Automated AI tests
+├── mcp/                    # MCP servers
+│   └── task-manager/       # Task management MCP server
+│       ├── server.py       # MCP server
+│       ├── pyproject.toml  # Python project config
+│       └── README.md       # MCP tool documentation
 │
 ├── tasks/                  # Your tasks (gitignored)
 ├── knowledge/              # Your context (gitignored)
@@ -112,7 +111,7 @@ pm-copilot/
 ├── skills/                 # AI capabilities and specialized workflows
 ├── workflows/              # Slash command workflows
 ├── templates/              # Document templates
-├── mcp/                    # Custom MCP servers (optional)
+├── integrations/           # External service templates
 └── prototypes/             # Code prototypes (gitignored)
 ```
 
@@ -123,7 +122,8 @@ pm-copilot/
 **Committed (shared structure):**
 - Directory structure
 - Documentation, templates, workflows
-- `core/` folder (config.yaml, task-manager-mcp, evals)
+- `config.yaml` (priority caps, categories)
+- `evals/` folder (automated tests)
 - `skills/` folder (AI capabilities)
 - `AGENTS.md`
 
@@ -223,11 +223,11 @@ Skills are specialized tools AI uses automatically:
 For faster task operations, install the task management MCP server:
 
 ```bash
-cd core/task-manager-mcp
+cd mcp/task-manager
 uv sync
 ```
 
-Then configure your AI assistant to use `core/task-manager-mcp/server.py` (see `core/README.md` for setup).
+Then configure your AI assistant to use `mcp/task-manager/server.py` (see `mcp/task-manager/README.md` for setup).
 
 **Benefits:**
 - 10x faster task operations (CRUD, deduplication, statistics)
@@ -421,7 +421,7 @@ What patterns have changed? What's new?
 Test that your system is working correctly after making changes:
 
 ```bash
-cd core/evals
+cd evals
 ./run_evals.sh
 ```
 
@@ -431,7 +431,7 @@ This validates:
 - Priority caps enforcement (P0≤3, P1≤7, P2≤15)
 - File format and structure
 
-See `core/evals/README.md` for details.
+See `evals/README.md` for details.
 
 ---
 

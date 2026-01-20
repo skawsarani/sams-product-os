@@ -1,8 +1,63 @@
-# Task Manager MCP Server - Tool Documentation
+# Task Manager MCP Server
 
-Detailed documentation for all 12 MCP tools provided by the PM Co-Pilot task manager.
+Detailed documentation for the PM Co-Pilot task management MCP server.
 
-> **Setup instructions** are in `core/README.md`
+## Setup
+
+### 1. Install Dependencies
+
+```bash
+cd mcp/task-manager
+uv sync
+```
+
+### 2. Configure MCP Client
+
+Add to your MCP client configuration (e.g., Claude Code, Cursor):
+
+**For Claude Code** (`.mcp.json` in project root):
+
+```json
+{
+  "mcpServers": {
+    "pm-tasks": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "./mcp/task-manager",
+        "python",
+        "server.py"
+      ]
+    }
+  }
+}
+```
+
+**For Cursor** (`.cursor/mcp.json` in project root):
+
+```json
+{
+  "mcpServers": {
+    "pm-tasks": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "./mcp/task-manager",
+        "python",
+        "server.py"
+      ]
+    }
+  }
+}
+```
+
+### 3. Restart Your MCP Client
+
+Restart Claude Code, Cursor, or your MCP client to load the server.
+
+---
 
 ## Tool Reference
 
@@ -331,7 +386,7 @@ Tasks created via `create_task` or `process_backlog` use category-specific templ
 ### Running Tests
 
 ```bash
-cd core/task-manager-mcp
+cd mcp/task-manager
 python3 -m pytest test_server.py -v
 ```
 
@@ -361,7 +416,7 @@ def test_new_feature():
 
 ## Configuration
 
-All settings in `core/config.yaml`:
+All settings in `config.yaml` (project root):
 
 ```yaml
 priority_caps:

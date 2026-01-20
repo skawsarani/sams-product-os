@@ -6,7 +6,7 @@ description: Process BACKLOG.md into organized tasks, initiatives, and reference
 
 ## Context
 
-- Config: `core/config.yaml` (priority caps, category keywords, duplicate thresholds)
+- Config: `config.yaml` (priority caps, category keywords, duplicate thresholds)
 - Today's date: $TODAY
 
 ## Workflow
@@ -55,7 +55,7 @@ For vague items, ask:
 
 ### Step 6: Enforce Priority Caps
 
-Check caps from `core/config.yaml` before creating. If exceeded:
+Check caps from `config.yaml` before creating. If exceeded:
 1. Show current tasks at that priority
 2. Ask user to demote existing or downgrade new task
 3. Wait for decision

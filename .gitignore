@@ -59,11 +59,15 @@ GOALS.md
 VOICE-GUIDE.md
 
 # Evals (test results and backups)
-core/evals/results/
+evals/results/
 *.backup
 
 # Project todos
 TODO.md
 
-# MCP files
+# MCP folder and Config (keep structure but ignore content)
+mcp/**/*
+!mcp/**/
+!mcp/**/.gitkeep
+!mcp/**/README.md
 .mcp.json
