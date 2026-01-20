@@ -17,6 +17,7 @@ integrations = [
     "httpx>=0.27.0",
     "python-dotenv>=1.0.0",
     "google-auth>=2.0.0",
+    "google-auth-oauthlib>=1.0.0",
     "google-api-python-client>=2.0.0",
 ]
 evals = [
@@ -29,6 +30,9 @@ dev = [
 all = [
     "pm-copilot[integrations,evals,dev]",
 ]
+
+[tool.setuptools.packages.find]
+include = ["integrations*", "mcp*", "evals*"]
 
 [tool.pytest.ini_options]
 filterwarnings = [

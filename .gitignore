@@ -28,6 +28,9 @@ Thumbs.db
 .env.local
 .venv
 
+# Secrets folder (OAuth credentials, tokens, etc.)
+.secrets/
+
 # Logs
 *.log
 logs/
@@ -47,7 +50,6 @@ __pycache__/
 prototypes/**/*
 !prototypes/**/
 !prototypes/**/.gitkeep
-!prototypes/README.md
 
 # Personal backlog (private daily inbox)
 BACKLOG.md
