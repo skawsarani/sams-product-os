@@ -32,6 +32,39 @@ Read each transcript and extract items into three categories:
 
 **Skip**: General discussion, other people's action items, sentiment/small talk.
 
+#### Parallel Processing (3+ Transcripts)
+
+When 3+ transcripts are found, use parallel processing for efficiency:
+
+1. **Group transcripts into batches** of 2-3 files each
+
+2. **Launch parallel agents** to process each batch:
+   ```
+   Task(subagent_type="Explore", prompt="Analyze transcripts [paths] and extract: tasks (assignments, follow-ups, decisions), initiatives (opportunities, features, pain points), references (links, data points). Return structured list with source attribution.")
+   ```
+
+3. **Each agent extracts** from its batch:
+   - Tasks with priority suggestion and due date (if mentioned)
+   - Initiatives with description and source meeting
+   - References with context
+
+4. **Merge results** from parallel agents:
+   - Combine all extracted items
+   - Check for duplicates across batches (same topic from different meetings)
+   - Flag items that appear in multiple transcripts (likely higher priority)
+
+5. **Deduplicate** merged items before presenting to user
+
+**When to use parallel processing:**
+- 3+ transcripts found in the time window
+- Transcripts are from different meetings
+- Need faster processing
+
+**When to use sequential processing:**
+- 1-2 transcripts
+- Transcripts are from a multi-part meeting
+- Deep context preservation is critical
+
 ### Step 3: Check for Duplicates
 
 Compare extracted items against existing tasks in `tasks/`, initiatives in `knowledge/initiatives/`.

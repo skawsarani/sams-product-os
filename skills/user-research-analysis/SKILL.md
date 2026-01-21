@@ -65,6 +65,43 @@ Based on the analysis framework, systematically:
 - Recommend next steps
 - Prioritize based on frequency, intensity, and strategic fit
 
+### 3b. Multiple Transcript Analysis (Parallel Processing)
+
+When analyzing 3+ transcripts, use parallel processing for efficiency:
+
+1. **Launch parallel Explore agents** (max 3 concurrent) to analyze transcripts independently:
+   ```
+   Task(subagent_type="Explore", prompt="Analyze transcript [path] and extract: themes, verbatim quotes, pain points, opportunities, feature requests. Return structured findings.")
+   ```
+
+2. **Each agent extracts**:
+   - Recurring themes with frequency
+   - Verbatim quotes with attribution
+   - Pain points with intensity assessment
+   - Opportunities and feature requests
+   - Jobs to be done
+
+3. **Aggregate results** from parallel analyses:
+   - Merge themes, combining frequency counts
+   - Deduplicate quotes (keep best examples)
+   - Cross-reference patterns that appear in multiple transcripts
+   - Identify themes with highest frequency AND intensity
+
+4. **Synthesize into unified findings**:
+   - Prioritize themes by: (frequency across transcripts) x (intensity)
+   - Note contradictions or outliers
+   - Flag themes that only appear in 1 transcript vs. widespread patterns
+
+**When to use parallel processing:**
+- 3+ transcripts to analyze
+- Transcripts are independent (different interviews, not parts of same session)
+- Time efficiency is important
+
+**When to use sequential processing:**
+- 1-2 transcripts
+- Transcripts are related/continuation of same session
+- Deep analysis of a single interview is needed
+
 ### 4. Create Deliverable
 
 Choose the appropriate output format:

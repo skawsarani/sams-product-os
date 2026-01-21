@@ -71,9 +71,9 @@ AI categorizes into:
 
 **Generate docs when ready:**
 ```
-/prd mobile-performance
-/spec mobile-performance
-/user-stories mobile-performance
+/write-prd mobile-performance
+/write-spec mobile-performance
+/write-user-stories mobile-performance
 ```
 
 ---
@@ -164,8 +164,8 @@ When `/process-backlog` would exceed caps, AI asks you to deprioritize.
 Skills are specialized tools AI uses automatically:
 
 **Product Docs (`product-docs` skill):**
-- `/prd [name]`, `/spec [name]`, `/brief [name]`
-- `/user-stories [name]`, `/decision [topic]`
+- `/write-prd [name]`, `/write-spec [name]`, `/write-brief [name]`
+- `/write-user-stories [name]`, `/write-decision [topic]`
 - Auto-pulls context from knowledge base
 
 **Doc Co-Authoring (`doc-coauthoring` skill):**
@@ -190,7 +190,7 @@ Skills are specialized tools AI uses automatically:
 - Analyze interviews and transcripts
 - Synthesize research, create personas
 
-**Competitive Research (`competitive-research` skill):**
+**Competitor Analysis (`competitor-analysis` skill):**
 - Analyze single competitor comprehensively
 - Features, pricing, strengths, gaps, testimonials
 
@@ -254,9 +254,9 @@ Then configure your AI assistant to use `mcp/task-manager/server.py` (see `mcp/t
 - "Prune completed tasks" - Delete tasks older than 90 days
 
 **Documents:**
-- `/prd [name]` - Generate PRD
-- `/spec [name]` - Generate spec
-- `/brief [name]` - Generate brief
+- `/write-prd [name]` - Generate PRD
+- `/write-spec [name]` - Generate spec
+- `/write-brief [name]` - Generate brief
 
 **Research:**
 - `/competitor-research [names]` - Research multiple competitors, generate matrix

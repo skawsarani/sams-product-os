@@ -1,6 +1,6 @@
 ---
 name: product-docs
-description: AUTOMATED generation of PM-specific documents (PRDs, product specs, project briefs, user stories, PM decision docs) with complete first drafts. Use ONLY when user wants immediate, automated document generation from templates and knowledge base context. Triggers on slash commands (/prd, /brief, /spec, /user-stories, /decision) or requests for "generate PRD", "create product spec", "generate user stories". Automatically pulls from knowledge base (product-strategy, opportunities, briefs-and-specs, transcripts). DO NOT use for collaborative/iterative co-authoring (use doc-coauthoring skill instead) or non-PM documentation. DO NOT use for general technical specs, proposals, or whitepapers (use doc-coauthoring skill instead).
+description: AUTOMATED generation of PM-specific documents (PRDs, product specs, project briefs, user stories, PM decision docs) with complete first drafts. Use ONLY when user wants immediate, automated document generation from templates and knowledge base context. Triggers on slash commands (/write-prd, /write-brief, /write-spec, /write-user-stories, /write-decision) or requests for "generate PRD", "create product spec", "generate user stories". Automatically pulls from knowledge base (product-strategy, opportunities, briefs-and-specs, transcripts). DO NOT use for collaborative/iterative co-authoring (use doc-coauthoring skill instead) or non-PM documentation. DO NOT use for general technical specs, proposals, or whitepapers (use doc-coauthoring skill instead).
 ---
 
 # Product Documentation Generator
@@ -11,7 +11,7 @@ Generate comprehensive product documentation (PRDs, briefs, specs, user stories,
 
 **Use product-docs skill when:**
 - ✅ User wants a **complete PM document NOW** (PRD, product spec, project brief, user stories)
-- ✅ Request includes slash commands: `/prd`, `/brief`, `/spec`, `/user-stories`, `/decision`
+- ✅ Request includes slash commands: `/write-prd`, `/write-brief`, `/write-spec`, `/write-user-stories`, `/write-decision`
 - ✅ Request is for **automated generation**: "generate a PRD", "create product spec"
 - ✅ Document type is **PM-specific** and context exists in knowledge base
 - ✅ User wants to **leverage existing context** (opportunities, initiatives, transcripts)
@@ -27,11 +27,11 @@ Generate comprehensive product documentation (PRDs, briefs, specs, user stories,
 ## Quick Start
 
 **Triggers:**
-- `/prd [feature-name]` - Generate Product Requirements Document
-- `/brief [project-name]` - Generate Project Brief
-- `/spec [feature-name]` - Generate Product Specification (PM-specific, not general technical specs)
-- `/user-stories [feature-name]` - Generate User Stories
-- `/decision [decision-made]` - Document a PM Decision
+- `/write-prd [feature-name]` - Generate Product Requirements Document
+- `/write-brief [project-name]` - Generate Project Brief
+- `/write-spec [feature-name]` - Generate Product Specification (PM-specific, not general technical specs)
+- `/write-user-stories [feature-name]` - Generate User Stories
+- `/write-decision [decision-made]` - Document a PM Decision
 - Natural language: "**generate** a PRD for X", "**create** product spec for Y"
 
 **How it works:**
@@ -148,7 +148,7 @@ Then iterate based on user feedback.
 
 ## PRD Generation
 
-**Command:** `/prd [feature-name]` or "create a PRD for [feature]"
+**Command:** `/write-prd [feature-name]` or "create a PRD for [feature]"
 
 **Template:** `assets/prd-template.md`
 
@@ -180,7 +180,7 @@ Then iterate based on user feedback.
 
 ## Brief Generation
 
-**Command:** `/brief [project-name]` or "create a brief for [project]"
+**Command:** `/write-brief [project-name]` or "create a brief for [project]"
 
 **Template:** `assets/brief-template.md`
 
@@ -210,7 +210,7 @@ Then iterate based on user feedback.
 
 ## Spec Generation
 
-**Command:** `/spec [feature-name]` or "create a spec for [feature]"
+**Command:** `/write-spec [feature-name]` or "create a spec for [feature]"
 
 **Template:** `assets/spec-template.md`
 
@@ -246,7 +246,7 @@ Then iterate based on user feedback.
 
 ## User Stories Generation
 
-**Command:** `/user-stories [feature-name]` or "generate user stories for [feature]"
+**Command:** `/write-user-stories [feature-name]` or "generate user stories for [feature]"
 
 **Template:** `assets/user-stories-template.md`
 
@@ -286,7 +286,7 @@ Then iterate based on user feedback.
 
 ## Decision Documentation
 
-**Command:** `/decision [decision-made]` or "document the decision to [X]"
+**Command:** `/write-decision [decision-made]` or "document the decision to [X]"
 
 **Template:** `assets/decision-doc-template.md`
 

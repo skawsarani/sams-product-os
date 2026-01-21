@@ -33,13 +33,13 @@ Check these folders for context before making suggestions:
 
 Available skills:
 
-- **product-docs** - `/prd`, `/spec`, `/brief`, `/user-stories`, `/decision`
-- **product-metrics-analysis** - Analyze product metrics,  identify patterns, and provide data-driven insights
+- **product-docs** - `/write-prd`, `/write-spec`, `/write-brief`, `/write-user-stories`, `/write-decision`
+- **product-metrics-analysis** - Analyze product metrics, identify patterns, and provide data-driven insights
 - **ux-copy** - UI copy, error messages, microcopy, notifications
 - **i18n-translator** - French translation (Canadian/European), localization
-- **user-research-analysis** - Interview analysis, personas, research synthesis
+- **user-research-analysis** - Interview analysis, personas, research synthesis (supports parallel processing for 3+ transcripts)
 - **notion-research-documentation** - Notion search, synthesis, research docs
-- **competitive-research** - Comprehensively analyze single competitor (features, pricing, customers, strengths, gaps, testimonials)
+- **competitor-analysis** - Comprehensively analyze single competitor (features, pricing, customers, strengths, gaps, testimonials)
 - **prototype-builder** - Working prototypes from PRDs/briefs
 - **internal-comms** - Status reports, updates, FAQs
 
@@ -49,7 +49,13 @@ Self-contained slash commands for common PM workflows. Located in `workflows/` f
 
 | Command | Purpose |
 |---------|---------|
+| `/write-prd` | Generate a Product Requirements Document |
+| `/write-spec` | Generate a Product Specification |
+| `/write-brief` | Generate a Project Brief |
+| `/write-user-stories` | Generate User Stories with acceptance criteria |
+| `/write-decision` | Document a Product Decision |
 | `/process-backlog` | Process BACKLOG.md into tasks, initiatives, references |
+| `/process-transcripts` | Extract action items from recent meeting transcripts |
 | `/competitor-research` | Research multiple competitors in parallel, generate comparison matrix |
 | `/daily-planning` | Plan your day with priorities, blockers, goal alignment |
 | `/weekly-review` | Review the week, check goals, plan next week |

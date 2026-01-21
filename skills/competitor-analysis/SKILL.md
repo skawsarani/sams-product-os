@@ -1,9 +1,9 @@
 ---
-name: competitive-research
+name: competitor-analysis
 description: Comprehensively analyze a single competitor including features, pricing, target customers, strengths, gaps, testimonials, and market positioning. Use when asked to "research [competitor]", "analyze [competitor]", "compare us to [competitor]", or "what does [competitor] offer". Pulls from web search, Notion workspace, and knowledge base files. Outputs structured competitor analysis report.
 ---
 
-# Competitive Research Skill
+# Competitor Analysis Skill
 
 Perform comprehensive competitive analysis of a single competitor, gathering intelligence from multiple sources to create a structured research report.
 
