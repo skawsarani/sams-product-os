@@ -8,13 +8,14 @@ from .url_parser import (
     parse_slack_url,
     parse_notion_url,
     parse_linear_url,
+    parse_avoma_url,
+    parse_google_url,
     build_url,
     extract_keywords_from_text,
     is_url,
     ParsedInput,
     InputType,
 )
-
 __all__ = [
     # Config
     "get_linear_api_key",
@@ -33,6 +34,8 @@ __all__ = [
     "parse_slack_url",
     "parse_notion_url",
     "parse_linear_url",
+    "parse_avoma_url",
+    "parse_google_url",
     "build_url",
     "extract_keywords_from_text",
     "is_url",

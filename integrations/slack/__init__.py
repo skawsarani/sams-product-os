@@ -2,6 +2,7 @@
 
 from .messages import (
     list_messages,
+    find_unanswered_messages,
 )
 from .channels import (
     list_channels,
@@ -47,6 +48,7 @@ from .channel_summary import (
 __all__ = [
     # Messages
     "list_messages",
+    "find_unanswered_messages",
     # Channels
     "list_channels",
     "get_channel_info",

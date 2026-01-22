@@ -17,6 +17,7 @@ from integrations.linear.initiatives import list_initiatives, get_initiative
 from integrations.linear.labels import list_labels, get_label
 from integrations.linear.cycles import list_cycles, get_cycle
 from integrations.linear.comments import list_comments, get_comment
+from integrations.linear.customers import list_customers, get_customer, list_customer_needs
 
 
 def test_list_operation(name: str, func, **kwargs):
@@ -63,6 +64,58 @@ def test_get_operation(name: str, func, item_id: str | None):
         print(f"✗ Failed: {e}")
 
 
+def test_customers():
+    """Test customer operations."""
+    print(f"\n{'='*60}")
+    print("Testing: Customers")
+    print(f"{'='*60}")
+    try:
+        customers = list_customers(first=5)
+        print(f"✓ list_customers: Found {len(customers)} customers")
+        if customers:
+            customer = customers[0]
+            tier_name = customer.get("tier", {}).get("name", "N/A") if customer.get("tier") else "N/A"
+            print(f"  First: {customer.get('name')} (tier: {tier_name})")
+
+            # Get customer with needs
+            print(f"\n{'-'*40}")
+            print(f"Testing: get_customer with needs (id: {customer['id'][:8]}...)")
+            print(f"{'-'*40}")
+            customer_detail = get_customer(customer["id"], include_needs=True)
+            if customer_detail:
+                print(f"✓ Retrieved customer with needs: {customer_detail.get('name')}")
+                print(f"  Revenue: {customer_detail.get('revenue', 'N/A')}")
+                print(f"  Needs count: {len(customer_detail.get('needs', []))}")
+                if customer_detail.get("needs"):
+                    need = customer_detail["needs"][0]
+                    print(f"  First need: {(need.get('body') or '')[:40]}...")
+        else:
+            print("  ⚠ No customers found (may be expected if none configured)")
+    except Exception as e:
+        print(f"✗ Failed: {e}")
+
+
+def test_customer_needs():
+    """Test customer needs listing."""
+    print(f"\n{'='*60}")
+    print("Testing: Customer Needs")
+    print(f"{'='*60}")
+    try:
+        needs = list_customer_needs(first=5)
+        print(f"✓ list_customer_needs: Found {len(needs)} customer needs")
+        if needs:
+            need = needs[0]
+            customer_name = need.get("customer", {}).get("name", "N/A")
+            issue_id = need.get("issue", {}).get("identifier", "N/A") if need.get("issue") else "N/A"
+            print(f"  Customer: {customer_name}")
+            print(f"  Linked issue: {issue_id}")
+            print(f"  Body: {(need.get('body') or '')[:50]}...")
+        else:
+            print("  ⚠ No customer needs found (may be expected)")
+    except Exception as e:
+        print(f"✗ Failed: {e}")
+
+
 def main():
     print("\n" + "="*60)
     print("LINEAR API INTEGRATION TEST")
@@ -91,7 +144,13 @@ def main():
     # Test Comments
     comment_id = test_list_operation("list_comments", list_comments, first=5)
     test_get_operation("get_comment", get_comment, comment_id)
-    
+
+    # Test Customers
+    test_customers()
+
+    # Test Customer Needs
+    test_customer_needs()
+
     print("\n" + "="*60)
     print("TEST COMPLETE")
     print("="*60)
