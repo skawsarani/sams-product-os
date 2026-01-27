@@ -71,9 +71,9 @@ AI categorizes into:
 
 **Generate docs when ready:**
 ```
-/prd mobile-performance
-/spec mobile-performance
-/user-stories mobile-performance
+/write-prd mobile-performance
+/write-spec mobile-performance
+/write-user-stories mobile-performance
 ```
 
 ---
@@ -110,7 +110,7 @@ pm-copilot/
 ├── skills/                 # AI capabilities and specialized workflows
 ├── workflows/              # Slash command workflows
 ├── templates/              # Document templates
-├── integrations/           # External service templates
+├── integrations/           # Read-only API clients for external services
 └── prototypes/             # Code prototypes (gitignored)
 ```
 
@@ -164,8 +164,8 @@ When `/process-backlog` would exceed caps, AI asks you to deprioritize.
 Skills are specialized tools AI uses automatically:
 
 **Product Docs (`product-docs` skill):**
-- `/prd [name]`, `/spec [name]`, `/brief [name]`
-- `/user-stories [name]`, `/decision [topic]`
+- `/write-prd [name]`, `/write-spec [name]`, `/write-brief [name]`
+- `/write-user-stories [name]`, `/write-decision [topic]`
 - Auto-pulls context from knowledge base
 
 **Doc Co-Authoring (`doc-coauthoring` skill):**
@@ -190,13 +190,9 @@ Skills are specialized tools AI uses automatically:
 - Analyze interviews and transcripts
 - Synthesize research, create personas
 
-**Competitive Research (`competitive-research` skill):**
+**Competitor Analysis (`competitor-analysis` skill):**
 - Analyze single competitor comprehensively
 - Features, pricing, strengths, gaps, testimonials
-
-**Notion Research (`notion-research-documentation` skill):**
-- Search and synthesize from Notion workspace
-- Create research documentation with citations
 
 **Prototyping (`prototype-builder` skill):**
 - Build working prototypes from specs
@@ -235,6 +231,23 @@ Then configure your AI assistant to use `mcp/task-manager/server.py` (see `mcp/t
 
 ---
 
+## Integrations (Optional)
+
+Read-only API clients for pulling context from external services:
+
+| Service | Capabilities |
+|---------|--------------|
+| **Slack** | Messages, channels, threads, users, search, channel summaries |
+| **Notion** | Pages, databases, blocks, search |
+| **Linear** | Issues, projects, initiatives, cycles, labels, customers |
+| **Google Calendar** | Events, calendars |
+| **Google Drive** | Files, folders, permissions, search |
+| **Avoma** | Meetings, notes, transcripts |
+
+See `integrations/README.md` for full API reference.
+
+---
+
 ## Common Commands
 
 **Daily:**
@@ -254,9 +267,9 @@ Then configure your AI assistant to use `mcp/task-manager/server.py` (see `mcp/t
 - "Prune completed tasks" - Delete tasks older than 90 days
 
 **Documents:**
-- `/prd [name]` - Generate PRD
-- `/spec [name]` - Generate spec
-- `/brief [name]` - Generate brief
+- `/write-prd [name]` - Generate PRD
+- `/write-spec [name]` - Generate spec
+- `/write-brief [name]` - Generate brief
 
 **Research:**
 - `/competitor-research [names]` - Research multiple competitors, generate matrix

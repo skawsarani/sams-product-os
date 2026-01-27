@@ -81,3 +81,11 @@ def get_google_token_file() -> Path:
         path = _project_root / file_path
 
     return path
+
+
+def get_hubspot_access_token() -> str:
+    """Get HubSpot Private App access token from environment."""
+    token = os.getenv("HUBSPOT_ACCESS_TOKEN")
+    if not token:
+        raise ValueError("HUBSPOT_ACCESS_TOKEN not set in environment")
+    return token

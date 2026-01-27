@@ -4,6 +4,11 @@
 # All values below are referenced in AGENTS.md and workflows/process-backlog.md.
 # Customize these settings to match your workflow.
 
+# Integration settings
+integrations:
+  slack:
+    cache_user_mappings: true  # Cache user handle/ID/name mappings (default: true)
+
 # Task categories - modify based on your needs
 # Used by: Auto-categorization during /backlog processing
 categories:

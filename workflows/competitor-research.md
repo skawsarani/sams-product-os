@@ -32,13 +32,13 @@ Also check for `knowledge/references/product-info.md` for comparison context.
 
 ### Step 2: Invoke Parallel Research
 
-For EACH competitor, invoke the `competitive-research` skill **simultaneously**:
+For EACH competitor, invoke the `competitor-analysis` skill **simultaneously**:
 
 ```
-Skill(skill="competitive-research", args="competitor:[Name] website:[URL if known]")
+Skill(skill="competitor-analysis", args="competitor:[Name] website:[URL if known]")
 ```
 
-Tell user which skills you're invoking: "I'm using the competitive-research skill to analyze [Competitor]"
+Tell user which skills you're invoking: "I'm using the competitor-analysis skill to analyze [Competitor]"
 
 ### Step 3: Monitor & Handle Errors
 

@@ -50,6 +50,7 @@ GraphQL-based project management.
 | Comments | `get_comment`, `list_comments` |
 | Labels | `get_label`, `list_labels` |
 | Cycles | `get_cycle`, `list_cycles` |
+| Customers | `get_customer`, `list_customers`, `list_customer_needs` |
 
 ### Notion
 
@@ -64,9 +65,44 @@ GraphQL-based project management.
 
 | Module | Functions |
 |--------|-----------|
-| Messages | `list_messages` |
+| Messages | `list_messages`, `find_unanswered_messages` |
 | Channels | `list_channels`, `get_channel_info` |
 | Search | `search_messages`, `search_files` |
+| Users | `get_user`, `list_users`, `find_user_by_handle`, `get_user_display_name` |
+| Threads | `get_thread_replies`, `get_all_thread_replies` |
+| Links | `parse_slack_message_link`, `build_slack_message_url`, `is_slack_url` |
+| Channel Summary | `get_channel_day_summary` |
+| Mapping | Cache utilities for channel/user ID resolution |
+
+### HubSpot
+
+CRM search and read operations.
+
+| Module | Functions |
+|--------|-----------|
+| Contacts | `search_contacts`, `get_contact` |
+| Companies | `search_companies`, `get_company` |
+| Deals | `search_deals`, `get_deal` |
+| Tickets | `search_tickets`, `get_ticket` |
+| Carts | `search_carts`, `get_cart` |
+| Products | `search_products`, `get_product` |
+| Orders | `search_orders`, `get_order` |
+| Line Items | `search_line_items`, `get_line_item` |
+| Invoices | `search_invoices`, `get_invoice` |
+| Quotes | `search_quotes`, `get_quote` |
+| Subscriptions | `search_subscriptions`, `get_subscription` |
+| Properties | `list_properties`, `get_all_property_names`, `clear_property_cache` |
+
+### Common Utilities
+
+Shared helpers for all integrations.
+
+| Module | Functions |
+|--------|-----------|
+| Config | `get_linear_api_key`, `get_slack_token`, `get_notion_token`, `get_avoma_api_key`, `get_hubspot_access_token` |
+| Utils | `paginate`, `format_output`, `APIError` |
+| Google Auth | `build_calendar_service`, `build_drive_service` |
+| URL Parser | `parse_input`, `parse_slack_url`, `parse_notion_url`, `parse_linear_url`, `parse_avoma_url`, `parse_google_url`, `build_url`, `is_url` |
 
 ## Configuration
 

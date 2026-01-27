@@ -1,5 +1,6 @@
 """Notion REST API client."""
 
+import time
 from typing import Any
 import httpx
 
@@ -8,6 +9,7 @@ from ..common.utils import APIError
 
 BASE_URL = "https://api.notion.com/v1"
 NOTION_VERSION = "2022-06-28"
+MAX_RETRIES = 3
 
 
 class NotionClient:
@@ -45,8 +47,7 @@ class NotionClient:
         Raises:
             APIError: If the request fails.
         """
-        response = self.client.get(endpoint, params=params)
-        return self._handle_response(response)
+        return self._request_with_retry("GET", endpoint, params=params)
 
     def post(self, endpoint: str, data: dict[str, Any] | None = None) -> dict[str, Any]:
         """
@@ -62,8 +63,7 @@ class NotionClient:
         Raises:
             APIError: If the request fails.
         """
-        response = self.client.post(endpoint, json=data or {})
-        return self._handle_response(response)
+        return self._request_with_retry("POST", endpoint, data=data)
 
     def patch(self, endpoint: str, data: dict[str, Any] | None = None) -> dict[str, Any]:
         """
@@ -79,8 +79,7 @@ class NotionClient:
         Raises:
             APIError: If the request fails.
         """
-        response = self.client.patch(endpoint, json=data or {})
-        return self._handle_response(response)
+        return self._request_with_retry("PATCH", endpoint, data=data)
 
     def delete(self, endpoint: str) -> dict[str, Any]:
         """
@@ -95,8 +94,44 @@ class NotionClient:
         Raises:
             APIError: If the request fails.
         """
-        response = self.client.delete(endpoint)
-        return self._handle_response(response)
+        return self._request_with_retry("DELETE", endpoint)
+
+    def _request_with_retry(
+        self,
+        method: str,
+        endpoint: str,
+        params: dict[str, Any] | None = None,
+        data: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Make a request with automatic retry on rate limiting (429)."""
+        for attempt in range(1, MAX_RETRIES + 1):
+            if method == "GET":
+                response = self.client.get(endpoint, params=params)
+            elif method == "POST":
+                response = self.client.post(endpoint, json=data or {})
+            elif method == "PATCH":
+                response = self.client.patch(endpoint, json=data or {})
+            elif method == "DELETE":
+                response = self.client.delete(endpoint)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+
+            if response.status_code == 429:
+                # Notion uses Retry-After header (in seconds)
+                retry_after = int(response.headers.get("Retry-After", "1"))
+                if attempt == MAX_RETRIES:
+                    raise APIError(
+                        f"Notion API rate limited after {MAX_RETRIES} retries",
+                        status_code=429,
+                        response=response.text,
+                    )
+                time.sleep(retry_after)
+                continue
+
+            return self._handle_response(response)
+
+        # Should not reach here, but just in case
+        raise APIError(f"Notion API request failed after {MAX_RETRIES} retries")
 
     def _handle_response(self, response: httpx.Response) -> dict[str, Any]:
         """Handle Notion API response and check for errors."""

@@ -1,5 +1,6 @@
 """Slack REST API client."""
 
+import time
 from typing import Any
 import httpx
 
@@ -7,6 +8,7 @@ from ..common.config import get_slack_token
 from ..common.utils import APIError
 
 BASE_URL = "https://slack.com/api"
+MAX_RETRIES = 3
 
 
 class SlackClient:
@@ -43,8 +45,7 @@ class SlackClient:
         Raises:
             APIError: If the request fails.
         """
-        response = self.client.get(f"/{endpoint}", params=params)
-        return self._handle_response(response)
+        return self._request_with_retry("GET", endpoint, params=params)
 
     def post(self, endpoint: str, data: dict[str, Any] | None = None) -> dict[str, Any]:
         """
@@ -60,8 +61,37 @@ class SlackClient:
         Raises:
             APIError: If the request fails.
         """
-        response = self.client.post(f"/{endpoint}", json=data or {})
-        return self._handle_response(response)
+        return self._request_with_retry("POST", endpoint, data=data)
+
+    def _request_with_retry(
+        self,
+        method: str,
+        endpoint: str,
+        params: dict[str, Any] | None = None,
+        data: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Make a request with automatic retry on rate limiting (429)."""
+        for attempt in range(1, MAX_RETRIES + 1):
+            if method == "GET":
+                response = self.client.get(f"/{endpoint}", params=params)
+            else:
+                response = self.client.post(f"/{endpoint}", json=data or {})
+
+            if response.status_code == 429:
+                retry_after = int(response.headers.get("Retry-After", "1"))
+                if attempt == MAX_RETRIES:
+                    raise APIError(
+                        f"Slack API rate limited after {MAX_RETRIES} retries",
+                        status_code=429,
+                        response=response.text,
+                    )
+                time.sleep(retry_after)
+                continue
+
+            return self._handle_response(response)
+
+        # Should not reach here, but just in case
+        raise APIError(f"Slack API request failed after {MAX_RETRIES} retries")
 
     def _handle_response(self, response: httpx.Response) -> dict[str, Any]:
         """Handle Slack API response and check for errors."""

@@ -24,6 +24,11 @@ from .cycles import (
     get_cycle,
     list_cycles,
 )
+from .customers import (
+    get_customer,
+    list_customers,
+    list_customer_needs,
+)
 
 __all__ = [
     # Issues
@@ -44,4 +49,8 @@ __all__ = [
     # Cycles
     "get_cycle",
     "list_cycles",
+    # Customers
+    "get_customer",
+    "list_customers",
+    "list_customer_needs",
 ]

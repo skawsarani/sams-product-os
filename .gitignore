@@ -40,6 +40,9 @@ logs/
 __pycache__/
 .pytest_cache/
 
+# Integration caches (workspace-specific data)
+integrations/slack/mappings.json
+
 # Environment variables folder
 .env/*
 !.env/.gitignore
