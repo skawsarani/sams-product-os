@@ -31,3 +31,4 @@ User input: $ARGUMENTS
 - The skill-creator will handle the full workflow (asking questions, creating files, etc.)
 - Skills are typically stored in `skills/` directory
 - Each skill includes SKILL.md, knowledge files, and optional code
+- Create the skill NOW. Do not explore the codebase first. Do not write a plan. Start by creating the SKILL.md file, then create any supporting files. If you need context, read only the specific files mentioned. Go.
