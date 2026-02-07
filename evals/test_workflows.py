@@ -17,10 +17,10 @@ from pathlib import Path
 
 import pytest
 
-# Add mcp/task-manager to path for imports
+# Add tools/mcp-servers/task-manager to path for imports
 # tests/ -> evals/ -> project root
 PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "mcp" / "task-manager"))
+sys.path.insert(0, str(PROJECT_ROOT / "tools" / "mcp-servers" / "task-manager"))
 
 from server import (
     is_ambiguous,

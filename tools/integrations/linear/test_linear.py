@@ -2,22 +2,22 @@
 """Test script to verify Linear API integration is working.
 
 Run from project root:
-  uv run python integrations/linear/test_linear.py
+  uv run python tools/integrations/linear/test_linear.py
 """
 
 import sys
 from pathlib import Path
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.linear.issues import list_issues, get_issue
-from integrations.linear.projects import list_projects, get_project
-from integrations.linear.initiatives import list_initiatives, get_initiative
-from integrations.linear.labels import list_labels, get_label
-from integrations.linear.cycles import list_cycles, get_cycle
-from integrations.linear.comments import list_comments, get_comment
-from integrations.linear.customers import list_customers, get_customer, list_customer_needs
+from tools.integrations.linear.issues import list_issues, get_issue
+from tools.integrations.linear.projects import list_projects, get_project
+from tools.integrations.linear.initiatives import list_initiatives, get_initiative
+from tools.integrations.linear.labels import list_labels, get_label
+from tools.integrations.linear.cycles import list_cycles, get_cycle
+from tools.integrations.linear.comments import list_comments, get_comment
+from tools.integrations.linear.customers import list_customers, get_customer, list_customer_needs
 
 
 def test_list_operation(name: str, func, **kwargs):

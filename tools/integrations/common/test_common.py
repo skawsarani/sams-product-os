@@ -2,7 +2,7 @@
 """Test script for common utilities: URL parser.
 
 Run from project root:
-  uv run python integrations/common/test_common.py
+  uv run python tools/integrations/common/test_common.py
 
 These are unit tests that don't require API credentials.
 """
@@ -11,9 +11,9 @@ import sys
 from pathlib import Path
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.common.url_parser import (
+from tools.integrations.common.url_parser import (
     parse_input,
     parse_slack_url,
     parse_notion_url,

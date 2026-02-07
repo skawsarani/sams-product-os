@@ -49,7 +49,7 @@ def main():
         test_sets = [("Agent Behavior Tests", "evals/test_agent_behavior.py")]
     else:
         test_sets = [
-            ("MCP Server Unit Tests", "mcp/task-manager/test_server.py"),
+            ("MCP Server Unit Tests", "tools/mcp-servers/task-manager/test_server.py"),
             ("MCP Integration Tests", "evals/test_mcp_server.py"),
             ("Workflow Tests", "evals/test_workflows.py"),
             ("Agent Behavior Tests", "evals/test_agent_behavior.py"),

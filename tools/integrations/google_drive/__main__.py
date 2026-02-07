@@ -1,7 +1,7 @@
 """CLI interface for Google Drive integration.
 
 Usage:
-    uv run python -m integrations.google_drive <command> [options]
+    uv run python -m tools.integrations.google_drive <command> [options]
 
 Commands:
     search              Search files and folders

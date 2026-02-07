@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "pm-tasks": {
-      "command": "uv",
-      "args": ["run", "python", "server.py"]
-    }
-  }
-}

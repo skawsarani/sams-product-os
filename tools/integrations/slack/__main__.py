@@ -1,7 +1,7 @@
 """CLI interface for Slack integration.
 
 Usage:
-    uv run python -m integrations.slack <command> [options]
+    uv run python -m tools.integrations.slack <command> [options]
 
 Commands:
     search-messages     Search for messages

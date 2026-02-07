@@ -8,14 +8,14 @@ This directory is for custom MCP (Model Context Protocol) servers you create to 
 
 ### 1. Learn from the Task Manager MCP
 
-See `mcp/task-manager/` for a complete working example:
+See `tools/mcp-servers/task-manager/` for a complete working example:
 
 ```bash
-cd mcp/task-manager
+cd tools/mcp-servers/task-manager
 cat server.py  # Review implementation
 ```
 
-Full documentation: `mcp/task-manager/README.md`
+Full documentation: `tools/mcp-servers/task-manager/README.md`
 
 ### 2. Build Your Own MCP Server
 
@@ -45,7 +45,7 @@ Once you've created your MCP server:
   "mcpServers": {
     "your-server": {
       "command": "python3",
-      "args": ["./mcp/your-server.py"]
+      "args": ["./tools/mcp-servers/your-server.py"]
     }
   }
 }
@@ -57,7 +57,7 @@ Once you've created your MCP server:
   "mcpServers": {
     "your-server": {
       "command": "python3",
-      "args": ["./mcp/your-server.py"]
+      "args": ["./tools/mcp-servers/your-server.py"]
     }
   }
 }
@@ -90,6 +90,6 @@ API_KEY = os.getenv("API_KEY")
 ## Resources
 
 - **MCP-Builder Skill**: `skills/mcp-builder/` (use this to generate servers)
-- **Task Manager Example**: `mcp/task-manager/` (working reference implementation)
+- **Task Manager Example**: `tools/mcp-servers/task-manager/` (working reference implementation)
 - **MCP Specification**: https://modelcontextprotocol.io/docs/getting-started/intro
 - **MCP SDKs**: https://modelcontextprotocol.io/docs/sdk

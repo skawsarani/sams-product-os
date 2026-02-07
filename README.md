@@ -89,28 +89,32 @@ pm-copilot/
 ├── setup.sh                # Setup script
 │
 ├── evals/                  # Automated AI tests
-├── mcp/                    # MCP servers
-│   └── task-manager/       # Task management MCP server
-│       ├── server.py       # MCP server
-│       └── README.md       # MCP tool documentation
+├── tools/                  # Code and tooling
+│   ├── integrations/       # Read-only API clients for external services
+│   └── mcp-servers/        # MCP servers
+│       └── task-manager/   # Task management MCP server
+│           ├── server.py   # MCP server
+│           └── README.md   # MCP tool documentation
 │
 ├── tasks/                  # Your tasks (gitignored)
 ├── knowledge/              # Your context (gitignored)
-│   ├── about-me/
-│   ├── product-strategy/
-│   ├── company-context/
-│   ├── frameworks/
-│   ├── initiatives/
-│   ├── briefs-and-specs/
-│   ├── transcripts/
-│   ├── voice-samples/
-│   ├── references/
-│   └── notes/             # Archived backlog snapshots
+│   ├── about-me/           # Personal context, background, working style
+│   ├── briefs-and-specs/   # Product specs, feature briefs, technical docs
+│   ├── company-context/    # Company info, mission, org structure
+│   ├── frameworks/         # PM frameworks, methodologies, mental models
+│   ├── initiatives/        # Strategic initiatives from backlog
+│   ├── notes/              # Archived backlog snapshots, meeting notes
+│   ├── processes/          # How your team works (sprints, decisions)
+│   ├── product-analytics/  # KPIs, dashboards, performance data
+│   ├── product-strategy/   # Vision, strategy, roadmap
+│   ├── proposals/          # Decision docs, RFCs, proposals
+│   ├── references/         # Competitive research, market analysis
+│   ├── transcripts/        # Interview and meeting transcripts
+│   └── voice-samples/      # Writing samples for AI voice matching
 │
 ├── skills/                 # AI capabilities and specialized workflows
 ├── workflows/              # Slash command workflows
 ├── templates/              # Document templates
-├── integrations/           # Read-only API clients for external services
 └── prototypes/             # Code prototypes (gitignored)
 ```
 
@@ -221,7 +225,7 @@ For faster task operations, install the task management MCP server:
 uv sync
 ```
 
-Then configure your AI assistant to use `mcp/task-manager/server.py` (see `mcp/task-manager/README.md` for setup).
+Then configure your AI assistant to use `tools/mcp-servers/task-manager/server.py` (see `tools/mcp-servers/task-manager/README.md` for setup).
 
 **Benefits:**
 - 10x faster task operations (CRUD, deduplication, statistics)
@@ -243,7 +247,7 @@ Read-only API clients for pulling context from external services:
 | **Google Calendar** | Events, calendars |
 | **Google Drive** | Files, folders, permissions, search |
 
-See `integrations/README.md` for full API reference.
+See `tools/integrations/README.md` for full API reference.
 
 ---
 

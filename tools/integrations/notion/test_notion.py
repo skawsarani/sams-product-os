@@ -2,16 +2,16 @@
 """Test script to verify all Notion integration functions work.
 
 Run from project root:
-  uv run python integrations/notion/test_notion.py
+  uv run python tools/integrations/notion/test_notion.py
 """
 
 import sys
 from pathlib import Path
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.notion import (
+from tools.integrations.notion import (
     search,
     get_page,
     get_database,
@@ -19,7 +19,7 @@ from integrations.notion import (
     get_block,
     get_block_children,
 )
-from integrations.notion.client import get_client
+from tools.integrations.notion.client import get_client
 
 
 def test_client():

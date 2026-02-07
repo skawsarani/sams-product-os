@@ -5,8 +5,8 @@
 archive/
 
 # Build artifacts
-mcp/**/__pycache__/
-mcp/**/*.pyc
+tools/mcp-servers/**/__pycache__/
+tools/mcp-servers/**/*.pyc
 node_modules/
 dist/
 build/

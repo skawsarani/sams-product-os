@@ -25,7 +25,7 @@ uv run python evals/run_evals.py --behavior   # Agent behavior tests
 
 # Or use pytest directly
 uv run pytest evals/ -v                            # All eval tests
-uv run pytest mcp/task-manager/test_server.py -v   # MCP unit tests
+uv run pytest tools/mcp-servers/task-manager/test_server.py -v   # MCP unit tests
 ```
 
 ## What's Tested

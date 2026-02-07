@@ -2,7 +2,7 @@
   "mcpServers": {
     "pm-tasks": {
       "command": "uv",
-      "args": ["run", "python", "mcp/task-manager/server.py"]
+      "args": ["run", "python", "tools/mcp-servers/task-manager/server.py"]
     },
     "linear-server": {
       "type": "http",

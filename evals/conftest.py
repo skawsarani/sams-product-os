@@ -15,10 +15,10 @@ from typing import Generator
 import pytest
 import yaml
 
-# Add parent directory to path so we can import from mcp/task-manager
+# Add parent directory to path so we can import from tools/mcp-servers/task-manager
 # tests/ -> evals/ -> project root
 PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "mcp" / "task-manager"))
+sys.path.insert(0, str(PROJECT_ROOT / "tools" / "mcp-servers" / "task-manager"))
 
 
 # ============================================================================

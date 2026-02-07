@@ -2,7 +2,7 @@
 """Test script to verify Google Calendar API integration is working.
 
 Run from project root:
-  uv run python integrations/google_calendar/test_calendar.py
+  uv run python tools/integrations/google_calendar/test_calendar.py
 """
 
 import sys
@@ -10,9 +10,9 @@ from pathlib import Path
 from datetime import datetime, timedelta, timezone
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.google_calendar import list_calendars, get_calendar, list_events, get_event
+from tools.integrations.google_calendar import list_calendars, get_calendar, list_events, get_event
 
 
 def test_list_calendars():

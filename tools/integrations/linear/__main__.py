@@ -1,7 +1,7 @@
 """CLI interface for Linear integration.
 
 Usage:
-    uv run python -m integrations.linear <command> [options]
+    uv run python -m tools.integrations.linear <command> [options]
 
 Commands:
     list-issues         List issues (filter only, no text search)

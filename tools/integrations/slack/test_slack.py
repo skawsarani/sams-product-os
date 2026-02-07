@@ -2,16 +2,16 @@
 """Test script to verify all Slack integration functions work.
 
 Run from project root:
-  uv run python integrations/slack/test_slack.py
+  uv run python tools/integrations/slack/test_slack.py
 """
 
 import sys
 from pathlib import Path
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.slack import (
+from tools.integrations.slack import (
     list_channels,
     get_channel_info,
     list_messages,
@@ -35,8 +35,8 @@ from integrations.slack import (
     clear_mappings,
     is_caching_enabled,
 )
-from integrations.slack.messages import find_unanswered_messages
-from integrations.slack.client import get_client
+from tools.integrations.slack.messages import find_unanswered_messages
+from tools.integrations.slack.client import get_client
 
 
 def test_auth():

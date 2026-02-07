@@ -2,21 +2,21 @@
 """Test script to verify HubSpot CRM API integration is working.
 
 Run from project root:
-  uv run python integrations/hubspot/test_hubspot.py
+  uv run python tools/integrations/hubspot/test_hubspot.py
 """
 
 import sys
 from pathlib import Path
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.hubspot.properties import list_properties, get_all_property_names
-from integrations.hubspot.contacts import search_contacts, get_contact
-from integrations.hubspot.companies import search_companies, get_company
-from integrations.hubspot.deals import search_deals, get_deal
-from integrations.hubspot.tickets import search_tickets
-from integrations.hubspot.products import search_products
+from tools.integrations.hubspot.properties import list_properties, get_all_property_names
+from tools.integrations.hubspot.contacts import search_contacts, get_contact
+from tools.integrations.hubspot.companies import search_companies, get_company
+from tools.integrations.hubspot.deals import search_deals, get_deal
+from tools.integrations.hubspot.tickets import search_tickets
+from tools.integrations.hubspot.products import search_products
 
 
 def test_list_properties():
@@ -261,7 +261,7 @@ def main():
 
     # Verify API key is configured
     try:
-        from integrations.common.config import get_hubspot_access_token
+        from tools.integrations.common.config import get_hubspot_access_token
         token = get_hubspot_access_token()
         print(f"API token configured (starts with: {token[:12]}...)")
     except ValueError as e:

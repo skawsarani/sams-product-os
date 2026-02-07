@@ -128,7 +128,7 @@ MCP (Model Context Protocol) provides direct tool access. Prefer MCP tools over 
 
 ## Integrations (CLI)
 
-Python modules in `integrations/` for external services. Run via `uv run -m integrations.<name>`.
+Python modules in `tools/integrations/` for external services. Run via `uv run -m tools.integrations.<name>`.
 
 **Note:** For Linear and Notion, prefer MCP tools above. Use CLI only for features without MCP equivalent.
 

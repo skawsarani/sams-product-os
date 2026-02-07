@@ -32,7 +32,7 @@ all = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["integrations*", "mcp*", "evals*"]
+include = ["tools*", "evals*"]
 
 [tool.pytest.ini_options]
 filterwarnings = [

@@ -419,7 +419,7 @@ create_symlinks_for_dir() {
 # Function to merge pm-tasks config into an MCP config file
 merge_mcp_config() {
     local mcp_file="$1"
-    local pm_tasks_config='{"command": "uv", "args": ["run", "python", "mcp/task-manager/server.py"]}'
+    local pm_tasks_config='{"command": "uv", "args": ["run", "python", "tools/mcp-servers/task-manager/server.py"]}'
 
     python3 << EOF
 import json
@@ -460,7 +460,7 @@ setup_mcp_claude() {
         merge_mcp_config "$mcp_file"
         echo -e "${GREEN}✓ Added pm-tasks to existing ${mcp_file}${NC}"
     else
-        cp "mcp/task-manager/mcp-config.json" "$mcp_file"
+        cp "tools/mcp-servers/task-manager/mcp-config.json" "$mcp_file"
         echo -e "${GREEN}✓ Created ${mcp_file} with Task Manager MCP configuration${NC}"
     fi
 }
@@ -479,7 +479,7 @@ setup_mcp_cursor() {
         merge_mcp_config "$mcp_file"
         echo -e "${GREEN}✓ Added pm-tasks to existing ${mcp_file}${NC}"
     else
-        cp "mcp/task-manager/mcp-config.json" "$mcp_file"
+        cp "tools/mcp-servers/task-manager/mcp-config.json" "$mcp_file"
         echo -e "${GREEN}✓ Created ${mcp_file} with Task Manager MCP configuration${NC}"
     fi
 }
@@ -520,7 +520,7 @@ case "$ai_choice" in
     *)
         echo -e "${YELLOW}Skipped AI assistant configuration.${NC}"
         echo -e "   You can configure manually later using the sample at:"
-        echo -e "   mcp/task-manager/mcp-config.json"
+        echo -e "   tools/mcp-servers/task-manager/mcp-config.json"
         echo ""
         ;;
 esac

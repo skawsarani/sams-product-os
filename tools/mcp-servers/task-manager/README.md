@@ -25,7 +25,7 @@ Add to your MCP client configuration (e.g., Claude Code, Cursor):
   "mcpServers": {
     "pm-tasks": {
       "command": "uv",
-      "args": ["run", "python", "mcp/task-manager/server.py"]
+      "args": ["run", "python", "tools/mcp-servers/task-manager/server.py"]
     }
   }
 }
@@ -38,7 +38,7 @@ Add to your MCP client configuration (e.g., Claude Code, Cursor):
   "mcpServers": {
     "pm-tasks": {
       "command": "uv",
-      "args": ["run", "python", "mcp/task-manager/server.py"]
+      "args": ["run", "python", "tools/mcp-servers/task-manager/server.py"]
     }
   }
 }
@@ -379,7 +379,7 @@ Tasks created via `create_task` or `process_backlog` use category-specific templ
 From the project root:
 
 ```bash
-uv run pytest mcp/task-manager/test_server.py -v
+uv run pytest tools/mcp-servers/task-manager/test_server.py -v
 ```
 
 ### Test Coverage

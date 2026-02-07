@@ -2,16 +2,16 @@
 """Test script to verify Google Drive API integration is working.
 
 Run from project root:
-  uv run python integrations/google_drive/test_drive.py
+  uv run python tools/integrations/google_drive/test_drive.py
 """
 
 import sys
 from pathlib import Path
 
 # Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from integrations.google_drive import (
+from tools.integrations.google_drive import (
     list_files,
     get_file,
     list_folders,

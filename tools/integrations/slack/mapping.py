@@ -21,7 +21,7 @@ import yaml
 MAPPINGS_FILE = Path(__file__).parent / "mappings.json"
 
 # Config file location (project root)
-CONFIG_FILE = Path(__file__).parent.parent.parent / "config.yaml"
+CONFIG_FILE = Path(__file__).parent.parent.parent.parent / "config.yaml"
 
 
 def is_caching_enabled() -> bool:
