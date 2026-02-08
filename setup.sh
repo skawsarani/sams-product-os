@@ -456,13 +456,8 @@ EOF
 setup_mcp_claude() {
     local mcp_file=".mcp.json"
 
-    if [ -f "$mcp_file" ]; then
-        merge_mcp_config "$mcp_file"
-        echo -e "${GREEN}✓ Added pm-tasks to existing ${mcp_file}${NC}"
-    else
-        cp "tools/mcp-servers/task-manager/mcp-config.json" "$mcp_file"
-        echo -e "${GREEN}✓ Created ${mcp_file} with Task Manager MCP configuration${NC}"
-    fi
+    merge_mcp_config "$mcp_file"
+    echo -e "${GREEN}✓ Configured pm-tasks in ${mcp_file}${NC}"
 }
 
 # Function to setup MCP config for Cursor (.cursor/mcp.json)
@@ -475,13 +470,8 @@ setup_mcp_cursor() {
         mkdir -p "$mcp_dir"
     fi
 
-    if [ -f "$mcp_file" ]; then
-        merge_mcp_config "$mcp_file"
-        echo -e "${GREEN}✓ Added pm-tasks to existing ${mcp_file}${NC}"
-    else
-        cp "tools/mcp-servers/task-manager/mcp-config.json" "$mcp_file"
-        echo -e "${GREEN}✓ Created ${mcp_file} with Task Manager MCP configuration${NC}"
-    fi
+    merge_mcp_config "$mcp_file"
+    echo -e "${GREEN}✓ Configured pm-tasks in ${mcp_file}${NC}"
 }
 
 case "$ai_choice" in
@@ -520,7 +510,7 @@ case "$ai_choice" in
     *)
         echo -e "${YELLOW}Skipped AI assistant configuration.${NC}"
         echo -e "   You can configure manually later using the sample at:"
-        echo -e "   tools/mcp-servers/task-manager/mcp-config.json"
+        echo -e "   .mcp.json.example"
         echo ""
         ;;
 esac
