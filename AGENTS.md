@@ -56,6 +56,7 @@ Check these folders for context before making suggestions:
 |-------|---------|
 | **product-metrics-analysis** | Analyze product metrics, identify patterns, provide data-driven insights |
 | **user-research-analysis** | Interview analysis, personas, research synthesis (parallel processing for 3+ transcripts) |
+| **calendar-analysis** | Analyze Google Calendar events, identify focus blocks, meeting prep, schedule intelligence |
 | **competitor-analysis** | Comprehensive single competitor analysis (features, pricing, customers, strengths, gaps) |
 
 ### Building & Prototyping

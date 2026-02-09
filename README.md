@@ -198,6 +198,11 @@ Skills are specialized tools AI uses automatically:
 - Analyze single competitor comprehensively
 - Features, pricing, strengths, gaps, testimonials
 
+**Calendar Analysis (`calendar-analysis` skill):**
+- Analyze Google Calendar events, identify focus blocks, meeting prep
+- Meeting classification, schedule intelligence, back-to-back warnings
+- Task-to-time-block alignment with PM task system
+
 **Prototyping (`prototype-builder` skill):**
 - Build working prototypes from specs
 - React, TypeScript, Shadcn/ui
@@ -257,11 +262,13 @@ See `tools/integrations/README.md` for full API reference.
 - "What should I work on today?" - Review P0/P1 tasks
 - `/process-backlog` - Process ideas into tasks/initiatives
 - `/today` - Quick view of due/overdue tasks
-- `/daily-planning` - Plan your day with priorities
+- `/daily-pulse` - Morning briefing with calendar intelligence, tasks, and goals
 
 **Weekly:**
 - `/upcoming` - Tasks due in next 7 days
 - `/weekly-review` - Review the week, plan next week
+- `/weekly-recap` - Generate exec-ready initiative recap for manager/execs
+- `/process-meetings` - Extract action items from recent meeting transcripts
 
 **Tasks:**
 - `/tasks` - View all tasks with filters
@@ -409,7 +416,7 @@ What patterns have changed? What's new?
 ## Best Practices
 
 **Daily:**
-- Morning: "What should I work on today?"
+- Morning: `/daily-pulse` for calendar + task briefing
 - Throughout day: Brain dump to BACKLOG.md
 - Weekly: `/process-backlog` to process
 
