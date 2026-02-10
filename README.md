@@ -150,7 +150,41 @@ BACKLOG.md → /process-backlog → Tasks (P0≤3) / Initiatives / References
 
 ---
 
-## Priority System
+## Tasks
+
+### Task File Structure
+
+Each task is a markdown file in `tasks/` with YAML frontmatter:
+
+- **title** - Task name
+- **category** - technical, outreach, research, writing, admin, other
+- **priority** - P0 (Critical), P1 (High), P2 (Normal), P3 (Low)
+- **status** - n (not_started), s (started), b (blocked), d (done)
+- **created_date** - YYYY-MM-DD
+- **due_date** - YYYY-MM-DD (optional)
+- **resource_refs** - Links to related files
+
+Content sections:
+- **Context** - Goals and references
+- **Next Actions** - Steps to complete
+- **Progress Log** - Notes, blockers, decisions
+
+### Managing Tasks
+
+**Update:**
+- "Mark task [name] as complete"
+- "Change task [name] status/priority/category"
+
+**Find:**
+- "Find tasks older than [N] days"
+- "Find stale tasks"
+
+**Prune:**
+- "Prune completed tasks older than [N] days"
+
+Tasks are marked complete with `status: d`. No file movement needed.
+
+### Priority System
 
 Tasks use P0-P3 with strict caps to prevent overwhelm:
 
