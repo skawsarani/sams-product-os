@@ -17,9 +17,22 @@ description: Extract action items from recent meeting transcripts and present fo
 
 ### Step 1: Find Recent Transcripts
 
-Use Glob to find transcripts in `knowledge/transcripts/` with YYYY-MM-DD prefixes from the past N days.
+Transcripts are organized in subfolders with `YYYY-MM-DD-Meeting-Name.md` naming. Always search recursively.
 
-If MCP available, use MCP tools. Otherwise, use direct file operations.
+**Use date-scoped glob patterns** to avoid truncation on large transcript libraries. Generate one glob per date in the time window:
+
+```
+knowledge/transcripts/**/YYYY-MM-DD-*.md
+```
+
+For example, for a 3-day window ending 2026-02-10:
+```
+Glob: knowledge/transcripts/**/2026-02-10-*.md
+Glob: knowledge/transcripts/**/2026-02-09-*.md
+Glob: knowledge/transcripts/**/2026-02-08-*.md
+```
+
+Run all date globs in parallel for speed. Do NOT use `knowledge/transcripts/**/*.md` (matches all transcripts and will truncate).
 
 ### Step 1.5: Filter Already-Processed
 
