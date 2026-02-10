@@ -9,6 +9,7 @@ description: Extract action items from recent meeting transcripts and present fo
 - Config: `config.yaml` (priority caps, category keywords, duplicate thresholds)
 - Today's date: $TODAY
 - Time window: Past 3 days (or user-specified via `$ARGUMENTS`)
+- Processing log: `knowledge/references/.processed-meetings`
 
 ## Workflow
 
@@ -19,6 +20,10 @@ description: Extract action items from recent meeting transcripts and present fo
 Use Glob to find transcripts in `knowledge/transcripts/` with YYYY-MM-DD prefixes from the past N days.
 
 If MCP available, use MCP tools. Otherwise, use direct file operations.
+
+### Step 1.5: Filter Already-Processed
+
+Read `knowledge/references/.processed-meetings`. Remove any found transcripts that are already listed. Report: "Found X transcripts, Y already processed, Z new." If zero new, stop early and tell the user.
 
 ### Step 2: Analyze Each Transcript
 
@@ -110,6 +115,8 @@ Report what was created:
 - Initiatives and references created
 - Skipped items (duplicates, declined, ambiguous)
 - Transcripts processed
+
+Append all processed transcript paths (relative to `knowledge/transcripts/`) to `knowledge/references/.processed-meetings`, one per line.
 
 ## Extraction Examples
 
