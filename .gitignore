@@ -1,7 +1,8 @@
 # Personal data - keep root folder structure only
-knowledge/*
-!knowledge/.gitkeep
-!knowledge/README.md
+knowledge/**/*
+!knowledge/**/
+!knowledge/**/.gitkeep
+!knowledge/**/README.md
 
 # Tasks (personal work items)
 tasks/*
