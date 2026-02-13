@@ -22,7 +22,7 @@ import pytest
 
 # tests/ -> evals/ -> project root
 PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "mcp" / "task-manager"))
+sys.path.insert(0, str(PROJECT_ROOT / "tools" / "mcp-servers" / "task-manager"))
 
 from server import is_ambiguous, generate_clarification_questions
 
@@ -43,11 +43,11 @@ def agents_md() -> str:
 
 @pytest.fixture
 def process_backlog_workflow() -> str:
-    """Load process-backlog workflow content."""
-    workflow_file = PROJECT_ROOT / "workflows" / "process-backlog.md"
-    if not workflow_file.exists():
-        pytest.skip("process-backlog.md workflow not found")
-    return workflow_file.read_text()
+    """Load process-backlog skill content."""
+    skill_file = PROJECT_ROOT / "skills" / "processing-backlog" / "SKILL.md"
+    if not skill_file.exists():
+        pytest.skip("processing-backlog SKILL.md not found")
+    return skill_file.read_text()
 
 
 @pytest.fixture
@@ -183,10 +183,10 @@ class TestWorkflowCompliance:
 class TestAgentsMdCompliance:
     """Test that AGENTS.md contains required behavioral guidelines."""
 
-    def test_agents_md_has_interaction_style(self, agents_md: str):
-        """AGENTS.md must define interaction style guidelines."""
-        assert "interaction style" in agents_md.lower(), (
-            "AGENTS.md must have Interaction Style section"
+    def test_agents_md_has_core_rules(self, agents_md: str):
+        """AGENTS.md must define core behavioral rules."""
+        assert "core rules" in agents_md.lower(), (
+            "AGENTS.md must have Core Rules section"
         )
 
     def test_agents_md_requires_clarification(self, agents_md: str):

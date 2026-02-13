@@ -1,7 +1,7 @@
 """CLI interface for common utilities (URL parser).
 
 Usage:
-    uv run python -m tools.integrations.common <command> [options]
+    uv run python -m integrations.common <command> [options]
 
 Commands:
     parse-url           Parse a URL or text input

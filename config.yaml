@@ -1,7 +1,7 @@
 # Task Management System Configuration
 #
 # This file is read by AI during backlog processing and task management.
-# All values below are referenced in AGENTS.md and workflows/process-backlog.md.
+# All values below are referenced in AGENTS.md and .claude/skills/processing-backlog/SKILL.md.
 # Customize these settings to match your workflow.
 
 # Integration settings

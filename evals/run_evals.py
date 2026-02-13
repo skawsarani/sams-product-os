@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple eval runner for PM Co-Pilot.
+Simple eval runner for SAMS PRODUCT OS.
 
 Runs all tests and provides a summary.
 
@@ -29,11 +29,12 @@ def run_tests(test_path: str, verbose: bool = True) -> int:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run PM Co-Pilot evals")
+    parser = argparse.ArgumentParser(description="Run SAMS PRODUCT OS evals")
     parser.add_argument("--quick", action="store_true", help="Skip slow tests")
     parser.add_argument("--mcp", action="store_true", help="Only run MCP server tests")
     parser.add_argument("--workflows", action="store_true", help="Only run workflow tests")
     parser.add_argument("--behavior", action="store_true", help="Only run agent behavior tests")
+    parser.add_argument("--llm", action="store_true", help="Only run LLM behavioral evals (requires ANTHROPIC_API_KEY)")
     parser.add_argument("-q", "--quiet", action="store_true", help="Less verbose output")
     args = parser.parse_args()
 
@@ -47,17 +48,20 @@ def main():
         test_sets = [("Workflow Tests", "evals/test_workflows.py")]
     elif args.behavior:
         test_sets = [("Agent Behavior Tests", "evals/test_agent_behavior.py")]
+    elif args.llm:
+        test_sets = [("LLM Behavioral Evals", "evals/test_llm_behavior.py")]
     else:
         test_sets = [
             ("MCP Server Unit Tests", "tools/mcp-servers/task-manager/test_server.py"),
             ("MCP Integration Tests", "evals/test_mcp_server.py"),
             ("Workflow Tests", "evals/test_workflows.py"),
             ("Agent Behavior Tests", "evals/test_agent_behavior.py"),
+            ("LLM Behavioral Evals", "evals/test_llm_behavior.py"),
         ]
 
     # Run tests
     print("=" * 60)
-    print("PM Co-Pilot Evaluation Suite")
+    print("SAMS PRODUCT OS Evaluation Suite")
     print("=" * 60)
     print()
 

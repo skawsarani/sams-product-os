@@ -33,7 +33,7 @@ The skill will guide you through creating MCP servers for:
 - GitHub/GitLab - Code and issues
 - Figma - Design files
 
-See `skills/mcp-builder/SKILL.md` for details.
+See `.claude/skills/mcp-builder/SKILL.md` for details.
 
 ### 3. Install and Configure
 
@@ -89,7 +89,7 @@ API_KEY = os.getenv("API_KEY")
 
 ## Resources
 
-- **MCP-Builder Skill**: `skills/mcp-builder/` (use this to generate servers)
+- **MCP-Builder Skill**: `.claude/skills/mcp-builder/` (use this to generate servers)
 - **Task Manager Example**: `tools/mcp-servers/task-manager/` (working reference implementation)
 - **MCP Specification**: https://modelcontextprotocol.io/docs/getting-started/intro
 - **MCP SDKs**: https://modelcontextprotocol.io/docs/sdk

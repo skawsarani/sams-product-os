@@ -1,6 +1,6 @@
 #!/usr/bin/env -S uv run python
 """
-PM Co-Pilot Task Management MCP Server
+SAMS PRODUCT OS Task Management MCP Server
 
 Provides programmatic access to task management through Model Context Protocol.
 Exposes 10 tools for CRUD operations, deduplication, priority enforcement, and statistics.
@@ -527,13 +527,13 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="clear_backlog",
-            description="Archive current BACKLOG.md content to knowledge/notes/ and reset backlog to empty state.",
+            description="Archive current BACKLOG.md content to tasks/_archived/ and reset backlog to empty state.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "archive": {
                         "type": "boolean",
-                        "description": "If true (default), archive to knowledge/notes/. If false, just clear without archiving.",
+                        "description": "If true (default), archive to tasks/_archived/. If false, just clear without archiving.",
                     }
                 },
             },
@@ -1185,11 +1185,11 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             content = f.read()
 
         if archive and content.strip():
-            # Archive to knowledge/notes
-            notes_dir = PROJECT_ROOT / "knowledge" / "notes"
-            notes_dir.mkdir(parents=True, exist_ok=True)
+            # Archive to tasks/_archived
+            archive_dir = PROJECT_ROOT / "tasks" / "_archived"
+            archive_dir.mkdir(parents=True, exist_ok=True)
 
-            archive_file = notes_dir / f"{datetime.now().strftime('%Y-%m-%d')}.md"
+            archive_file = archive_dir / f"{datetime.now().strftime('%Y-%m-%d')}-backlog.md"
 
             # If file exists, append
             if archive_file.exists():
@@ -1209,7 +1209,7 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
         if archive:
             return [TextContent(
                 type="text",
-                text=f"✓ Backlog cleared and archived to knowledge/notes/{datetime.now().strftime('%Y-%m-%d')}.md"
+                text=f"✓ Backlog cleared and archived to tasks/_archived/{datetime.now().strftime('%Y-%m-%d')}-backlog.md"
             )]
         else:
             return [TextContent(type="text", text="✓ Backlog cleared (not archived)")]

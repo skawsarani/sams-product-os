@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 from tools.integrations.slack import (
     list_channels,
     get_channel_info,
+    resolve_channel,
     list_messages,
     search_messages,
     search_files,
@@ -27,6 +28,8 @@ from tools.integrations.slack import (
     build_slack_message_url,
     is_slack_url,
     # Mapping/caching functions
+    get_channel_id,
+    set_channel_mapping,
     get_user_id,
     set_user_mapping,
     get_cached_user_display_name,
@@ -89,6 +92,103 @@ def test_get_channel_info(channel_id: str):
     except Exception as e:
         print(f"   ✗ Failed: {e}")
         return False
+
+
+def test_resolve_channel():
+    """Test resolving channel by name or ID."""
+    print("\n2b. Testing resolve_channel()...")
+    print("    Required scopes: channels:read, groups:read")
+
+    passed = 0
+    total = 0
+
+    # Test 1: Resolve by cached name (product-feedback is in mappings.json)
+    total += 1
+    result = resolve_channel("product-feedback")
+    if result.get("ok") and result.get("channel", {}).get("name") == "product-feedback":
+        passed += 1
+        print(f"    ✓ Resolved 'product-feedback' via {result.get('method')}")
+    else:
+        print(f"    ✗ Failed to resolve 'product-feedback': {result.get('error', 'unknown error')}")
+
+    # Test 2: Resolve by ID directly
+    total += 1
+    result = resolve_channel("C06FWBX02JE")
+    if result.get("ok") and result.get("channel", {}).get("id") == "C06FWBX02JE":
+        passed += 1
+        print(f"    ✓ Resolved channel ID 'C06FWBX02JE' via {result.get('method')}")
+    else:
+        print(f"    ✗ Failed to resolve channel ID: {result.get('error', 'unknown error')}")
+
+    # Test 3: Handle # prefix
+    total += 1
+    result = resolve_channel("#product-feedback")
+    if result.get("ok"):
+        passed += 1
+        print(f"    ✓ Handled '#product-feedback' prefix correctly")
+    else:
+        print(f"    ✗ Failed with # prefix: {result.get('error', 'unknown error')}")
+
+    # Test 4: Non-existent channel
+    total += 1
+    result = resolve_channel("nonexistent-channel-xyz-123")
+    if not result.get("ok") and "not found" in result.get("error", "").lower():
+        passed += 1
+        print(f"    ✓ Correctly returned error for non-existent channel")
+    else:
+        print(f"    ✗ Should have returned error for non-existent channel")
+
+    print(f"    Result: {passed}/{total} tests passed")
+    return passed == total
+
+
+def test_channel_mapping_cache():
+    """Unit tests for channel mapping cache."""
+    print("\n2c. Testing channel mapping cache (unit tests)...")
+
+    passed = 0
+    total = 0
+
+    # Test 1: set_channel_mapping / get_channel_id
+    total += 1
+    set_channel_mapping("test-channel", "C99999TEST")
+    if get_channel_id("test-channel") == "C99999TEST":
+        passed += 1
+        print("    ✓ set_channel_mapping/get_channel_id works")
+    else:
+        print("    ✗ set_channel_mapping/get_channel_id failed")
+
+    # Test 2: Handle # prefix
+    total += 1
+    if get_channel_id("#test-channel") == "C99999TEST":
+        passed += 1
+        print("    ✓ # prefix handling works")
+    else:
+        print("    ✗ # prefix handling failed")
+
+    # Test 3: Case insensitivity
+    total += 1
+    if get_channel_id("TEST-CHANNEL") == "C99999TEST":
+        passed += 1
+        print("    ✓ Case insensitivity works")
+    else:
+        print("    ✗ Case insensitivity failed")
+
+    # Test 4: Channel ID passthrough
+    total += 1
+    if get_channel_id("C12345ABCD") == "C12345ABCD":
+        passed += 1
+        print("    ✓ Channel ID passthrough works")
+    else:
+        print("    ✗ Channel ID passthrough failed")
+
+    # Clean up test entry
+    clear_mappings()
+    # Restore product-feedback mapping
+    set_channel_mapping("product-feedback", "C06FWBX02JE")
+
+    print(f"    Result: {passed}/{total} tests passed")
+    return passed == total
 
 
 def test_list_messages(channel_id: str):
@@ -625,12 +725,20 @@ def main():
     if channel_id:
         # Test 2: Get channel info
         results["get_channel_info"] = test_get_channel_info(channel_id)
-        
+
+        # Test 2b: Resolve channel (uses cache + API)
+        results["resolve_channel"] = test_resolve_channel()
+
+        # Test 2c: Channel mapping cache unit tests
+        results["channel_mapping_cache"] = test_channel_mapping_cache()
+
         # Test 3: List messages
         results["list_messages"] = test_list_messages(channel_id)
     else:
         print("\n   Skipping channel-specific tests (no channels found or missing scope)")
         results["get_channel_info"] = None
+        results["resolve_channel"] = None
+        results["channel_mapping_cache"] = None
         results["list_messages"] = None
     
     # Test 4: Search messages
@@ -693,6 +801,9 @@ def main():
     # Test 16-17: User caching integration tests
     results["get_user_caches_result"] = test_get_user_caches_result(user_id)
     results["find_user_by_handle_uses_cache"] = test_find_user_by_handle_uses_cache(user)
+
+    # Restore known channel mappings (user cache tests call clear_mappings)
+    set_channel_mapping("product-feedback", "C06FWBX02JE")
 
     # Summary
     print("\n" + "=" * 60)

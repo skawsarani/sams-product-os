@@ -1,7 +1,7 @@
 """CLI interface for HubSpot integration.
 
 Usage:
-    uv run python -m tools.integrations.hubspot <command> [options]
+    uv run python -m integrations.hubspot <command> [options]
 
 Commands:
     search-companies    Search companies

@@ -1,9 +1,6 @@
 # Cursor Ignore
 # Files and directories excluded from all Cursor features (indexing, Tab, Agent, Inline Edit, @ references)
 
-# Archives and old content
-archive/
-
 # Build artifacts
 tools/mcp-servers/**/__pycache__/
 tools/mcp-servers/**/*.pyc
@@ -12,9 +9,10 @@ dist/
 build/
 
 # Environment and secrets
-.env/
 *.env
 *.env.local
+.venv
+.secrets/
 
 # Large binary files
 *.mp4

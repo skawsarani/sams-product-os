@@ -271,7 +271,7 @@ Improve mobile app performance to reduce crashes and increase conversion rates f
 
 ## Related
 
-- **Research**: `knowledge/briefs-and-specs/mobile-usability-study-2024.md`
+- **Research**: `initiatives/mobile-usability-study-2024.md`
 - **Metrics**: `knowledge/product-analytics/mobile-performance-dashboard.md`
 - **Related Initiatives**: `checkout-redesign.md`, `android-12-compatibility.md`
 

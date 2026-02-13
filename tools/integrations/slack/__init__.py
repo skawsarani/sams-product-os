@@ -7,6 +7,7 @@ from .messages import (
 from .channels import (
     list_channels,
     get_channel_info,
+    resolve_channel,
 )
 from .search import (
     search_messages,
@@ -53,6 +54,7 @@ __all__ = [
     # Channels
     "list_channels",
     "get_channel_info",
+    "resolve_channel",
     # Search
     "search_messages",
     "search_files",

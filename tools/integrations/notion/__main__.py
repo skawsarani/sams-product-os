@@ -1,7 +1,7 @@
 """CLI interface for Notion integration.
 
 Usage:
-    uv run python -m tools.integrations.notion <command> [options]
+    uv run python -m integrations.notion <command> [options]
 
 Commands:
     search              Search pages and databases

@@ -1,6 +1,6 @@
 # Integrations
 
-Read-only API clients for external services used by PM Co-Pilot.
+Read-only API clients for external services used by Sams Product OS.
 
 ## Prerequisites
 
@@ -18,6 +18,15 @@ uv sync --all-extras
 |--------|-----------|
 | Events | `get_event`, `list_events` |
 | Calendars | `get_calendar`, `list_calendars` |
+
+**CLI:**
+```bash
+uv run python -m tools.integrations.google_calendar list-events --date today
+uv run python -m tools.integrations.google_calendar list-events --days 7
+uv run python -m tools.integrations.google_calendar list-events --date 2026-02-10 --query "standup"
+uv run python -m tools.integrations.google_calendar list-calendars
+uv run python -m tools.integrations.google_calendar get-event --id <event-id>
+```
 
 ### Google Drive
 

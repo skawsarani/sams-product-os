@@ -1,16 +1,16 @@
-# PM Co-Pilot
+# SAMS PRODUCT OS
 
 > Turn your AI assistant into a product management partner. Process ideas, generate specs, prioritize strategically.
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-orange.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Star this repo](https://img.shields.io/github/stars/skawsarani/pm-copilot?style=social)](https://github.com/skawsarani/pm-copilot)
+[![Star this repo](https://img.shields.io/github/stars/skawsarani/sams-product-os?style=social)](https://github.com/skawsarani/sams-product-os)
 
 
 ---
 
 ## What is This?
 
-PM Co-Pilot is a simple system that turns AI assistants (Cursor, Claude Code) into PM tools:
+Sams Product OS is a simple system that turns AI assistants (Cursor, Claude Code) into PM tools:
 
 - **Priority-Focused Workflow** - Max 3 P0 tasks keeps you focused
 - **Backlog Processing** - Brain dump → Organized tasks/initiatives
@@ -22,31 +22,31 @@ PM Co-Pilot is a simple system that turns AI assistants (Cursor, Claude Code) in
 
 ## Quick Start
 
-### 1. Clone and Setup
+### 1. Clone the Repo
 
 ```bash
 git clone <your-repo-url>
-cd pm-copilot
-./setup.sh
-cursor .    # Or your AI assistant
+cd sams-product-os
 ```
 
-Tell your AI:
+### 2. Prerequisites
+
+- **macOS**: Install [Homebrew](https://brew.sh) — the setup skill handles the rest
+- **Other platforms**: Install [uv](https://docs.astral.sh/uv/), [bun](https://bun.sh), and [qmd](https://github.com/tobi/qmd) manually
+
+### 3. Run Setup
+
+Open in your AI assistant and say:
+
 ```
-Read @AGENTS.md to understand how to help me as a PM Co-Pilot.
+Set up my product OS
 ```
 
-### 2. Add Your Context
+The AI will install dependencies, create your workspace, configure MCP, and verify everything works.
 
-Fill in these essential files created by setup:
+> Setup configures for Claude Code by default. Say "set up for Cursor too" if you use Cursor.
 
-- `knowledge/product-strategy/current-strategy.md` - Vision, priorities, metrics
-- `knowledge/company-context/company-overview.md` - Mission, products, team
-- `knowledge/about-me/about-me.md` - Background, working style, preferences
-
-See `templates/` for examples.
-
-### 3. Start Using It
+### 4. Start Using It
 
 **Brain dump to BACKLOG.md:**
 ```markdown
@@ -66,7 +66,7 @@ See `templates/` for examples.
 
 AI categorizes into:
 - **Tasks** → `tasks/` (P0-P3 priority, max 3 P0 tasks)
-- **Initiatives** → `knowledge/initiatives/` (strategic ideas to explore)
+- **Initiatives** → `initiatives/` (strategic ideas to explore)
 - **References** → `knowledge/references/` (useful context)
 
 **Generate docs when ready:**
@@ -81,41 +81,30 @@ AI categorizes into:
 ## Directory Structure
 
 ```
-pm-copilot/
-├── BACKLOG.md              # Daily inbox (gitignored)
-├── AGENTS.md               # AI instructions
-├── VOICE-GUIDE.md          # Your writing style (optional, gitignored)
-├── config.yaml             # Priority caps, categories (customizable)
-├── setup.sh                # Setup script
-│
-├── evals/                  # Automated AI tests
-├── tools/                  # Code and tooling
+sams-product-os/
+├── .claude/skills/         # AI agent skills & slash commands. Trigger via `/skillname`
+├── tools/                  # Tools to extend AI agent capabilities
 │   ├── integrations/       # Read-only API clients for external services
-│   └── mcp-servers/        # MCP servers
+│   └── mcp-servers/        # Custom MCP servers
 │       └── task-manager/   # Task management MCP server
 │           ├── server.py   # MCP server
 │           └── README.md   # MCP tool documentation
 │
-├── tasks/                  # Your tasks (gitignored)
-├── knowledge/              # Your context (gitignored)
-│   ├── about-me/           # Personal context, background, working style
-│   ├── briefs-and-specs/   # Product specs, feature briefs, technical docs
-│   ├── company-context/    # Company info, mission, org structure
-│   ├── frameworks/         # PM frameworks, methodologies, mental models
-│   ├── initiatives/        # Strategic initiatives from backlog
-│   ├── notes/              # Archived backlog snapshots, meeting notes
-│   ├── processes/          # How your team works (sprints, decisions)
-│   ├── product-analytics/  # KPIs, dashboards, performance data
-│   ├── product-strategy/   # Vision, strategy, roadmap
-│   ├── proposals/          # Decision docs, RFCs, proposals
-│   ├── references/         # Competitive research, market analysis
-│   ├── transcripts/        # Interview and meeting transcripts
-│   └── voice-samples/      # Writing samples for AI voice matching
-│
-├── skills/                 # AI capabilities and specialized workflows
-├── workflows/              # Slash command workflows
+├── evals/                  # AI agent tests & evaluation
+├── tasks/                  # Your personal tasks with archived backlog
+├── knowledge/              # Persistent context & references for your AI agent
+├── meetings/               # Meeting notes & transcripts
+├── initiatives/            # Strategic initiatives & groomed requests
+├── prototypes/             # Your vibe coded apps & prototypes
 ├── templates/              # Document templates
-└── prototypes/             # Code prototypes (gitignored)
+├── BACKLOG.md              # Daily brain dump inbox of future work
+├── GOALS.md                # Ownership areas & quarterly goals
+├── AGENTS.md               # Your AI agent instructions
+├── CLAUDE.md               # Points to AGENTS.md (agent instructions for Claude Code)
+├── TOOLS.md                # MCP tool & CLI integration reference for AI agent
+├── VOICE-GUIDE.md          # Your writing style (optional)
+└── config.yaml             # Customizable configuration for your AI agent
+
 ```
 
 ---
@@ -124,17 +113,18 @@ pm-copilot/
 
 **Committed (shared structure):**
 - Directory structure
-- Documentation, templates, workflows
+- Documentation, templates, skills
 - `config.yaml` (priority caps, categories)
 - `evals/` folder (automated tests)
-- `skills/` folder (AI capabilities)
+- `.claude/skills/` folder (AI agent capabilities)
 - `AGENTS.md`
+- `TOOLS.md`
 
 **Gitignored (your data):**
 - `BACKLOG.md`
 - `GOALS.md`
 - `VOICE-GUIDE.md`
-- Content in `knowledge/`, `tasks/`, `prototypes/`
+- Content in `knowledge/`, `tasks/`, `meetings/`, `initiatives/`, `prototypes/`
 
 ---
 
@@ -197,9 +187,9 @@ When `/process-backlog` would exceed caps, AI asks you to deprioritize.
 
 ---
 
-## Skills (Auto-Invoked)
+## Skills
 
-Skills are specialized tools AI uses automatically:
+Skills are specialized tools AI agents uses automatically:
 
 **Product Docs (`product-docs` skill):**
 - `/write-prd [name]`, `/write-spec [name]`, `/write-brief [name]`
@@ -229,8 +219,8 @@ Skills are specialized tools AI uses automatically:
 - Synthesize research, create personas
 
 **Competitor Analysis (`competitor-analysis` skill):**
-- Analyze single competitor comprehensively
-- Features, pricing, strengths, gaps, testimonials
+- Analyze single competitor or multiple competitors in parallel
+- Features, pricing, strengths, gaps, comparison matrix
 
 **Calendar Analysis (`calendar-analysis` skill):**
 - Analyze Google Calendar events, identify focus blocks, meeting prep
@@ -242,7 +232,8 @@ Skills are specialized tools AI uses automatically:
 - React, TypeScript, Shadcn/ui
 
 **Internal Comms (`internal-comms` skill):**
-- Status reports, updates, FAQs
+- 3P updates, stakeholder reports, newsletters, FAQs, incident reports
+- Structured workflows with voice guide integration and quality checks
 
 **MCP Builder (`mcp-builder` skill):**
 - Create MCP servers for external integrations
@@ -251,26 +242,62 @@ Skills are specialized tools AI uses automatically:
 **Skill Creator (`skill-creator` skill):**
 - Create new skills to extend AI capabilities
 
-**Slash Command Builder (`slash-command-builder` skill):**
-- Build custom slash command workflows
+**Setup Product OS (`setup-product-os` skill):**
+- Guided workspace setup: prerequisites, directories, templates, MCP, search
+- Platform-aware (automated on macOS, manual guide on other platforms)
+
+**Daily Pulse (`daily-pulse` skill):**
+- Morning briefing with calendar intelligence, tasks, and goal alignment
+- Variations: tomorrow, week, time-constrained, focus mode, context recovery
+
+**Weekly Review (`weekly-review` skill):**
+- Reflect on the week, check goal progress, plan next week
+- Quick mode for condensed output
+
+**Weekly Recap (`weekly-recap` skill):**
+- Exec-ready weekly update structured around initiatives
+- Quick and Slack formatting modes
+
+**Task Views (`task-views` skill):**
+- /today: due today and overdue tasks
+- /upcoming: tasks due in next 7 days
+- /tasks: all tasks with optional filters
+
+**Processing Backlog (`processing-backlog` skill):**
+- Process BACKLOG.md into tasks, initiatives, references
+- Deduplication and priority cap enforcement
+
+**Processing Meetings (`processing-meetings` skill):**
+- Extract action items from meeting transcripts
+- Parallel processing for 3+ transcripts
+
+**Committing Code (`committing-code` skill):**
+- /commit: conventional commits with emoji
+- /push: push to remote
+- /pr: create pull requests
 
 ---
 
-## Task Management MCP (Optional)
+## MCP Servers (Optional)
 
-For faster task operations, install the task management MCP server:
+MCP (Model Context Protocol) provides direct tool access for faster operations.
+
+### Task Manager MCP
+
+For faster task operations:
 
 ```bash
 uv sync
 ```
 
-Then configure your AI assistant to use `tools/mcp-servers/task-manager/server.py` (see `tools/mcp-servers/task-manager/README.md` for setup).
+Configure your AI assistant to use `tools/mcp-servers/task-manager/server.py` (see `tools/mcp-servers/task-manager/README.md`).
 
 **Benefits:**
 - 10x faster task operations (CRUD, deduplication, statistics)
-- Programmatic access to tasks
 - Auto-categorization and priority enforcement
 - Find stale/overdue tasks, prune completed ones
+
+See TOOLS.md for full MCP tool reference.
 
 ---
 
@@ -280,11 +307,13 @@ Read-only API clients for pulling context from external services:
 
 | Service | Capabilities |
 |---------|--------------|
-| **Slack** | Messages, channels, threads, users, search, channel summaries |
+| **Slack** | Messages, channels, threads, users, search, channel summaries, find unanswered |
 | **Notion** | Pages, databases, blocks, search |
-| **Linear** | Issues, projects, initiatives, cycles, labels, customers |
+| **Linear** | Issues, projects, initiatives, cycles, labels, customers, customer needs |
 | **Google Calendar** | Events, calendars |
 | **Google Drive** | Files, folders, permissions, search |
+| **HubSpot** | Contacts, companies, deals, tickets, products, orders, invoices |
+| **Common** | URL parser for Slack, Linear, Google, Notion URLs |
 
 See `tools/integrations/README.md` for full API reference.
 
@@ -314,6 +343,8 @@ See `tools/integrations/README.md` for full API reference.
 - `/write-prd [name]` - Generate PRD
 - `/write-spec [name]` - Generate spec
 - `/write-brief [name]` - Generate brief
+- `/write-user-stories [name]` - Generate user stories
+- `/write-decision [topic]` - Generate decision doc
 
 **Research:**
 - `/competitor-research [names]` - Research multiple competitors, generate matrix
@@ -323,9 +354,13 @@ See `tools/integrations/README.md` for full API reference.
 - `/pr` - Create pull request
 - `/push` - Push to remote
 
+**Building:**
+- `/build-skill` - Create a new skill
+- `/build-mcp` - Create a new MCP server
+
 **Natural language works too:**
 - "Create a spec for the mobile performance initiative"
-- "Analyze the user interviews in knowledge/transcripts/"
+- "Analyze the user interviews in meetings/"
 - "What are my P0 tasks?"
 
 ---
@@ -506,6 +541,7 @@ This project was inspired by the work of several amazing builders in the space. 
 
 - [Aman Khan](<https://github.com/amanaiproduct>) - PersonalOS
 - [Tal Raviv](https://www.talraviv.co) - LinkedIn Content + Articles
+- [Carl Velloti](https://github.com/carlvellotti/carls-product-os) - carls-product-os, cursor-pm-course, claude-code-everyone-course
 
 ---
 

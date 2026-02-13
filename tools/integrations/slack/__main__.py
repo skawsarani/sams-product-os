@@ -1,7 +1,7 @@
 """CLI interface for Slack integration.
 
 Usage:
-    uv run python -m tools.integrations.slack <command> [options]
+    uv run python -m integrations.slack <command> [options]
 
 Commands:
     search-messages     Search for messages
@@ -9,6 +9,7 @@ Commands:
     get-thread          Get thread replies
     list-channels       List channels
     get-channel         Get channel info
+    find-unanswered     Find messages with no replies and no reactions
 """
 
 import argparse
@@ -22,6 +23,8 @@ from . import (
     get_all_thread_replies,
     list_channels,
     get_channel_info,
+    resolve_channel,
+    find_unanswered_messages,
 )
 
 
@@ -84,6 +87,23 @@ def cmd_get_channel(args: argparse.Namespace) -> None:
     print(json.dumps(result, indent=2, default=str))
 
 
+def cmd_resolve_channel(args: argparse.Namespace) -> None:
+    """Resolve channel name or ID to full info."""
+    result = resolve_channel(channel_input=args.channel)
+    print(json.dumps(result, indent=2, default=str))
+
+
+def cmd_find_unanswered(args: argparse.Namespace) -> None:
+    """Find unanswered messages in a channel."""
+    result = find_unanswered_messages(
+        channel=args.channel,
+        hours_old=args.hours,
+        max_results=args.max,
+        resolve_users=args.resolve_users,
+    )
+    print(json.dumps(result, indent=2, default=str))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Slack integration CLI",
@@ -130,6 +150,39 @@ def main() -> int:
     p_channel = subparsers.add_parser("get-channel", help="Get channel info")
     p_channel.add_argument("--channel", "-c", required=True, help="Channel ID")
     p_channel.set_defaults(func=cmd_get_channel)
+
+    # resolve-channel
+    p_resolve = subparsers.add_parser(
+        "resolve-channel",
+        help="Resolve channel name or ID (checks cache, then API)",
+    )
+    p_resolve.add_argument("--channel", "-c", required=True, help="Channel name or ID")
+    p_resolve.set_defaults(func=cmd_resolve_channel)
+
+    # find-unanswered
+    p_unanswered = subparsers.add_parser(
+        "find-unanswered",
+        help="Find messages with no replies and no reactions",
+    )
+    p_unanswered.add_argument("--channel", "-c", required=True, help="Channel ID")
+    p_unanswered.add_argument(
+        "--hours",
+        type=int,
+        default=720,
+        help="Only messages older than this many hours (default: 720 = 30 days)",
+    )
+    p_unanswered.add_argument(
+        "--max",
+        type=int,
+        default=50,
+        help="Maximum messages to return (default: 50)",
+    )
+    p_unanswered.add_argument(
+        "--resolve-users",
+        action="store_true",
+        help="Resolve user IDs to display names",
+    )
+    p_unanswered.set_defaults(func=cmd_find_unanswered)
 
     args = parser.parse_args()
 

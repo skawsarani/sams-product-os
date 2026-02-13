@@ -70,7 +70,7 @@ def parse_input(input_str: str) -> ParsedInput:
     """
     Parse an input string (URL or text) into structured data.
 
-    Tries parsers in order: Slack → Notion → Linear → Raw text.
+    Tries parsers in order: Slack → Notion → Linear → Google → Raw text.
 
     Args:
         input_str: URL or text to parse.

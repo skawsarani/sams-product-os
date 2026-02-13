@@ -1,14 +1,22 @@
-# Personal data - keep structure but ignore content
-knowledge/**/*
-!knowledge/**/
-!knowledge/**/.gitkeep
-!knowledge/**/README.md
+# Personal data - keep root folder structure only
+knowledge/*
+!knowledge/.gitkeep
+!knowledge/README.md
 
 # Tasks (personal work items)
-tasks/**/*
-!tasks/**/
-!tasks/**/.gitkeep
+tasks/*
+!tasks/.gitkeep
 !tasks/README.md
+
+# Meetings (personal transcripts)
+meetings/*
+!meetings/.gitkeep
+!meetings/README.md
+
+# Initiatives (strategic work, personal)
+initiatives/*
+!initiatives/.gitkeep
+!initiatives/README.md
 
 # OS files
 .DS_Store
@@ -18,7 +26,8 @@ Thumbs.db
 .vscode/
 .obsidian/
 .cursor/
-.claude/
+.claude/*
+!.claude/skills/
 .idea/
 *.swp
 *.swo
@@ -35,7 +44,7 @@ Thumbs.db
 *.log
 logs/
 
-# Build artifacts
+# Build artifacts (if using MCP servers)
 *.pyc
 __pycache__/
 .pytest_cache/
@@ -43,16 +52,10 @@ __pycache__/
 # Integration caches (workspace-specific data)
 tools/integrations/slack/mappings.json
 
-# Environment variables folder
-.env/*
-!.env/.gitignore
-!.env/README.md
-!.env/.env.example
-
-# Prototype code (keep structure but ignore content)
-prototypes/**/*
-!prototypes/**/
-!prototypes/**/.gitkeep
+# Prototype code - keep root folder structure only
+prototypes/*
+!prototypes/.gitkeep
+!prototypes/README.md
 
 # Personal backlog (private daily inbox)
 BACKLOG.md
@@ -70,7 +73,7 @@ evals/results/
 # Project todos
 TODO.md
 
-# MCP servers folder and Config (keep structure but ignore content)
+# MCP folder and Config (keep structure but ignore content)
 tools/mcp-servers/**/*
 !tools/mcp-servers/**/
 !tools/mcp-servers/**/.gitkeep

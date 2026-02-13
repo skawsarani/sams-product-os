@@ -1,5 +1,5 @@
 """
-Shared pytest fixtures for PM Co-Pilot evaluation suite.
+Shared pytest fixtures for SAMS PRODUCT OS evaluation suite.
 
 Provides common fixtures for:
 - Temporary test directories with proper structure
@@ -8,6 +8,7 @@ Provides common fixtures for:
 """
 
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Generator
@@ -82,11 +83,14 @@ def temp_project_dir(tmp_path: Path) -> Generator[Path, None, None]:
         "priority_caps": {"P0": 3, "P1": 7, "P2": 15, "P3": 999},
         "task_aging": {"prune_completed_after": 90, "flag_stale_after": 14},
         "category_keywords": {
-            "technical": ["code", "api", "database", "deploy", "fix", "bug", "implement"],
-            "outreach": ["email", "contact", "reach", "meeting", "call"],
-            "research": ["research", "study", "learn", "investigate", "analyze"],
-            "writing": ["write", "draft", "document", "blog", "article"],
-            "admin": ["schedule", "organize", "expense", "invoice", "calendar"],
+            "technical": ["code", "api", "database", "deploy", "fix", "bug", "implement", "develop", "debug", "server"],
+            "outreach": ["email", "contact", "reach", "meeting", "call", "follow", "introduce", "connect"],
+            "research": ["research", "study", "learn", "investigate", "analyze", "explore", "understand", "evaluate"],
+            "writing": ["write", "draft", "document", "blog", "article", "report", "proposal", "outline"],
+            "admin": ["schedule", "organize", "expense", "invoice", "calendar", "filing", "review"],
+            "strategy": ["roadmap", "vision", "okr", "prioritize", "strategy", "planning", "north star", "metric", "goal"],
+            "stakeholder": ["executive", "leadership", "alignment", "present", "stakeholder", "update", "buy-in", "communicate"],
+            "discovery": ["interview", "user research", "customer", "pain point", "problem", "discovery", "validate", "persona"],
         },
     }
 
@@ -184,3 +188,66 @@ def pytest_configure(config):
     """Register custom markers."""
     config.addinivalue_line("markers", "slow: marks tests as slow")
     config.addinivalue_line("markers", "integration: marks integration tests")
+    config.addinivalue_line(
+        "markers", "llm: marks tests that require LLM API calls (need ANTHROPIC_API_KEY)"
+    )
+
+
+# ============================================================================
+# LLM Eval Fixtures
+# ============================================================================
+
+
+@pytest.fixture(scope="session")
+def anthropic_client():
+    """Session-scoped Anthropic client. Loads from .env, skips if no API key."""
+    from dotenv import load_dotenv
+
+    load_dotenv(PROJECT_ROOT / ".env")
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        pytest.skip("ANTHROPIC_API_KEY not set in .env or environment — skipping LLM evals")
+
+    import anthropic
+
+    return anthropic.Anthropic(api_key=api_key)
+
+
+@pytest.fixture(scope="session")
+def llm_model() -> str:
+    """Model used for the agent under test. Override with LLM_EVAL_MODEL env var."""
+    return os.environ.get("LLM_EVAL_MODEL", "claude-sonnet-4-20250514")
+
+
+@pytest.fixture(scope="session")
+def judge_model() -> str:
+    """Model used for the judge. Override with LLM_JUDGE_MODEL env var."""
+    return os.environ.get("LLM_JUDGE_MODEL", "claude-sonnet-4-20250514")
+
+
+@pytest.fixture(scope="session")
+def agents_md_content() -> str:
+    """Load AGENTS.md content for LLM evals."""
+    path = PROJECT_ROOT / "AGENTS.md"
+    if not path.exists():
+        pytest.skip("AGENTS.md not found")
+    return path.read_text()
+
+
+@pytest.fixture(scope="session")
+def skill_md_content() -> str:
+    """Load processing-backlog SKILL.md content for LLM evals."""
+    path = PROJECT_ROOT / "skills" / "processing-backlog" / "SKILL.md"
+    if not path.exists():
+        pytest.skip("processing-backlog SKILL.md not found")
+    return path.read_text()
+
+
+@pytest.fixture(scope="session")
+def goals_md_content() -> str:
+    """Load GOALS.md content for LLM evals."""
+    path = PROJECT_ROOT / "GOALS.md"
+    if not path.exists():
+        pytest.skip("GOALS.md not found")
+    return path.read_text()

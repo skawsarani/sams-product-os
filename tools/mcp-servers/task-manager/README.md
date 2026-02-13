@@ -1,6 +1,6 @@
 # Task Manager MCP Server
 
-Detailed documentation for the PM Co-Pilot task management MCP server.
+Detailed documentation for the Sams Product OS task management MCP server.
 
 ## Setup
 
@@ -247,10 +247,10 @@ Automated BACKLOG.md processing with intelligence.
 Archive and clear BACKLOG.md.
 
 **Parameters:**
-- `archive` (optional): Archive to knowledge/notes/ (default: true)
+- `archive` (optional): Archive to tasks/_archived/ (default: true)
 
 **Features:**
-- Archives to `knowledge/notes/YYYY-MM-DD.md`
+- Archives to `tasks/_archived/YYYY-MM-DD-backlog.md`
 - Appends if file exists
 - Adds timestamp
 

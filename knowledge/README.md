@@ -7,34 +7,29 @@ Context files for your AI assistant. **This entire directory is gitignored.**
 ```
 knowledge/
 ├── about-me/             # Personal context, background, working style
-├── briefs-and-specs/     # Product specs, feature briefs, technical docs, initiatives
 ├── company-context/      # Company info, mission, org structure
 ├── frameworks/           # PM frameworks, methodologies, mental models
-├── notes/                # Archived inbox snapshots, meeting notes, uncategorized items
-├── initiatives/          # Strategic initiatives identified from backlog
 ├── processes/            # How your team works
 ├── product-analytics/    # KPIs, dashboards, performance data (content gitignored)
 ├── product-strategy/     # Vision, strategy, roadmap
-├── proposals/            # Decision docs, RFCs, proposals
-├── references/          # Links, articles, competitive analysis
-├── transcripts/          # Interview and meeting transcripts
+├── references/           # Links, articles, competitive analysis
 └── voice-samples/        # Personal writing samples for AI voice matching
 ```
+
+**Note:** Active work artifacts live outside knowledge/:
+- `meetings/` — Meeting transcripts organized by type
+- `initiatives/` — Strategic initiatives with context, research, outputs
+- `tasks/_archived/` — Archived backlog snapshots
 
 ## What to Put Where
 
 - **about-me/** - Role, experience, working style, frameworks (see `templates/about-me-template.md`)
-- **briefs-and-specs/** - Completed specs, briefs, technical docs, initiatives (`spec-[name].md`, `YYYY-MM-DD-[name].md`)
 - **company-context/** - Mission, vision, values, products, team structure
 - **frameworks/** - PM methodologies (RICE, OKRs, Jobs-to-be-Done)
-- **notes/** - Archived inbox snapshots (`YYYY-MM-DD.md`), meeting notes
-- **initiatives/** - Strategic initiatives identified from backlog processing
 - **processes/** - Development process, sprint planning, decision-making
 - **product-analytics/** - Metrics definitions, performance data, dashboards
 - **product-strategy/** - Vision, strategic priorities, roadmap, OKRs
-- **proposals/** - Decision docs, RFCs, architecture decisions
 - **references/** - Competitive analysis, market research, articles
-- **transcripts/** - User interviews, meetings (`YYYY-MM-DD-[type]-[participant].md`)
 - **voice-samples/** - Writing samples for AI voice matching
 
 ## Getting Started
@@ -48,9 +43,9 @@ Run `./setup.sh` or manually create:
 
 ## How AI Uses Context
 
-AI reads files in order: AGENTS.md → about-me/ → product-strategy/ → frameworks/ → initiatives/ → briefs-and-specs/
+AI reads files in order: AGENTS.md → about-me/ → product-strategy/ → frameworks/ → initiatives/
 
-Reference files explicitly: `@knowledge/product-strategy/2024-strategy.md`
+Reference files explicitly: `@knowledge/product-strategy/current-strategy.md`
 
 **Examples:**
 - Prioritization: AI reads your RICE framework, checks strategy, applies scoring
@@ -62,7 +57,7 @@ Reference files explicitly: `@knowledge/product-strategy/2024-strategy.md`
 
 1. **about-me/about-me.md** - Role, experience, working style, strengths, current focus
 2. **frameworks/my-prioritization.md** - RICE scoring rubric, when to use it
-3. **product-strategy/2024-strategy.md** - North star metric, strategic pillars, key metrics
+3. **product-strategy/current-strategy.md** - North star metric, strategic pillars, key metrics
 4. **company-context/company-overview.md** - Mission, products, team, stage
 
 ## Testing Your Context

@@ -232,6 +232,21 @@ class TestAutoCategorization:
         category = auto_categorize("Schedule team meeting", "Organize calendar", config)
         assert category == "admin"
 
+    def test_strategy_keywords(self, config: dict):
+        """Strategy keywords categorize as strategy."""
+        category = auto_categorize("Define product roadmap", "Planning OKR goals for the quarter", config)
+        assert category == "strategy"
+
+    def test_stakeholder_keywords(self, config: dict):
+        """Stakeholder keywords categorize as stakeholder."""
+        category = auto_categorize("Prepare executive update", "Leadership alignment presentation", config)
+        assert category == "stakeholder"
+
+    def test_discovery_keywords(self, config: dict):
+        """Discovery keywords categorize as discovery."""
+        category = auto_categorize("Conduct user research interviews", "Validate customer pain points", config)
+        assert category == "discovery"
+
     def test_no_matching_keywords(self, config: dict):
         """Items without matching keywords return empty."""
         category = auto_categorize("Random unrelated task", "No keywords here", config)
@@ -310,7 +325,10 @@ class TestConfigLoading:
     def test_category_keywords_exist(self, mock_project_dirs: Path):
         """All 8 categories have keywords defined."""
         config = load_config()
-        expected = ["technical", "outreach", "research", "writing", "admin"]
+        expected = [
+            "technical", "outreach", "research", "writing", "admin",
+            "strategy", "stakeholder", "discovery",
+        ]
 
         for cat in expected:
             assert cat in config["category_keywords"]

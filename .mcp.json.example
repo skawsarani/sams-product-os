@@ -11,13 +11,6 @@
     "notion": {
       "type": "http",
       "url": "https://mcp.notion.com/mcp"
-    },
-    "bigquery": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","bigquery","--stdio"],
-      "env": {
-        "BIGQUERY_PROJECT": "PROJECT_ID"
-      }
     }
   }
 }

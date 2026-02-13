@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Automated tests for PM Co-Pilot Task Manager MCP Server
+Automated tests for SAMS PRODUCT OS Task Manager MCP Server
 
 Tests cover:
 - Ambiguity detection
@@ -310,6 +310,27 @@ class TestAutoCategorization:
             "Schedule the meeting", "Organize team calendar", self.config
         )
         assert category == "admin"
+
+    def test_strategy_keywords(self):
+        """Strategy keywords should categorize as strategy"""
+        category = auto_categorize(
+            "Define product roadmap", "Planning OKR goals for the quarter", self.config
+        )
+        assert category == "strategy"
+
+    def test_stakeholder_keywords(self):
+        """Stakeholder keywords should categorize as stakeholder"""
+        category = auto_categorize(
+            "Prepare executive update", "Leadership alignment presentation", self.config
+        )
+        assert category == "stakeholder"
+
+    def test_discovery_keywords(self):
+        """Discovery keywords should categorize as discovery"""
+        category = auto_categorize(
+            "Conduct user research interviews", "Validate customer pain points", self.config
+        )
+        assert category == "discovery"
 
     def test_no_matching_keywords(self):
         """Items without matching keywords return empty category"""
