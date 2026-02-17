@@ -6,6 +6,8 @@
 [![Star this repo](https://img.shields.io/github/stars/skawsarani/sams-product-os?style=social)](https://github.com/skawsarani/sams-product-os)
 
 
+*Quick links:* [Quick Start](#quick-start) · [Directory Structure](#directory-structure) · [Core Workflow](#core-workflow) · [Common Commands](#common-commands) · [Best Practices](#best-practices)
+
 ---
 
 ## What is This?
@@ -71,9 +73,9 @@ AI categorizes into:
 
 **Generate docs when ready:**
 ```
-/write-prd mobile-performance
-/write-spec mobile-performance
-/write-user-stories mobile-performance
+/write-doc prd mobile-performance
+/write-doc spec mobile-performance
+/write-doc user-stories mobile-performance
 ```
 
 ---
@@ -96,6 +98,7 @@ sams-product-os/
 ├── meetings/               # Meeting notes & transcripts
 ├── initiatives/            # Strategic initiatives & groomed requests
 ├── prototypes/             # Your vibe coded apps & prototypes
+├── _temp/                  # Drop zone for files in transit or scratch work
 ├── templates/              # Document templates
 ├── BACKLOG.md              # Daily brain dump inbox of future work
 ├── GOALS.md                # Ownership areas & quarterly goals
@@ -113,7 +116,7 @@ sams-product-os/
 
 **Committed (shared structure):**
 - Directory structure
-- Documentation, templates, skills
+- Documentation, templates, `.claude/skills/`
 - `config.yaml` (priority caps, categories)
 - `evals/` folder (automated tests)
 - `.claude/skills/` folder (AI agent capabilities)
@@ -124,7 +127,7 @@ sams-product-os/
 - `BACKLOG.md`
 - `GOALS.md`
 - `VOICE-GUIDE.md`
-- Content in `knowledge/`, `tasks/`, `meetings/`, `initiatives/`, `prototypes/`
+- Content in `knowledge/`, `tasks/`, `meetings/`, `initiatives/`, `prototypes/`, `_temp/`
 
 ---
 
@@ -191,55 +194,57 @@ When `/process-backlog` would exceed caps, AI asks you to deprioritize.
 
 Skills are specialized tools AI agents uses automatically:
 
-**Product Docs (`product-docs` skill):**
-- `/write-prd [name]`, `/write-spec [name]`, `/write-brief [name]`
-- `/write-user-stories [name]`, `/write-decision [topic]`
-- Auto-pulls context from knowledge base
+**Write Doc (`write-doc` skill):**
+- `/write-doc prd [name]`, `/write-doc spec [name]`, `/write-doc brief [name]`
+- `/write-doc user-stories [name]`, `/write-doc decision [topic]`
+- Auto-generate mode for immediate drafts, co-authoring mode for iterative writing
 
-**Doc Co-Authoring (`doc-coauthoring` skill):**
-- Guided workflow for collaborative documentation
-- Proposals, technical specs, decision docs
-
-**Product Metrics Analysis (`product-metrics-analysis` skill):**
+**Analyze Metrics (`analyze-metrics` skill):**
 - Analyze product metrics (usage, retention, conversion, funnels)
 - Apply PM frameworks (AARRR, cohort analysis, PMF, North Star)
 - Calculate metrics, identify patterns, and provide actionable recommendations
 - Works with CSV, JSON, SQL results, or dashboard descriptions
 
-**UX Copy (`ux-copy` skill):**
+**Write UX Copy (`write-ux-copy` skill):**
 - Create UI copy, error messages, microcopy, notifications
 - English interface text and UX writing
 
-**i18n Translator (`i18n-translator` skill):**
+**Translate i18n (`translate-i18n` skill):**
 - French translation (Canadian/European)
 - UI localization and cultural adaptation
 
-**User Research (`user-research-analysis` skill):**
+**Analyze Research (`analyze-research` skill):**
 - Analyze interviews and transcripts
 - Synthesize research, create personas
 
-**Competitor Analysis (`competitor-analysis` skill):**
+**Analyze Competitor (`analyze-competitor` skill):**
 - Analyze single competitor or multiple competitors in parallel
 - Features, pricing, strengths, gaps, comparison matrix
 
-**Calendar Analysis (`calendar-analysis` skill):**
+**Analyze Calendar (`analyze-calendar` skill):**
 - Analyze Google Calendar events, identify focus blocks, meeting prep
 - Meeting classification, schedule intelligence, back-to-back warnings
 - Task-to-time-block alignment with PM task system
 
-**Prototyping (`prototype-builder` skill):**
+**Build Prototype (`build-prototype` skill):**
 - Build working prototypes from specs
 - React, TypeScript, Shadcn/ui
 
-**Internal Comms (`internal-comms` skill):**
+**Write Dev Docs (`write-dev-docs` skill):**
+- `/write-dev-docs api-reference [resource]`, `/write-dev-docs guide [name]`
+- `/write-dev-docs recipe [use-case]`, `/write-dev-docs postman [api-name]`
+- Stripe-quality API references, integration guides, code recipes, Postman collections
+- Supports OpenAPI specs, code, natural language, and PRD inputs
+
+**Write Comms (`write-comms` skill):**
 - 3P updates, stakeholder reports, newsletters, FAQs, incident reports
 - Structured workflows with voice guide integration and quality checks
 
-**MCP Builder (`mcp-builder` skill):**
+**Build MCP (`build-mcp` skill):**
 - Create MCP servers for external integrations
 - Python (FastMCP) or Node/TypeScript
 
-**Skill Creator (`skill-creator` skill):**
+**Create Skill (`create-skill` skill):**
 - Create new skills to extend AI capabilities
 
 **Setup Product OS (`setup-product-os` skill):**
@@ -258,23 +263,27 @@ Skills are specialized tools AI agents uses automatically:
 - Exec-ready weekly update structured around initiatives
 - Quick and Slack formatting modes
 
-**Task Views (`task-views` skill):**
-- /today: due today and overdue tasks
-- /upcoming: tasks due in next 7 days
-- /tasks: all tasks with optional filters
+**View Tasks (`view-tasks` skill):**
+- `/view-tasks today`: due today and overdue tasks
+- `/view-tasks upcoming`: tasks due in next 7 days
+- `/view-tasks all`: all tasks with optional filters
 
-**Processing Backlog (`processing-backlog` skill):**
+**Process Backlog (`process-backlog` skill):**
 - Process BACKLOG.md into tasks, initiatives, references
 - Deduplication and priority cap enforcement
 
-**Processing Meetings (`processing-meetings` skill):**
+**Process Meetings (`process-meetings` skill):**
 - Extract action items from meeting transcripts
 - Parallel processing for 3+ transcripts
 
-**Committing Code (`committing-code` skill):**
-- /commit: conventional commits with emoji
-- /push: push to remote
-- /pr: create pull requests
+**Commit (`commit` skill):**
+- Conventional commits with emoji prefixes and smart splitting
+
+**Push (`push` skill):**
+- Push to remote with upstream tracking and force-push safety
+
+**Create PR (`create-pr` skill):**
+- Create pull requests with comprehensive summary and test plan
 
 ---
 
@@ -324,38 +333,44 @@ See `tools/integrations/README.md` for full API reference.
 **Daily:**
 - "What should I work on today?" - Review P0/P1 tasks
 - `/process-backlog` - Process ideas into tasks/initiatives
-- `/today` - Quick view of due/overdue tasks
+- `/view-tasks today` - Quick view of due/overdue tasks
 - `/daily-pulse` - Morning briefing with calendar intelligence, tasks, and goals
 
 **Weekly:**
-- `/upcoming` - Tasks due in next 7 days
+- `/view-tasks upcoming` - Tasks due in next 7 days
 - `/weekly-review` - Review the week, plan next week
 - `/weekly-recap` - Generate exec-ready initiative recap for manager/execs
 - `/process-meetings` - Extract action items from recent meeting transcripts
 
 **Tasks:**
-- `/tasks` - View all tasks with filters
+- `/view-tasks all` - View all tasks with filters
 - "Mark task [name] as complete"
 - "Find stale tasks"
 - "Prune completed tasks" - Delete tasks older than 90 days
 
 **Documents:**
-- `/write-prd [name]` - Generate PRD
-- `/write-spec [name]` - Generate spec
-- `/write-brief [name]` - Generate brief
-- `/write-user-stories [name]` - Generate user stories
-- `/write-decision [topic]` - Generate decision doc
+- `/write-doc prd [name]` - Generate PRD
+- `/write-doc spec [name]` - Generate spec
+- `/write-doc brief [name]` - Generate brief
+- `/write-doc user-stories [name]` - Generate user stories
+- `/write-doc decision [topic]` - Generate decision doc
+
+**Developer Docs:**
+- `/write-dev-docs api-reference [resource]` - Generate API reference
+- `/write-dev-docs guide [name]` - Generate integration guide
+- `/write-dev-docs recipe [use-case]` - Generate code recipe
+- `/write-dev-docs postman [api-name]` - Generate Postman collection
 
 **Research:**
-- `/competitor-research [names]` - Research multiple competitors, generate matrix
+- `/analyze-competitor [names]` - Research competitors, generate comparison matrix
 
 **Git:**
 - `/commit` - Commit with conventional format and emoji
-- `/pr` - Create pull request
+- `/create-pr` - Create pull request
 - `/push` - Push to remote
 
 **Building:**
-- `/build-skill` - Create a new skill
+- `/create-skill` - Create a new skill
 - `/build-mcp` - Create a new MCP server
 
 **Natural language works too:**

@@ -79,7 +79,7 @@ evals/
 - Auto-categorization from config keywords
 
 ### Agent Behavior Tests (`test_agent_behavior.py`)
-- **Workflow compliance**: Verifies `.claude/skills/processing-backlog/SKILL.md` contains required behavioral instructions
+- **Workflow compliance**: Verifies `.claude/skills/process-backlog/SKILL.md` contains required behavioral instructions
 - **AGENTS.md compliance**: Verifies core rules, clarification requirements, goal references, priority system
 - **Goal alignment**: Tasks should link to goals, orphan tasks flagged
 - **Clarification requirements**: Ambiguous items trigger questions
@@ -163,7 +163,7 @@ uv run pytest evals/ -v
 | `llm_model` | Model for agent under test (env: `LLM_EVAL_MODEL`) |
 | `judge_model` | Model for judge (env: `LLM_JUDGE_MODEL`) |
 | `agents_md_content` | AGENTS.md content for LLM evals |
-| `skill_md_content` | processing-backlog SKILL.md content |
+| `skill_md_content` | process-backlog SKILL.md content |
 | `goals_md_content` | GOALS.md content for LLM evals |
 
 ## Writing New Tests
@@ -189,4 +189,4 @@ Update tests when:
 - `config.yaml` keywords change → Update categorization tests and `conftest.py` test config
 - Priority caps change → Update cap enforcement tests
 - AGENTS.md requirements change → Update behavior tests
-- `.claude/skills/processing-backlog/SKILL.md` instructions change → Update workflow compliance tests
+- `.claude/skills/process-backlog/SKILL.md` instructions change → Update workflow compliance tests

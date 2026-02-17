@@ -44,9 +44,9 @@ def agents_md() -> str:
 @pytest.fixture
 def process_backlog_workflow() -> str:
     """Load process-backlog skill content."""
-    skill_file = PROJECT_ROOT / "skills" / "processing-backlog" / "SKILL.md"
+    skill_file = PROJECT_ROOT / "skills" / "process-backlog" / "SKILL.md"
     if not skill_file.exists():
-        pytest.skip("processing-backlog SKILL.md not found")
+        pytest.skip("process-backlog SKILL.md not found")
     return skill_file.read_text()
 
 

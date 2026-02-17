@@ -237,10 +237,10 @@ def agents_md_content() -> str:
 
 @pytest.fixture(scope="session")
 def skill_md_content() -> str:
-    """Load processing-backlog SKILL.md content for LLM evals."""
-    path = PROJECT_ROOT / "skills" / "processing-backlog" / "SKILL.md"
+    """Load process-backlog SKILL.md content for LLM evals."""
+    path = PROJECT_ROOT / "skills" / "process-backlog" / "SKILL.md"
     if not path.exists():
-        pytest.skip("processing-backlog SKILL.md not found")
+        pytest.skip("process-backlog SKILL.md not found")
     return path.read_text()
 
 

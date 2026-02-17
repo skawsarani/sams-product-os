@@ -44,7 +44,7 @@ If user provided arguments: $ARGUMENTS
    ```bash
    uv run python -m tools.integrations.google_calendar list-events --date today
    ```
-2. Invoke the `calendar-analysis` skill to analyze the fetched events (it handles classification, density, focus blocks, prep identification, and all calendar intelligence)
+2. Invoke the `analyze-calendar` skill to analyze the fetched events (it handles classification, density, focus blocks, prep identification, and all calendar intelligence)
 3. Optionally fetch tomorrow for look-ahead context
 
 ### Step 3: Task Priorities
@@ -132,7 +132,7 @@ Ready to start?
    ```bash
    uv run python -m tools.integrations.google_calendar list-events --date tomorrow
    ```
-2. Analyze with calendar-analysis skill
+2. Analyze with analyze-calendar skill
 3. Show tasks with due dates tomorrow
 4. Skip meeting transcript check
 

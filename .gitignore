@@ -15,9 +15,10 @@ meetings/*
 !meetings/README.md
 
 # Initiatives (strategic work, personal)
-initiatives/*
-!initiatives/.gitkeep
-!initiatives/README.md
+initiatives/**/*
+!initiatives/**/
+!initiatives/**/.gitkeep
+!initiatives/**/README.md
 
 # OS files
 .DS_Store
@@ -57,6 +58,10 @@ tools/integrations/slack/mappings.json
 prototypes/*
 !prototypes/.gitkeep
 !prototypes/README.md
+
+# Temp drop zone (files in transit, scratch work)
+_temp/*
+!_temp/.gitkeep
 
 # Personal backlog (private daily inbox)
 BACKLOG.md

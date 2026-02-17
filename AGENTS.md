@@ -29,6 +29,7 @@ IMPORTANT — these override default behavior:
 | `tasks/` | Active tasks and archived backlogs (`tasks/_archived/`) |
 | `GOALS.md` | Ownership areas and quarterly goals |
 | `BACKLOG.md` | Daily brain dump inbox of future work|
+| `_temp/` | Drop zone for files in transit or scratch work |
 
 ## Skills
 

@@ -50,7 +50,7 @@ def build_system_prompt(
         "You are an AI product management assistant. Follow these instructions exactly.\n\n"
         "# AGENTS.md\n\n"
         f"{agents_md}\n\n"
-        "# SKILL.md (processing-backlog)\n\n"
+        "# SKILL.md (process-backlog)\n\n"
         f"{skill_md}\n\n"
         "# GOALS.md\n\n"
         f"{goals_md}\n\n"
