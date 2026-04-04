@@ -27,6 +27,7 @@ class EvalScenario:
     criteria: list[GradingCriterion] = field(default_factory=list)
     fail_if_present: list[str] = field(default_factory=list)
     pass_threshold: float = 0.8
+    requires_knowledge_context: bool = False  # include knowledge/AGENTS.md in system prompt
 
 
 # ============================================================================
@@ -264,5 +265,148 @@ def build_scenarios() -> list[EvalScenario]:
             ],
             fail_if_present=["task created", "I've created"],
             pass_threshold=0.8,
+        ),
+
+        # ------------------------------------------------------------------
+        # 7. Thought partner — agent must challenge, not just execute
+        # ------------------------------------------------------------------
+        EvalScenario(
+            id="thought_partner",
+            name="Thought partner — challenge strategic assumption",
+            description="Agent should push back on a casual strategic proposal rather than immediately executing.",
+            system_prompt="",
+            user_message=(
+                "I'm thinking of building a CSV export feature for Q2. "
+                "Seems like an easy win — users have asked for it a few times. "
+                "Can you help me get this into the backlog?"
+            ),
+            criteria=[
+                GradingCriterion(
+                    "challenges_assumption",
+                    "Agent questions or challenges the framing of this as an 'easy win' — "
+                    "surfaces potential hidden complexity, scope questions, or trade-offs",
+                ),
+                GradingCriterion(
+                    "names_trade_offs",
+                    "Agent names at least one concrete risk, edge case, or alternative consideration "
+                    "(e.g. data volume, privacy, format support, opportunity cost)",
+                ),
+                GradingCriterion(
+                    "does_not_just_execute",
+                    "Agent does NOT immediately create a task or proceed to backlog entry "
+                    "without first engaging with the strategic question",
+                ),
+            ],
+            fail_if_present=["task created", "I've created", "I've added"],
+            pass_threshold=0.7,
+        ),
+
+        # ------------------------------------------------------------------
+        # 8. Domain learning capture — agent must write to correct files
+        # ------------------------------------------------------------------
+        EvalScenario(
+            id="domain_learning_capture",
+            name="Domain learning — capture analysis into knowledge folder",
+            description="After completing analysis, agent should write learnings to the right domain files.",
+            system_prompt="",
+            user_message=(
+                "I just finished a deep dive on our checkout flow. Here's what I found:\n\n"
+                "- 40% of users drop off at the address form step (confirmed in analytics)\n"
+                "- There's no inline validation — users only see errors on submit\n"
+                "- This pattern appears on both mobile and web\n\n"
+                "Can you capture these learnings?"
+            ),
+            criteria=[
+                GradingCriterion(
+                    "creates_domain_folder",
+                    "Agent describes creating or updating a domain-specific folder under knowledge/ "
+                    "(e.g. knowledge/checkout-flow/ or similar)",
+                ),
+                GradingCriterion(
+                    "classifies_correctly",
+                    "Agent puts the confirmed drop-off stat in knowledge.md (fact) and the "
+                    "mobile/web pattern in hypotheses.md (not yet confirmed 3 times, not rules.md)",
+                ),
+                GradingCriterion(
+                    "updates_index",
+                    "Agent mentions updating knowledge/INDEX.md to record the new domain folder",
+                ),
+            ],
+            fail_if_present=[],
+            pass_threshold=0.7,
+            requires_knowledge_context=True,
+        ),
+
+        # ------------------------------------------------------------------
+        # 9. System review — agent must promote confirmed hypotheses
+        # ------------------------------------------------------------------
+        EvalScenario(
+            id="system_review",
+            name="System review — promote confirmed hypotheses to rules",
+            description="Agent runs a system review and promotes a hypothesis confirmed 3+ times.",
+            system_prompt="",
+            user_message=(
+                "Can you run a system review on my checkout-flow domain?\n\n"
+                "Current state:\n\n"
+                "**hypotheses.md**\n"
+                "- [3 confirmations] Address form is the primary drop-off point "
+                "— confirmed in Jun analytics, Jul user interviews, Aug heatmaps\n"
+                "- [1 confirmation] Mobile users bounce faster than web users "
+                "— seen in Aug analytics only\n\n"
+                "**rules.md**\n"
+                "(empty)\n"
+            ),
+            criteria=[
+                GradingCriterion(
+                    "promotes_confirmed_hypothesis",
+                    "Agent moves the 3-confirmation hypothesis (address form drop-off) to rules.md",
+                ),
+                GradingCriterion(
+                    "keeps_unconfirmed",
+                    "Agent leaves the 1-confirmation hypothesis in hypotheses.md — does NOT promote it",
+                ),
+                GradingCriterion(
+                    "reports_changes",
+                    "Agent clearly summarises what was promoted, what was kept, and why",
+                ),
+            ],
+            fail_if_present=[],
+            pass_threshold=0.8,
+            requires_knowledge_context=True,
+        ),
+
+        # ------------------------------------------------------------------
+        # 10. Decision journal — agent must log with required sections
+        # ------------------------------------------------------------------
+        EvalScenario(
+            id="decision_journal",
+            name="Decision journal — log a technical decision",
+            description="Agent documents a decision in knowledge/decisions/ with the correct format.",
+            system_prompt="",
+            user_message=(
+                "I just decided to use REST instead of GraphQL for our new data API. "
+                "The team knows REST well, GraphQL has a steeper learning curve, "
+                "and we don't have complex client-driven query needs right now. "
+                "Can you log this decision?"
+            ),
+            criteria=[
+                GradingCriterion(
+                    "names_correct_location",
+                    "Agent says it will create a file in knowledge/decisions/ "
+                    "with a YYYY-MM-DD-{topic}.md filename",
+                ),
+                GradingCriterion(
+                    "includes_required_sections",
+                    "Agent's proposed file includes: Decision, Context, Alternatives considered, "
+                    "Reasoning, and Trade-offs accepted",
+                ),
+                GradingCriterion(
+                    "includes_supersedes_field",
+                    "Agent includes a Supersedes field (even if N/A or empty)",
+                ),
+            ],
+            fail_if_present=[],
+            pass_threshold=0.8,
+            requires_knowledge_context=True,
         ),
     ]

@@ -212,21 +212,21 @@ class TestAgentsMdCompliance:
             "AGENTS.md must reference GOALS.md for task alignment"
         )
 
-    def test_agents_md_defines_priority_system(self, agents_md: str):
-        """AGENTS.md must define the priority system."""
+    def test_agents_md_defines_priority_system(self, tasks_agents_md: str):
+        """tasks/AGENTS.md must define the priority system (moved from root in progressive disclosure refactor)."""
         priority_patterns = [
             r"p0.*p1.*p2.*p3",
             r"priorities.*p0",
             r"p0.*max.*3",
         ]
 
-        content_lower = agents_md.lower()
+        content_lower = tasks_agents_md.lower()
         has_priority_system = any(
             re.search(pattern, content_lower) for pattern in priority_patterns
         )
 
         assert has_priority_system, (
-            "AGENTS.md must define the priority system (P0-P3)"
+            "tasks/AGENTS.md must define the priority system (P0-P3)"
         )
 
 
@@ -592,3 +592,120 @@ def requires_confirmation(action: str, context: dict) -> bool:
             return True
 
     return False
+
+
+# ============================================================================
+# Progressive Disclosure — Fixtures
+# ============================================================================
+
+
+@pytest.fixture
+def knowledge_agents_md() -> str:
+    """Load knowledge/AGENTS.md content."""
+    f = PROJECT_ROOT / "knowledge" / "AGENTS.md"
+    if not f.exists():
+        pytest.skip("knowledge/AGENTS.md not found")
+    return f.read_text()
+
+
+@pytest.fixture
+def tasks_agents_md() -> str:
+    """Load tasks/AGENTS.md content."""
+    f = PROJECT_ROOT / "tasks" / "AGENTS.md"
+    if not f.exists():
+        pytest.skip("tasks/AGENTS.md not found")
+    return f.read_text()
+
+
+# ============================================================================
+# Progressive Disclosure — Structural Instruction Tests
+# ============================================================================
+
+
+class TestProgressiveDisclosureInstructions:
+    """
+    Verify that behavioral instructions are present in the correct AGENTS.md files
+    after the progressive disclosure refactor.
+
+    These are prerequisite checks — if an instruction isn't in the file,
+    the agent can't follow it.
+    """
+
+    def test_knowledge_agents_md_has_three_file_pattern(self, knowledge_agents_md: str):
+        """Domain learning folders must define the 3-file pattern."""
+        for filename in ("knowledge.md", "hypotheses.md", "rules.md"):
+            assert filename in knowledge_agents_md, (
+                f"knowledge/AGENTS.md must define the '{filename}' file in the domain learning pattern"
+            )
+
+    def test_knowledge_agents_md_has_hypothesis_promotion(self, knowledge_agents_md: str):
+        """Hypothesis promotion rule (3 confirmations) must be present."""
+        content_lower = knowledge_agents_md.lower()
+        has_count = "3" in knowledge_agents_md or "three" in content_lower
+        has_promotion = "promot" in content_lower
+        assert has_count and has_promotion, (
+            "knowledge/AGENTS.md must describe hypothesis promotion after 3 confirmations"
+        )
+
+    def test_knowledge_agents_md_has_system_review_protocol(self, knowledge_agents_md: str):
+        """System review protocol must be in knowledge/AGENTS.md, not root."""
+        assert "## System Review Protocol" in knowledge_agents_md, (
+            "knowledge/AGENTS.md must contain the ## System Review Protocol section"
+        )
+
+    def test_knowledge_agents_md_has_decision_journal(self, knowledge_agents_md: str):
+        """Decision journal instructions must be in knowledge/AGENTS.md."""
+        assert "## Decision Journal" in knowledge_agents_md, (
+            "knowledge/AGENTS.md must contain the ## Decision Journal section"
+        )
+
+    @pytest.mark.parametrize("section", [
+        "## Decision:",
+        "## Context:",
+        "## Reasoning:",
+        "## Trade-offs accepted:",
+    ])
+    def test_knowledge_agents_md_decision_format_has_required_sections(
+        self, knowledge_agents_md: str, section: str
+    ):
+        """Decision file format must include all required sections."""
+        assert section in knowledge_agents_md, (
+            f"knowledge/AGENTS.md decision journal format must include '{section}'"
+        )
+
+    def test_tasks_agents_md_has_priority_caps(self, tasks_agents_md: str):
+        """Priority caps enforcement must be in tasks/AGENTS.md."""
+        assert "## Priority Caps" in tasks_agents_md, (
+            "tasks/AGENTS.md must contain the ## Priority Caps section"
+        )
+
+    def test_tasks_agents_md_has_archiving_rule(self, tasks_agents_md: str):
+        """Archiving rule (move done tasks to _archived/) must be in tasks/AGENTS.md."""
+        assert "_archived" in tasks_agents_md, (
+            "tasks/AGENTS.md must reference _archived/ for completed task archival"
+        )
+
+    def test_root_agents_md_has_search_protocol(self, agents_md: str):
+        """Root AGENTS.md must define the QMD+Grep search protocol."""
+        assert "## Search Protocol" in agents_md, (
+            "Root AGENTS.md must contain ## Search Protocol section"
+        )
+        assert "QMD" in agents_md, "Search Protocol must mention QMD"
+        assert "Grep" in agents_md, "Search Protocol must mention Grep"
+
+    def test_root_agents_md_has_thought_partner_rule(self, agents_md: str):
+        """Root AGENTS.md must contain the thought partner / challenge rule."""
+        assert "Challenge" in agents_md, (
+            "Root AGENTS.md Core Rules must include the 'Challenge my thinking' rule"
+        )
+
+    @pytest.mark.parametrize("moved_section", [
+        "## Knowledge Architecture",
+        "## Task System",
+        "## Decision Journal",
+    ])
+    def test_root_agents_md_not_has_moved_sections(self, agents_md: str, moved_section: str):
+        """Sections moved to subdirectory AGENTS.md files must not appear in root."""
+        assert moved_section not in agents_md, (
+            f"'{moved_section}' was moved to a subdirectory AGENTS.md — it must not appear in root AGENTS.md"
+        )

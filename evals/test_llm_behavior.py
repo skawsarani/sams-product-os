@@ -44,22 +44,29 @@ def build_system_prompt(
     skill_md: str,
     goals_md: str,
     scenario: EvalScenario,
+    knowledge_agents_md: str = "",
 ) -> str:
     """Assemble the full system prompt the agent sees."""
-    return (
+    parts = [
         "You are an AI product management assistant. Follow these instructions exactly.\n\n"
         "# AGENTS.md\n\n"
-        f"{agents_md}\n\n"
-        "# SKILL.md (process-backlog)\n\n"
-        f"{skill_md}\n\n"
-        "# GOALS.md\n\n"
-        f"{goals_md}\n\n"
+        f"{agents_md}"
+    ]
+
+    if knowledge_agents_md:
+        parts.append(f"# knowledge/AGENTS.md\n\n{knowledge_agents_md}")
+
+    parts.append(
+        f"# SKILL.md (process-backlog)\n\n{skill_md}\n\n"
+        f"# GOALS.md\n\n{goals_md}\n\n"
         "# Important\n\n"
         "- You do NOT have access to any tools or MCP servers in this conversation.\n"
         "- You cannot create files, call APIs, or execute commands.\n"
         "- Respond as if you are presenting findings to the user for review.\n"
         "- Follow ALL behavioral instructions from AGENTS.md and SKILL.md above.\n"
     )
+
+    return "\n\n".join(parts)
 
 
 # ============================================================================
@@ -160,6 +167,12 @@ SCENARIOS = build_scenarios()
 SCENARIO_IDS = [s.id for s in SCENARIOS]
 
 
+def _load_knowledge_agents_md() -> str:
+    """Load knowledge/AGENTS.md if it exists, else return empty string."""
+    f = PROJECT_ROOT / "knowledge" / "AGENTS.md"
+    return f.read_text() if f.exists() else ""
+
+
 @pytest.mark.llm
 @pytest.mark.parametrize("scenario", SCENARIOS, ids=SCENARIO_IDS)
 def test_agent_behavior(
@@ -172,9 +185,12 @@ def test_agent_behavior(
     goals_md_content: str,
 ):
     """Test that the agent follows behavioral contracts for each scenario."""
+    knowledge_agents_md = _load_knowledge_agents_md() if scenario.requires_knowledge_context else ""
+
     # Build system prompt
     system_prompt = build_system_prompt(
-        agents_md_content, skill_md_content, goals_md_content, scenario
+        agents_md_content, skill_md_content, goals_md_content, scenario,
+        knowledge_agents_md=knowledge_agents_md,
     )
     scenario.system_prompt = system_prompt
 
