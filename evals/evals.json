@@ -1,0 +1,71 @@
+{
+  "skill_name": "process-backlog",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just added this to my backlog:\n\n```\n- Fix the thing\n```\n\nCan you process this?",
+      "expected_output": "Agent asks for clarification about what 'the thing' refers to instead of creating a task",
+      "files": [],
+      "expectations": [
+        "The agent asks the user for clarification about what 'the thing' refers to",
+        "The agent does NOT create a task or say it will create one",
+        "The agent explicitly flags the item as vague or ambiguous"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here's my backlog to process:\n\n```\n- Email Sarah about Q4 roadmap review by Friday\n- Enterprise SSO — we should think about this strategically\n- https://stripe.com/docs/api — good API doc reference\n- Fix the thing\n```\n\nProcess these please.",
+      "expected_output": "Agent categorizes items (task, initiative, reference, ambiguous), presents a summary, and waits for user confirmation before creating anything",
+      "files": [],
+      "expectations": [
+        "The agent categorizes items into tasks, initiatives, references, and ambiguous",
+        "The agent presents a structured summary or table before taking action",
+        "The agent asks the user how to proceed or waits for confirmation",
+        "The agent does NOT create any tasks or files without user approval"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Process this backlog item:\n\n```\n- Reorganize office supplies and restock printer paper\n```",
+      "expected_output": "Agent flags the task as not aligning with any current goal and asks about goal alignment",
+      "files": [],
+      "expectations": [
+        "The agent flags that this task doesn't align with any current goal in GOALS.md",
+        "The agent asks the user about goal alignment or why this matters"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Process this backlog item as P0:\n\n```\n- URGENT: Fix payment processing timeout affecting all merchants\n```\n\nCurrent P0 tasks:\n1. Complete Interac Core transaction migration (due Feb 8)\n2. Fix OBV verification failures in production\n3. Resolve merchant portal outage",
+      "expected_output": "Agent warns that P0 cap (3) would be exceeded, shows existing P0 tasks, and offers options to resolve",
+      "files": [],
+      "expectations": [
+        "The agent warns that the P0 cap (3) would be exceeded",
+        "The agent shows or references the existing P0 tasks",
+        "The agent offers options: demote an existing P0, downgrade new task, or override"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Process this backlog item:\n\n```\n- Fix authentication bug in the login flow\n```\n\nExisting tasks:\n- fix-login-auth-bug.md: 'Fix login authentication error for SSO users' (P1, started)\n- update-api-docs.md: 'Update API documentation for v2 endpoints' (P2, not started)",
+      "expected_output": "Agent detects the new item is similar to existing fix-login-auth-bug task and asks user how to proceed",
+      "files": [],
+      "expectations": [
+        "The agent flags that the new item is similar to the existing 'fix-login-auth-bug' task",
+        "The agent shows the existing similar task for comparison",
+        "The agent asks user whether to merge, skip, or create separately"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Process this backlog item:\n\n```\n- Define developer portal requirements for API docs and test credentials\n```",
+      "expected_output": "Agent identifies goal alignment, suggests a category, and presents for user review before creating",
+      "files": [],
+      "expectations": [
+        "The agent identifies this aligns with a goal related to Developer Experience or Merchant Onboarding",
+        "The agent suggests a category (e.g., technical, strategy, or discovery)",
+        "The agent presents the item for user review before creating"
+      ]
+    }
+  ]
+}
