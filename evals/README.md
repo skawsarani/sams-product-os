@@ -52,7 +52,7 @@ Real Claude API calls graded by an LLM judge against rubrics. **Requires** `ANTH
 | 5 | Duplicate detection — flags similar, asks user | 0.8 |
 | 6 | Clear item with goal match — links goal, presents for review | 0.8 |
 
-**Env vars:** `ANTHROPIC_API_KEY` (required), `LLM_EVAL_MODEL` (default: `claude-sonnet-4-20250514`), `LLM_JUDGE_MODEL` (default: `claude-sonnet-4-20250514`)
+**Env vars:** `ANTHROPIC_API_KEY` (required), `LLM_EVAL_MODEL` (default: `claude-sonnet-4-20250514`), `LLM_JUDGE_MODEL` (default: `claude-haiku-4-5-20251001` — override with `claude-opus-4-6` for high-stakes runs)
 
 **Adding scenarios:** Create a new `EvalScenario` in `evals/fixtures/llm_scenarios/backlog_processing.py` and add it to `build_scenarios()`. Tests auto-discover via parametrize.
 

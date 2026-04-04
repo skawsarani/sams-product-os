@@ -223,7 +223,7 @@ def llm_model() -> str:
 @pytest.fixture(scope="session")
 def judge_model() -> str:
     """Model used for the judge. Override with LLM_JUDGE_MODEL env var."""
-    return os.environ.get("LLM_JUDGE_MODEL", "claude-sonnet-4-20250514")
+    return os.environ.get("LLM_JUDGE_MODEL", "claude-haiku-4-5-20251001")
 
 
 @pytest.fixture(scope="session")
