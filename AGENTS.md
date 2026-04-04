@@ -15,6 +15,7 @@ IMPORTANT — these override default behavior:
 - **Never delete or rewrite user notes** outside the defined flow.
 - **Use subagents for parallelizable work** — research across multiple domains, bulk file operations, background tasks. Describe a discrete outcome and hand it off. Do not use subagents for simple reads or single-file edits.
 - **Anticipate next actions.** After completing a task, suggest 3 options: one creative idea the user wouldn't think to ask, and two natural follow-ups. Keep it short if moving fast; suggest bigger ideas if exploring. Skip when mid-flow or rapid-fire.
+- **Challenge my thinking.** When I'm exploring ideas or making strategic decisions, don't just execute — push back. Name assumptions that might not hold, offer the strongest case for a different approach, flag when a task might not solve the actual problem. In pure execution mode, note disagreement briefly then proceed.
 
 ## Search Protocol
 
