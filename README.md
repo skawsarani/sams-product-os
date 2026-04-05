@@ -95,7 +95,7 @@ sams-product-os/
 ├── AGENTS.md               # Your AI agent instructions
 ├── CLAUDE.md               # Points to AGENTS.md (agent instructions for Claude Code)
 ├── VOICE-GUIDE.md          # Your writing style (optional)
-└── config.yaml             # Customizable configuration for your AI agent
+└── tools/mcp-servers/task-manager/config.yaml  # Task manager configuration
 
 ```
 
@@ -137,7 +137,7 @@ See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 **Committed (shared structure):**
 - Directory structure
 - Documentation, templates, `.claude/skills/`
-- `config.yaml` (priority caps, categories)
+- `tools/mcp-servers/task-manager/config.yaml` (priority caps, categories)
 - `evals/` folder (automated tests)
 - `.claude/skills/` folder (AI agent capabilities)
 - `AGENTS.md` and subdirectory `AGENTS.md` + `CLAUDE.md` files (agent instructions for each folder)
@@ -432,7 +432,7 @@ uv run pytest evals/ -v
 
 This validates:
 - Task categorization
-- Auto-categorization based on config.yaml keywords
+- Auto-categorization based on `tools/mcp-servers/task-manager/config.yaml` keywords
 - Priority caps enforcement (P0≤3, P1≤7, P2≤15)
 - File format and structure
 

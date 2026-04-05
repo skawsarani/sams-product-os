@@ -406,7 +406,7 @@ def test_new_feature():
 
 ## Configuration
 
-All settings in `config.yaml` (project root):
+All settings in `config.yaml` (same directory as `server.py`):
 
 ```yaml
 priority_caps:
@@ -439,8 +439,8 @@ category_keywords:
 - Add more action verbs to the list
 
 **Duplicates not detected?**
-- Lower `similarity_threshold` in config.yaml
-- Enable `check_keywords` and `check_categories`
+- Lower `similarity_threshold` in `config.yaml`
+- Enable `check_keywords` and `check_categories` in `config.yaml`
 - Add more keywords to tasks
 
 **Priority caps hit?**
