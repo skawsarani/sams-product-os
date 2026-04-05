@@ -406,7 +406,7 @@ def test_new_feature():
 
 ## Configuration
 
-All settings in `config.yaml` (same directory as `server.py`):
+All settings in `tools/mcp-servers/task-manager/config.yaml`:
 
 ```yaml
 priority_caps:
