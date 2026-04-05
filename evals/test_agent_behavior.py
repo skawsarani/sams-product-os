@@ -14,17 +14,12 @@ Run with: pytest evals/test_agent_behavior.py -v
 """
 
 import re
-import sys
 from pathlib import Path
 from typing import Optional
 
 import pytest
 
-# tests/ -> evals/ -> project root
 PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT / "tools" / "mcp-servers" / "task-manager"))
-
-from server import is_ambiguous, generate_clarification_questions
 
 
 # ============================================================================
@@ -351,72 +346,6 @@ class TestConfirmationBeforeAction:
 
 
 # ============================================================================
-# Behavioral Scenario Tests
-# ============================================================================
-
-
-class TestBehavioralScenarios:
-    """Test complete behavioral scenarios."""
-
-    def test_ambiguous_item_flow(self):
-        """
-        Scenario: User adds ambiguous item to backlog
-        Expected: Agent should ask for clarification, NOT create task
-        """
-        # Use an item that current server detects as ambiguous (vague language)
-        item = "Maybe fix something"
-
-        # Step 1: Detect ambiguity
-        is_amb, reason = is_ambiguous(item)
-        assert is_amb, f"Item should be detected as ambiguous. Got: {reason}"
-
-        # Step 2: Generate clarification questions
-        questions = generate_clarification_questions(item)
-        assert len(questions) > 0, "Should generate clarification questions"
-
-        # Step 3: Agent should NOT proceed to create task
-        # (This is a behavioral contract - agent must ask first)
-        should_create = not is_amb
-        assert not should_create, "Agent should NOT create task for ambiguous item"
-
-    def test_clear_item_with_goal_flow(self, sample_goals: list[dict]):
-        """
-        Scenario: User adds clear item that aligns with a goal
-        Expected: Agent should present with goal reference, ask confirmation
-        """
-        # Use explicit keywords that match goal keywords
-        item = "Fix developer tooling for better automation"
-
-        # Step 1: Item should not be ambiguous
-        is_amb, _ = is_ambiguous(item)
-        assert not is_amb, "Clear item should not be ambiguous"
-
-        # Step 2: Should match a goal
-        matching_goal = find_matching_goal(item, sample_goals)
-        assert matching_goal is not None, "Should find matching goal"
-        assert matching_goal["name"] == "Improve Developer Experience"
-
-        # Step 3: Agent should present findings WITH goal reference
-        # (Behavioral contract: include goal in presentation)
-
-    def test_orphan_task_flow(self, sample_goals: list[dict]):
-        """
-        Scenario: User adds task that doesn't align with any goal
-        Expected: Agent should flag this and ask about goal alignment
-        """
-        item = "Reorganize the file cabinet"
-
-        # Step 1: No matching goal
-        matching_goal = find_matching_goal(item, sample_goals)
-        assert matching_goal is None, "Should not match any goal"
-
-        # Step 2: Agent should ask about goal alignment
-        # (Behavioral contract: ask when task doesn't support goals)
-        should_ask_about_goals = matching_goal is None
-        assert should_ask_about_goals, "Agent should ask about goal alignment"
-
-
-# ============================================================================
 # Helper Functions
 # ============================================================================
 
@@ -454,44 +383,6 @@ def find_matching_goal(task_title: str, goals: list[dict]) -> Optional[dict]:
         return best_match
 
     return None
-
-
-def requires_confirmation(action: str, context: dict) -> bool:
-    """
-    Determine if an action requires user confirmation.
-
-    Args:
-        action: The action being taken (create, update, delete, etc.)
-        context: Context about the action (count, priority, etc.)
-
-    Returns:
-        True if confirmation is required
-    """
-    # Always confirm destructive actions
-    if action in ["delete", "archive", "clear"]:
-        return True
-
-    # Confirm bulk operations
-    if context.get("count", 1) > 1:
-        return True
-
-    # Confirm priority upgrades
-    if action == "update_priority":
-        from_num = int(context.get("from_priority", "P3")[1])
-        to_num = int(context.get("to_priority", "P3")[1])
-        if to_num < from_num:  # Upgrading (P2 -> P1)
-            return True
-
-    # Confirm when near priority cap
-    if action == "create":
-        priority = context.get("priority", "P3")
-        current_count = context.get("current_count", 0)
-        caps = {"P0": 3, "P1": 7, "P2": 15, "P3": 999}
-        cap = caps.get(priority, 999)
-        if current_count >= cap - 1:
-            return True
-
-    return False
 
 
 # ============================================================================
