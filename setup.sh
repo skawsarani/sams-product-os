@@ -482,36 +482,26 @@ ask_scope() {
 }
 
 build_plugin_list() {
-  # Outputs tab-separated lines: name\tdescription, recommended first
-  local raw
-  raw="$(claude plugin list --available --json 2>/dev/null || true)"
-  if [[ -z "$raw" ]]; then
-    PLUGIN_LIST=()
-    return
-  fi
-  # Parse JSON; put write-doc and write-comms first, rest sorted
-  local all_lines recommended other
-  all_lines="$(printf '%s' "$raw" | python3 -c "
-import json, sys
-data = json.load(sys.stdin)
-plugins = data.get('available', [])
-recommended = {'write-doc', 'write-comms'}
-rec = [p for p in plugins if p['name'] in recommended]
-other = [p for p in plugins if p['name'] not in recommended]
-other.sort(key=lambda p: p['name'])
-for p in rec + other:
-    desc = p.get('description', '').replace('\t', ' ')
-    print(p['name'] + '\t' + desc)
-" 2>/dev/null || true)"
-  if [[ -z "$all_lines" ]]; then
-    PLUGIN_LIST=()
-    return
-  fi
-  # Load into array
-  PLUGIN_LIST=()
-  while IFS= read -r line; do
-    [[ -n "$line" ]] && PLUGIN_LIST+=("$line")
-  done <<< "$all_lines"
+  # Hardcoded list: recommended first, rest alphabetical.
+  # Update this list when new plugins are added to sams-product-plugins.
+  PLUGIN_LIST=(
+    "write-doc	Generates PRDs, specs, briefs, user stories, and decision docs from templates and context"
+    "write-comms	Drafts internal comms: status updates, announcements, stakeholder emails, and meeting recaps"
+    "analyze-competitor	Researches and summarizes competitor products, positioning, and feature comparisons"
+    "analyze-metrics	Analyzes product metrics data for usage trends, adoption, retention, and growth signals"
+    "analyze-research	Synthesizes user research, interviews, and surveys into themes and actionable insights"
+    "build-prototype	Scaffolds clickable prototypes and interaction flows from a product description"
+    "commit	Generates conventional commit messages from staged git changes"
+    "create-pr	Creates pull requests with structured descriptions from branch diff and context"
+    "daily-pulse	Morning briefing combining calendar, tasks, and priorities for the day"
+    "push	Pushes current branch to remote with optional PR creation"
+    "sync-granola-meetings	Syncs Granola meeting notes into the knowledge base as structured context"
+    "translate-i18n	Translates UI strings and copy across locales with product tone consistency"
+    "weekly-recap	Generates a weekly progress summary from tasks, commits, and meeting notes"
+    "weekly-review	Structured weekly reflection: wins, blockers, priorities, and learnings"
+    "write-dev-docs	Writes technical documentation: API docs, READMEs, changelogs, and runbooks"
+    "write-ux-copy	Writes UI microcopy, onboarding flows, empty states, and error messages"
+  )
 }
 
 select_plugins_fzf() {
@@ -660,10 +650,15 @@ step_plugins() {
 
       if [[ ${#selected_names[@]} -gt 0 ]]; then
         echo ""
-        local installed_plugins
-        installed_plugins="$(claude plugin list 2>/dev/null || true)"
+        local installed_ids
+        installed_ids="$(claude plugin list --json 2>/dev/null | python3 -c "
+import json,sys
+data=json.load(sys.stdin)
+for p in data.get('installed',[]):
+    print(p.get('id',''))
+" 2>/dev/null || true)"
         for plugin in "${selected_names[@]}"; do
-          if echo "$installed_plugins" | grep -q "$plugin" 2>/dev/null; then
+          if echo "$installed_ids" | grep -q "^${plugin}@" 2>/dev/null; then
             print_skip "$plugin (already installed)"
           else
             echo -e "  ${DIM}Installing ${plugin}...${RESET}"
@@ -684,7 +679,7 @@ step_plugins() {
 
   # Check which official plugins are already installed
   local installed_plugins
-  installed_plugins="$(claude plugin list 2>/dev/null || true)"
+  installed_plugins="$(claude plugin list --json 2>/dev/null || true)"
 
   echo ""
   echo -e "  Claude also offers two official plugins that pair well with Product OS:"
@@ -696,7 +691,7 @@ step_plugins() {
   echo -e "  ${DIM}Audit, improve, and maintain CLAUDE.md files across your repos.${RESET}"
   echo ""
 
-  if echo "$installed_plugins" | grep -q "skill-creator" 2>/dev/null; then
+  if echo "$installed_plugins" | grep -q '"skill-creator@' 2>/dev/null; then
     print_skip "skill-creator (already installed)"
   elif ask_yn "Install skill-creator from Claude official plugins?" "y"; then
     echo -e "  ${DIM}Installing skill-creator...${RESET}"
@@ -709,7 +704,7 @@ step_plugins() {
     print_info "Skipped"
   fi
 
-  if echo "$installed_plugins" | grep -q "claude-md-management" 2>/dev/null; then
+  if echo "$installed_plugins" | grep -q '"claude-md-management@' 2>/dev/null; then
     print_skip "claude-md-management (already installed)"
   elif ask_yn "Install claude-md-management from Claude official plugins?" "y"; then
     echo -e "  ${DIM}Installing claude-md-management...${RESET}"
