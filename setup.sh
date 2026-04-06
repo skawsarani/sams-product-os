@@ -574,7 +574,7 @@ select_plugins_fallback() {
       fi
       printf "    ${DIM}[%2d]${RESET} [${BOLD}%s${RESET}]${star} ${BOLD}%-20s${RESET} ${DIM}%s${RESET}\n" \
         "$((i+1))" "$check" "$name" "$desc"
-      ((i++))
+      i=$((i + 1))
     done
     echo ""
     echo -en "  ${BOLD}>${RESET} "
