@@ -505,7 +505,7 @@ build_plugin_list() {
 }
 
 select_plugins_fzf() {
-  # Takes plugin list as arguments (name\tdescription lines), returns selected names via stdout
+  # Populates global SELECTED_PLUGINS array. Called directly (no process substitution).
   local -a entries=("$@")
   local fzf_input=""
   for entry in "${entries[@]}"; do
@@ -518,23 +518,30 @@ select_plugins_fzf() {
       fzf_input+="${name}     ${desc}"$'\n'
     fi
   done
-  local selected
-  selected="$(printf '%s' "$fzf_input" | fzf \
+  local raw_selected
+  raw_selected="$(printf '%s' "$fzf_input" | fzf \
     --multi \
     --prompt="  Select plugins (TAB/SPACE toggles, ENTER confirms, ESC skips): " \
-    --header="TAB/SPACE=toggle  ENTER=install selected  ESC=skip all  ★=recommended" \
-    --no-info \
+    --header="TAB/SPACE=toggle  ENTER=install selected  ESC=skip all  *=recommended" \
     2>/dev/null || true)"
-  # Extract just the plugin name (first whitespace-delimited token)
-  printf '%s' "$selected" | awk '{print $1}'
+  SELECTED_PLUGINS=()
+  while IFS= read -r line; do
+    local pname
+    pname="${line%%  *}"   # everything before the first double-space
+    pname="${pname%"${pname##*[! ]}"}"  # trim trailing spaces
+    if [[ -n "$pname" ]]; then
+      SELECTED_PLUGINS+=("$pname")
+    fi
+  done <<< "$raw_selected"
 }
 
 select_plugins_fallback() {
-  # Takes plugin list as arguments (name\tdescription lines), returns selected names via stdout
+  # Populates global SELECTED_PLUGINS array. Called directly (no process substitution).
   local -a entries=("$@")
-  declare -A selected=()
-  local names=()
-  local descs=()
+  local -a names=()
+  local -a descs=()
+  local -a sel_flags=()   # parallel array: 1=selected, 0=not
+
   for entry in "${entries[@]}"; do
     local name desc
     name="${entry%%	*}"
@@ -542,7 +549,9 @@ select_plugins_fallback() {
     names+=("$name")
     descs+=("$desc")
     if [[ "$name" == "write-doc" || "$name" == "write-comms" ]]; then
-      selected["$name"]=1
+      sel_flags+=(1)
+    else
+      sel_flags+=(0)
     fi
   done
 
@@ -551,17 +560,16 @@ select_plugins_fallback() {
     echo -e "  ${BOLD}Select plugins to install${RESET}  ${DIM}(number to toggle, d=done, s=skip all)${RESET}"
     echo ""
     local i=0
-    for name in "${names[@]}"; do
+    while [[ $i -lt ${#names[@]} ]]; do
       local check=" " star=""
-      if [[ "${selected[$name]:-0}" == "1" ]]; then check="x"; fi
-      if [[ "$name" == "write-doc" || "$name" == "write-comms" ]]; then star=" ${YELLOW}★${RESET}"; fi
+      if [[ "${sel_flags[$i]}" == "1" ]]; then check="x"; fi
+      if [[ "${names[$i]}" == "write-doc" || "${names[$i]}" == "write-comms" ]]; then star=" *"; fi
       local desc="${descs[$i]}"
-      # Truncate description to ~55 chars
       if [[ ${#desc} -gt 55 ]]; then
         desc="${desc:0:52}..."
       fi
-      printf "    ${DIM}[%2d]${RESET} [${BOLD}%s${RESET}]${star} ${BOLD}%-20s${RESET} ${DIM}%s${RESET}\n" \
-        "$((i+1))" "$check" "$name" "$desc"
+      printf "    ${DIM}[%2d]${RESET} [${BOLD}%s${RESET}]%s ${BOLD}%-20s${RESET} ${DIM}%s${RESET}\n" \
+        "$((i+1))" "$check" "$star" "${names[$i]}" "$desc"
       i=$((i + 1))
     done
     echo ""
@@ -569,21 +577,27 @@ select_plugins_fallback() {
     read -r choice
     case "$choice" in
       d|done)
-        for name in "${names[@]}"; do
-          if [[ "${selected[$name]:-0}" == "1" ]]; then echo "$name"; fi
+        SELECTED_PLUGINS=()
+        local j=0
+        while [[ $j -lt ${#names[@]} ]]; do
+          if [[ "${sel_flags[$j]}" == "1" ]]; then
+            SELECTED_PLUGINS+=("${names[$j]}")
+          fi
+          j=$((j + 1))
         done
         return ;;
-      s|skip) return ;;
+      s|skip)
+        SELECTED_PLUGINS=()
+        return ;;
       ''|*[!0-9]*)
         echo -e "  ${DIM}Enter a number, d to confirm, or s to skip all${RESET}" ;;
       *)
         local idx=$((choice - 1))
         if [[ $idx -ge 0 && $idx -lt ${#names[@]} ]]; then
-          local toggled="${names[$idx]}"
-          if [[ "${selected[$toggled]:-0}" == "1" ]]; then
-            unset "selected[$toggled]"
+          if [[ "${sel_flags[$idx]}" == "1" ]]; then
+            sel_flags[$idx]=0
           else
-            selected["$toggled"]=1
+            sel_flags[$idx]=1
           fi
         else
           echo -e "  ${DIM}Number out of range${RESET}"
@@ -635,18 +649,14 @@ step_plugins() {
 
       ask_scope
 
-      local selected_names=()
+      SELECTED_PLUGINS=()
       if command -v fzf &>/dev/null; then
-        while IFS= read -r name; do
-          if [[ -n "$name" ]]; then selected_names+=("$name"); fi
-        done < <(select_plugins_fzf "${PLUGIN_LIST[@]}")
+        select_plugins_fzf "${PLUGIN_LIST[@]}"
       else
-        while IFS= read -r name; do
-          if [[ -n "$name" ]]; then selected_names+=("$name"); fi
-        done < <(select_plugins_fallback "${PLUGIN_LIST[@]}")
+        select_plugins_fallback "${PLUGIN_LIST[@]}"
       fi
 
-      if [[ ${#selected_names[@]} -gt 0 ]]; then
+      if [[ ${#SELECTED_PLUGINS[@]} -gt 0 ]]; then
         echo ""
         local installed_ids
         installed_ids="$(claude plugin list --json 2>/dev/null | python3 -c "
@@ -655,7 +665,7 @@ data=json.load(sys.stdin)
 for p in data.get('installed',[]):
     print(p.get('id',''))
 " 2>/dev/null || true)"
-        for plugin in "${selected_names[@]}"; do
+        for plugin in "${SELECTED_PLUGINS[@]}"; do
           if echo "$installed_ids" | grep -q "^${plugin}@" 2>/dev/null; then
             print_skip "$plugin (already installed)"
           else
@@ -670,7 +680,7 @@ for p in data.get('installed',[]):
           fi
         done
       else
-        print_info "No plugins selected — install anytime with: ${GREEN}claude plugin install <name>@sams-product-plugins${RESET}"
+        print_info "No plugins selected — install anytime with: claude plugin install <name>@sams-product-plugins"
       fi
     fi
   fi
