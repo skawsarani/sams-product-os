@@ -406,7 +406,7 @@ def test_new_feature():
 
 ## Configuration
 
-All settings in `config.yaml` (project root):
+All settings in `tools/mcp-servers/task-manager/config.yaml`:
 
 ```yaml
 priority_caps:
@@ -439,14 +439,14 @@ category_keywords:
 - Add more action verbs to the list
 
 **Duplicates not detected?**
-- Lower `similarity_threshold` in config.yaml
-- Enable `check_keywords` and `check_categories`
+- Lower `similarity_threshold` in `config.yaml`
+- Enable `check_keywords` and `check_categories` in `config.yaml`
 - Add more keywords to tasks
 
 **Priority caps hit?**
 - Check `get_task_summary()` for current counts
-- Adjust caps in config.yaml or deprioritize tasks
+- Adjust caps in `tools/mcp-servers/task-manager/config.yaml` or deprioritize tasks
 
 **Category not auto-assigned?**
-- Add keywords to `category_keywords` in config.yaml
+- Add keywords to `category_keywords` in `tools/mcp-servers/task-manager/config.yaml`
 - Check keyword matching logic in `auto_categorize()`

@@ -23,7 +23,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 TASKS_DIR = PROJECT_ROOT / "tasks"
 INITIATIVES_DIR = PROJECT_ROOT / "initiatives"
 REFERENCES_DIR = PROJECT_ROOT / "knowledge" / "references"
-CONFIG_FILE = PROJECT_ROOT / "config.yaml"
+CONFIG_FILE = Path(__file__).parent / "config.yaml"
 
 # Initialize MCP server
 app = Server("pm-tasks")

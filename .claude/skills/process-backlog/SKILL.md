@@ -8,7 +8,7 @@ argument-hint:
 
 ## Context
 
-- Config: `config.yaml` (priority caps, category keywords, duplicate thresholds)
+- Config: `tools/mcp-servers/task-manager/config.yaml` (priority caps, category keywords, duplicate thresholds)
 - Today's date: $TODAY
 
 ## Workflow
@@ -57,7 +57,7 @@ For vague items, ask:
 
 ### Step 6: Enforce Priority Caps
 
-Check caps from `config.yaml` before creating. If exceeded:
+Check caps from `tools/mcp-servers/task-manager/config.yaml` before creating. If exceeded:
 1. Show current tasks at that priority
 2. Ask user to demote existing or downgrade new task
 3. Wait for decision
@@ -65,7 +65,7 @@ Check caps from `config.yaml` before creating. If exceeded:
 ### Step 7: Create Approved Items
 
 **Tasks**: Create with frontmatter including:
-- title, category (from config keywords), priority, status: n, created_date, due_date
+- title, category (from `tools/mcp-servers/task-manager/config.yaml` keywords), priority, status: n, created_date, due_date
 - `resource_refs: []` in frontmatter
 - Full context from backlog item (description, sub-bullets) preserved in Context section
 - `**Goal:** [Link to relevant goal from GOALS.md]` line in Context section
