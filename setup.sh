@@ -618,23 +618,25 @@ step_plugins() {
   echo -e "  ${DIM}https://github.com/${MARKETPLACE_REPO}${RESET}"
   echo ""
 
-  local marketplace_added=false
+  local asked_marketplace=false
   if ask_yn "Add the plugin marketplace?" "y"; then
+    asked_marketplace=true
     echo -e "  ${DIM}Adding marketplace...${RESET}"
-    if claude plugin marketplace add "$MARKETPLACE_REPO" 2>&1 | while IFS= read -r line; do echo -e "  ${DIM}${line}${RESET}"; done; then
-      print_success "Plugin marketplace added"
-      marketplace_added=true
+    local add_out
+    add_out="$(claude plugin marketplace add "$MARKETPLACE_REPO" 2>&1 || true)"
+    if echo "$add_out" | grep -qi "already\|exists\|success\|added" 2>/dev/null || [[ -z "$add_out" ]]; then
+      print_success "Plugin marketplace ready"
     else
-      print_warning "Could not add marketplace — you can add it later with:"
-      echo -e "     ${GREEN}claude plugin marketplace add ${MARKETPLACE_REPO}${RESET}"
+      echo "$add_out" | while IFS= read -r line; do echo -e "  ${DIM}${line}${RESET}"; done
+      print_warning "Marketplace may not have been added — continuing anyway"
     fi
   else
     print_info "Skipped — add it anytime with:"
     echo -e "     ${GREEN}claude plugin marketplace add ${MARKETPLACE_REPO}${RESET}"
   fi
 
-  # Plugin picker — only if marketplace was added successfully
-  if [[ "$marketplace_added" == true ]]; then
+  # Plugin picker — show whenever user said yes to marketplace (handles already-added case too)
+  if [[ "$asked_marketplace" == true ]]; then
     echo -e "  ${DIM}Fetching available plugins...${RESET}"
     PLUGIN_LIST=()
     build_plugin_list
