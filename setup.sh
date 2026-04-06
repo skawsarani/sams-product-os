@@ -549,7 +549,6 @@ select_plugins_fallback() {
   local -a entries=("$@")
   local -a names=()
   local -a descs=()
-  local -a sel_flags=()   # parallel array: 1=selected, 0=not
 
   for entry in "${entries[@]}"; do
     local name desc
@@ -557,57 +556,38 @@ select_plugins_fallback() {
     desc="${entry#*	}"
     names+=("$name")
     descs+=("$desc")
-    sel_flags+=(1)
   done
 
-  while true; do
-    echo ""
-    echo -e "  ${BOLD}Select plugins to install${RESET}  ${DIM}(all selected — number to deselect, d=done, s=skip all)${RESET}"
-    echo ""
-    local i=0
-    while [[ $i -lt ${#names[@]} ]]; do
-      local check=" " star=""
-      if [[ "${sel_flags[$i]}" == "1" ]]; then check="x"; fi
-      if [[ "${names[$i]}" == "write-doc" || "${names[$i]}" == "write-comms" ]]; then star=" *"; fi
-      local desc="${descs[$i]}"
-      if [[ ${#desc} -gt 55 ]]; then
-        desc="${desc:0:52}..."
+  echo ""
+  local i=0
+  while [[ $i -lt ${#names[@]} ]]; do
+    local desc="${descs[$i]}"
+    if [[ ${#desc} -gt 55 ]]; then
+      desc="${desc:0:52}..."
+    fi
+    printf "    ${DIM}[%2d]${RESET} ${BOLD}%-20s${RESET} ${DIM}%s${RESET}\n" \
+      "$((i+1))" "${names[$i]}" "$desc"
+    i=$((i + 1))
+  done
+
+  echo ""
+  echo -en "  ${BOLD}?${RESET} Enter numbers to install ${DIM}(e.g. 1,3,5 — or press Enter to skip)${RESET}: "
+  read -r input
+
+  SELECTED_PLUGINS=()
+  if [[ -z "$input" ]]; then
+    return
+  fi
+
+  local IFS=','
+  for token in $input; do
+    token="${token// /}"  # strip spaces
+    if [[ "$token" =~ ^[0-9]+$ ]]; then
+      local idx=$((token - 1))
+      if [[ $idx -ge 0 && $idx -lt ${#names[@]} ]]; then
+        SELECTED_PLUGINS+=("${names[$idx]}")
       fi
-      printf "    ${DIM}[%2d]${RESET} [${BOLD}%s${RESET}]%s ${BOLD}%-20s${RESET} ${DIM}%s${RESET}\n" \
-        "$((i+1))" "$check" "$star" "${names[$i]}" "$desc"
-      i=$((i + 1))
-    done
-    echo ""
-    echo -en "  ${BOLD}>${RESET} "
-    read -r choice
-    case "$choice" in
-      d|done)
-        SELECTED_PLUGINS=()
-        local j=0
-        while [[ $j -lt ${#names[@]} ]]; do
-          if [[ "${sel_flags[$j]}" == "1" ]]; then
-            SELECTED_PLUGINS+=("${names[$j]}")
-          fi
-          j=$((j + 1))
-        done
-        return ;;
-      s|skip)
-        SELECTED_PLUGINS=()
-        return ;;
-      ''|*[!0-9]*)
-        echo -e "  ${DIM}Enter a number, d to confirm, or s to skip all${RESET}" ;;
-      *)
-        local idx=$((choice - 1))
-        if [[ $idx -ge 0 && $idx -lt ${#names[@]} ]]; then
-          if [[ "${sel_flags[$idx]}" == "1" ]]; then
-            sel_flags[$idx]=0
-          else
-            sel_flags[$idx]=1
-          fi
-        else
-          echo -e "  ${DIM}Number out of range${RESET}"
-        fi ;;
-    esac
+    fi
   done
 }
 
