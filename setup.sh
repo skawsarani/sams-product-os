@@ -143,15 +143,6 @@ step_prerequisites() {
       print_success "Node.js / npm installed"
     fi
 
-    # fzf — used for interactive plugin picker in Step 9
-    if command -v fzf &>/dev/null; then
-      print_skip "fzf"
-    else
-      echo -e "  ${DIM}Installing fzf...${RESET}"
-      brew install fzf
-      print_success "fzf installed"
-    fi
-
   else
     # Non-macOS: just check what's available
     if command -v uv &>/dev/null; then
