@@ -506,8 +506,8 @@ step_plugins() {
   echo ""
 
   if ask_yn "Install write-doc and write-comms now?" "y"; then
-    for skill in write-doc write-comms; do
-      if [[ "$marketplace_installed" == true ]]; then
+    if [[ "$marketplace_installed" == true ]]; then
+      for skill in write-doc write-comms; do
         echo -e "  ${DIM}Installing ${skill}...${RESET}"
         if claude plugin install "${skill}@sams-product-plugins" 2>&1 \
             | while IFS= read -r line; do echo -e "  ${DIM}${line}${RESET}"; done; then
@@ -515,23 +515,22 @@ step_plugins() {
         else
           print_warning "Could not install ${skill} — try: ${GREEN}claude plugin install ${skill}@sams-product-plugins${RESET}"
         fi
+      done
+    else
+      echo -e "  ${DIM}Installing write-doc and write-comms via npx...${RESET}"
+      if npx skills add "$MARKETPLACE_REPO" --skill write-doc write-comms 2>&1 \
+          | while IFS= read -r line; do echo -e "  ${DIM}${line}${RESET}"; done; then
+        print_success "write-doc and write-comms installed"
       else
-        echo -e "  ${DIM}Installing ${skill} via npx...${RESET}"
-        if npx skills add "$MARKETPLACE_REPO" --skill "$skill" 2>&1 \
-            | while IFS= read -r line; do echo -e "  ${DIM}${line}${RESET}"; done; then
-          print_success "$skill installed"
-        else
-          print_warning "Could not install ${skill} — try: ${GREEN}npx skills add ${MARKETPLACE_REPO} --skill ${skill}${RESET}"
-        fi
+        print_warning "Could not install — try: ${GREEN}npx skills add ${MARKETPLACE_REPO} --skill write-doc write-comms${RESET}"
       fi
-    done
+    fi
   else
     if [[ "$marketplace_installed" == true ]]; then
       print_info "Install later: claude plugin install write-doc@sams-product-plugins"
       print_info "Install later: claude plugin install write-comms@sams-product-plugins"
     else
-      print_info "Install later: npx skills add ${MARKETPLACE_REPO} --skill write-doc"
-      print_info "Install later: npx skills add ${MARKETPLACE_REPO} --skill write-comms"
+      print_info "Install later: npx skills add ${MARKETPLACE_REPO} --skill write-doc write-comms"
     fi
   fi
 }
