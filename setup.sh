@@ -464,7 +464,7 @@ step_plugins() {
       done
     else
       echo -e "  ${DIM}Installing write-doc and write-comms via npx...${RESET}"
-      if npx skills add "$MARKETPLACE_REPO" --skill write-doc write-comms 2>&1 \
+      if npx skills add "$MARKETPLACE_REPO" --skill write-doc write-comms --yes--global 2>&1 \
           | while IFS= read -r line; do echo -e "  ${DIM}${line}${RESET}"; done; then
         print_success "write-doc and write-comms installed"
       else
