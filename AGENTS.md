@@ -35,9 +35,10 @@ Never skip either method. Note if QMD is unavailable and fall back to Grep only.
 | `knowledge/decisions/` | Decision log — dated decision files |
 | `meetings/` | Meeting transcripts and notes |
 | `initiatives/` | Strategic initiatives and groomed requests |
-| `tasks/` | Active tasks (`tasks/_archived/` for completed) |
+| `tasks/ACTIVE.md` | This week's focus: In Progress, Up Next, Waiting On |
+| `tasks/BACKLOG.md` | Brain dump inbox — topic-organized, not yet committed |
+| `tasks/_archived/` | Monthly retrospective logs (`YYYY-MM.md`) |
 | `GOALS.md` | Ownership areas and quarterly goals |
-| `BACKLOG.md` | Daily brain dump inbox |
 | `_temp/` | Files in transit or scratch work |
 
 ## Skills

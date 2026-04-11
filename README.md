@@ -14,7 +14,7 @@
 
 Sams Product OS is an AI-powered personal operating system to organize my PM workspace
 
-- **Priority-Focused Workflow** - Max 3 P0 tasks keeps you focused
+- **Three-Bucket Workflow** - Backlog → Active → Archive keeps you focused
 - **Backlog Processing** - Brain dump → Organized tasks/initiatives
 - **Document Generation** - Specs, briefs, PRDs from conversation
 - **Research Synthesis** - Transform interviews into insights
@@ -47,15 +47,15 @@ The interactive setup will install dependencies (including [QMD](https://github.
 
 ### 4. Start Using It
 
-**Brain dump to BACKLOG.md:**
+**Brain dump to `tasks/BACKLOG.md`:**
 ```markdown
-## Mobile Performance Issues
-- Source: Support tickets (15 this week)
-- Context: Android app slow on startup
-- Impact: 4.2⭐ rating drop
+## Product
+- Follow up with Sarah about Q4 goals
 
-## Follow up with Sarah about Q4 goals
-- Need to align on OKRs by end of week
+## Strategy
+- Mobile Performance Issues
+  - Source: Support tickets (15 this week)
+  - Context: Android app slow on startup
 ```
 
 **Process your backlog:**
@@ -64,9 +64,16 @@ The interactive setup will install dependencies (including [QMD](https://github.
 ```
 
 AI categorizes into:
-- **Tasks** → `tasks/` (P0-P3 priority, max 3 P0 tasks)
+- **Tasks** → stay in `tasks/BACKLOG.md` (organized under topic headers)
 - **Initiatives** → `initiatives/` (strategic ideas to explore)
 - **References** → `knowledge/references/` (useful context)
+
+**Plan your week:**
+
+Move items from `tasks/BACKLOG.md` into `tasks/ACTIVE.md`:
+- **In Progress** — working on now
+- **Up Next** — committed this week
+- **Waiting On** — blocked on someone else
 
 ---
 
@@ -78,20 +85,21 @@ sams-product-os/
 ├── tools/                  # Tools to extend AI agent capabilities
 │   ├── integrations/       # Read-only API clients for external services
 │   └── mcp-servers/        # Custom MCP servers
-│       └── task-manager/   # Task management MCP server
-│           ├── server.py   # MCP server
-│           ├── config.yaml # Task manager configuration
+│       └── task-manager/   # Backlog management MCP server
+│           ├── server.py   # MCP server (3 tools: process_backlog, clear_backlog, check_duplicates)
 │           └── README.md   # MCP tool documentation
 │
 ├── evals/                  # AI agent tests & evaluation
 ├── tasks/                  # Your personal tasks
+│   ├── BACKLOG.md          # Brain dump inbox — topic-organized, not yet committed
+│   ├── ACTIVE.md           # This week's focus: In Progress, Up Next, Waiting On
+│   └── _archived/          # Monthly retrospective logs (YYYY-MM.md)
 ├── knowledge/              # Persistent context & references for your AI agent
 ├── meetings/               # Meeting notes & transcripts
 ├── initiatives/            # Strategic initiatives & groomed requests
 ├── _temp/                  # Drop zone for files in transit or scratch work
 ├── templates/              # Document templates
 ├── setup.sh                # Interactive setup script
-├── BACKLOG.md              # Daily brain dump inbox of future work
 ├── GOALS.md                # Ownership areas & quarterly goals
 ├── AGENTS.md               # Your AI agent instructions
 ├── CLAUDE.md               # Points to AGENTS.md (agent instructions for Claude Code)
@@ -137,13 +145,14 @@ See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 **Committed (shared structure):**
 - Directory structure
 - Documentation, templates, `.claude/skills/`
-- `tools/mcp-servers/task-manager/config.yaml` (priority caps, categories)
 - `evals/` folder (automated tests)
 - `.claude/skills/` folder (AI agent capabilities)
 - `AGENTS.md` and subdirectory `AGENTS.md` + `CLAUDE.md` files (agent instructions for each folder)
 
 **Gitignored (your data):**
-- `BACKLOG.md`
+- `tasks/BACKLOG.md`
+- `tasks/ACTIVE.md`
+- `tasks/_archived/`
 - `GOALS.md`
 - `VOICE-GUIDE.md`
 - Content in `knowledge/`, `tasks/`, `meetings/`, `initiatives/`, `_temp/`
@@ -153,59 +162,71 @@ See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 ## Core Workflow
 
 ```
-BACKLOG.md → /process-backlog → Tasks (P0≤3) / Initiatives / References
+tasks/BACKLOG.md → /process-backlog → Tasks (stay in backlog) / Initiatives / References
+                 → weekly planning → tasks/ACTIVE.md → tasks/_archived/YYYY-MM.md
 ```
 
-1. **Brain dump** to `BACKLOG.md` throughout the day
-2. **Process** with `/process-backlog` - AI categorizes and enforces priority caps
-3. **Work** - Focus on your 3 P0 tasks, explore initiatives, generate docs
+1. **Brain dump** to `tasks/BACKLOG.md` throughout the day
+2. **Process** with `/process-backlog` — AI classifies items, creates initiative and reference files
+3. **Plan** — Move items into `tasks/ACTIVE.md` for the week: In Progress, Up Next, Waiting On
+4. **Archive** — Log completed work to `tasks/_archived/YYYY-MM.md` during weekly review
 
 ---
 
 ## Tasks
 
-### Task File Structure
+### Three-Bucket System
 
-Each task is a markdown file in `tasks/` with YAML frontmatter:
+Tasks live in three files — no individual task files, no frontmatter, no priority codes.
 
-- **title** - Task name
-- **category** - technical, outreach, research, writing, admin, other
-- **priority** - P0 (Critical), P1 (High), P2 (Normal), P3 (Low)
-- **status** - n (not_started), s (started), b (blocked), d (done)
-- **created_date** - YYYY-MM-DD
-- **due_date** - YYYY-MM-DD (optional)
-- **resource_refs** - Links to related files
+**`tasks/BACKLOG.md`** — Brain dump inbox. Bullets organized by topic header. Not committed work yet.
+```markdown
+## Product
+- Follow up with Sarah about Q4 goals
 
-Content sections:
-- **Context** - Goals and references
-- **Next Actions** - Steps to complete
-- **Progress Log** - Notes, blockers, decisions
+## Strategy
+- Research competitive pricing changes
+```
+
+**`tasks/ACTIVE.md`** — This week's focus. Three sections:
+```markdown
+# Active — Week of Apr 7–11
+**Focus:** Ship the pricing experiment
+
+## In Progress
+- [ ] Review PRD draft with eng lead
+
+## Up Next
+- [ ] Schedule merchant feedback call
+
+## Waiting On
+| Who | What | Since | Next step |
+|-----|------|-------|-----------|
+| Legal | Contract review | Apr 8 | Follow up if no word by Apr 10 |
+```
+
+**`tasks/_archived/YYYY-MM.md`** — Monthly retrospective. Logged at week-end.
+```markdown
+## Week of Apr 7–11
+
+### Shipped
+- Pricing experiment launched to 10% of users
+
+### Completed
+- PRD draft reviewed and approved
+```
 
 ### Managing Tasks
 
-**Update:**
-- "Mark task [name] as complete"
-- "Change task [name] status/priority/category"
+**Daily:**
+- "What am I working on?" → `/view-tasks` (shows ACTIVE.md)
+- "Show my backlog" → `/view-tasks backlog`
+- Brain dump into `tasks/BACKLOG.md` under the appropriate header
 
-**Find:**
-- "Find tasks older than [N] days"
-- "Find stale tasks"
-
-**Prune:**
-- "Prune completed tasks older than [N] days"
-
-Tasks are marked complete with `status: d`. No file movement needed.
-
-### Priority System
-
-Tasks use P0-P3 with strict caps to prevent overwhelm:
-
-- **P0** (Critical): Max 3 tasks - Today's focus
-- **P1** (High): Max 7 tasks - This week
-- **P2** (Medium): Max 15 tasks - This month
-- **P3** (Low): Unlimited - Backlog
-
-When `/process-backlog` would exceed caps, AI asks you to deprioritize.
+**Weekly:**
+- `/process-backlog` — classify and clean the backlog
+- `/weekly-review` — review progress, plan next week, log to archive
+- `/daily-pulse` — morning briefing with calendar + active tasks
 
 ---
 
@@ -216,13 +237,22 @@ This is the base project with core skills built in. Install additional skills fr
 ### Built-in Skills
 
 **View Tasks (`view-tasks` skill):**
-- `/view-tasks today`: due today and overdue tasks
-- `/view-tasks upcoming`: tasks due in next 7 days
-- `/view-tasks all`: all tasks with optional filters
+- `/view-tasks` or `/view-tasks active`: show `tasks/ACTIVE.md` (default)
+- `/view-tasks backlog`: show `tasks/BACKLOG.md`
+- `/view-tasks archive`: browse `tasks/_archived/`
 
 **Process Backlog (`process-backlog` skill):**
-- Process BACKLOG.md into tasks, initiatives, references
-- Deduplication and priority cap enforcement
+- Process `tasks/BACKLOG.md` into organized tasks, initiatives, references
+- Deduplication and goal-alignment checks
+
+**Daily Pulse (`daily-pulse` skill):**
+- `/daily-pulse`: morning briefing — calendar + active task priorities
+- `/daily-pulse tomorrow`: tomorrow look-ahead
+- `/daily-pulse week`: week overview
+
+**Weekly Review (`weekly-review` skill):**
+- `/weekly-review`: reflect on past week, plan next week, log to archive
+- `/weekly-review quick`: condensed version
 
 ### Plugin Marketplace
 
@@ -246,7 +276,7 @@ MCP (Model Context Protocol) provides direct tool access for faster operations.
 
 ### Task Manager MCP
 
-For faster task operations:
+For faster backlog operations:
 
 ```bash
 uv sync
@@ -254,31 +284,28 @@ uv sync
 
 Configure your AI assistant to use `tools/mcp-servers/task-manager/server.py` (see `tools/mcp-servers/task-manager/README.md`).
 
-**Benefits:**
-- 10x faster task operations (CRUD, deduplication, statistics)
-- Auto-categorization and priority enforcement
-- Find stale/overdue tasks, prune completed ones
+**Provides 3 tools:**
+- `process_backlog` — classify items from `tasks/BACKLOG.md` (tasks / initiatives / references)
+- `clear_backlog` — reset `tasks/BACKLOG.md` to blank template
+- `check_duplicates` — fuzzy-match a title against existing items in backlog, active, and initiatives
 
 ---
 
 ## Common Commands
 
 **Daily:**
-- "What should I work on today?" - Review P0/P1 tasks
-- `/process-backlog` - Process ideas into tasks/initiatives
-- `/view-tasks today` - Quick view of due/overdue tasks
+- `/daily-pulse` — Morning briefing: calendar + active tasks
+- `/view-tasks` — Show ACTIVE.md
+- Brain dump into `tasks/BACKLOG.md`
 
 **Weekly:**
-- `/view-tasks upcoming` - Tasks due in next 7 days
-
-**Tasks:**
-- `/view-tasks all` - View all tasks with filters
-- "Mark task [name] as complete"
-- "Find stale tasks"
-- "Prune completed tasks" - Delete tasks older than 90 days
+- `/process-backlog` — Classify and clean the backlog
+- `/weekly-review` — Reflect, plan, archive
 
 **Natural language works too:**
-- "What are my P0 tasks?"
+- "What am I working on?" → shows ACTIVE.md
+- "What's in my backlog?" → shows BACKLOG.md
+- "Add [item] to my backlog" → adds to BACKLOG.md under appropriate header
 
 ---
 
@@ -402,23 +429,28 @@ What patterns have changed? What's new?
 ## Best Practices
 
 **Daily:**
-- Brain dump to BACKLOG.md throughout the day
-- `/process-backlog` weekly to organize
+- Brain dump to `tasks/BACKLOG.md` throughout the day
+- `/view-tasks` to check what's active
+
+**Weekly:**
+- `/process-backlog` to classify and clean
+- `/weekly-review` to reflect, plan, and archive
+- Update `tasks/ACTIVE.md` at the start of each week
 
 **Context:**
-- Start small - add context as you go
+- Start small — add context as you go
 - Update voice samples quarterly
 
 **Tips:**
 - Use @ mentions: `@knowledge/product-strategy/`
 - Process 3-5 backlog items at a time, not 50
-- Let priority caps guide you - max 3 P0 tasks
+- Keep ACTIVE.md focused — if you can't finish it this week, it belongs in the backlog
 - Install additional skills from the plugin marketplace
 
 **Troubleshooting:**
 - Generic responses? Add more to `knowledge/`
 - AI not using context? Use @ mentions explicitly
-- Too many tasks? Let AI enforce priority caps
+- Overwhelmed by backlog? `/process-backlog` to declutter
 
 ---
 
@@ -431,10 +463,10 @@ uv run pytest evals/ -v
 ```
 
 This validates:
-- Task categorization
-- Auto-categorization based on `tools/mcp-servers/task-manager/config.yaml` keywords
-- Priority caps enforcement (P0≤3, P1≤7, P2≤15)
-- File format and structure
+- Backlog item classification (task / initiative / reference)
+- Deduplication behavior
+- Agent instruction structure (progressive disclosure across AGENTS.md files)
+- Skill behavior contracts
 
 See `evals/README.md` for details.
 
