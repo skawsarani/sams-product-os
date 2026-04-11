@@ -219,9 +219,9 @@ Tasks live in three files — no individual task files, no frontmatter, no prior
 ### Managing Tasks
 
 **Daily:**
-- "What am I working on?" → `/view-tasks` (shows ACTIVE.md)
-- "Show my backlog" → `/view-tasks backlog`
-- Brain dump into `tasks/BACKLOG.md` under the appropriate header
+- "What am I working on?" — agent reads `tasks/ACTIVE.md`
+- "Show my backlog" — agent reads `tasks/BACKLOG.md`
+- Brain dump into `tasks/BACKLOG.md`
 
 **Weekly:**
 - `/process-backlog` — classify and clean the backlog
@@ -235,11 +235,6 @@ Tasks live in three files — no individual task files, no frontmatter, no prior
 This is the base project with core skills built in. Install additional skills from the plugin marketplace to extend your capabilities.
 
 ### Built-in Skills
-
-**View Tasks (`view-tasks` skill):**
-- `/view-tasks` or `/view-tasks active`: show `tasks/ACTIVE.md` (default)
-- `/view-tasks backlog`: show `tasks/BACKLOG.md`
-- `/view-tasks archive`: browse `tasks/_archived/`
 
 **Process Backlog (`process-backlog` skill):**
 - Process `tasks/BACKLOG.md` into organized tasks, initiatives, references
@@ -295,7 +290,7 @@ Configure your AI assistant to use `tools/mcp-servers/task-manager/server.py` (s
 
 **Daily:**
 - `/daily-pulse` — Morning briefing: calendar + active tasks
-- `/view-tasks` — Show ACTIVE.md
+- "What am I working on?" — agent reads ACTIVE.md
 - Brain dump into `tasks/BACKLOG.md`
 
 **Weekly:**
@@ -430,7 +425,7 @@ What patterns have changed? What's new?
 
 **Daily:**
 - Brain dump to `tasks/BACKLOG.md` throughout the day
-- `/view-tasks` to check what's active
+- Ask "what am I working on?" to check active tasks
 
 **Weekly:**
 - `/process-backlog` to classify and clean
