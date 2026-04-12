@@ -32,9 +32,9 @@ Each domain folder uses three files:
 
 Never wait for a System Review to update the index. Update at the moment of creation. Never recreate INDEX.md from scratch — always edit in place.
 
-## Relationships
+## People
 
-`knowledge/relationships/` holds one file per person — direct reports, key stakeholders, cross-functional peers, executives you work with regularly.
+`knowledge/people/` holds one file per person — direct reports, key stakeholders, cross-functional peers, executives you work with regularly.
 
 **When to use it:** If the user asks to prep for a 1:1, draft a message to a specific person, or think through a people situation — check if a file exists for that person first. If it does, read it before responding.
 
@@ -46,7 +46,7 @@ Never wait for a System Review to update the index. Update at the moment of crea
 - Open items or follow-ups
 - For direct reports: growth areas, career goals, recent feedback given
 
-**This folder is optional and not needed from day one.** Add files as relationships become important enough to track. Never create files proactively — only when the user explicitly asks or provides the information.
+**This folder is optional and not needed from day one.** Add files as people become important enough to track. Never create files proactively — only when the user explicitly asks or provides the information.
 
 ## Decision Journal
 
