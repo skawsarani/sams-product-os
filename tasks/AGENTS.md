@@ -50,9 +50,3 @@ When processing `tasks/BACKLOG.md`:
 
 Use `/process-backlog` to classify and clean. Always present findings before creating anything.
 
-## What Not To Do
-
-- Do not create individual task files — tasks live in BACKLOG.md and ACTIVE.md only
-- Do not use priority codes (P0/P1/P2/P3) — the three-bucket system replaces this
-- Do not use status codes (n/s/b/d) — position in ACTIVE.md is the status indicator
-- Do not assign due dates unless the user explicitly provides one
