@@ -6,7 +6,7 @@
 [![Star this repo](https://img.shields.io/github/stars/samkawsarani/sams-product-os?style=social)](https://github.com/samkawsarani/sams-product-os)
 
 
-*Quick links:* [Quick Start](#quick-start) · [Directory Structure](#directory-structure) · [Context Setup](#context-setup) · [Core Workflow](#core-workflow) · [Tasks](#tasks) · [Projects](#projects) · [Skills](#skills) · [Best Practices](#best-practices)
+*Quick links:* [Quick Start](#quick-start) · [Directory Structure](#directory-structure) · [Context Setup](#context-setup) · [Core Workflow](#core-workflow) · [Tasks](#tasks) · [Projects](#projects) · [Best Practices](#best-practices)
 
 ---
 
