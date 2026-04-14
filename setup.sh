@@ -4,6 +4,47 @@ set -euo pipefail
 # ─────────────────────────────────────────────────────────────────────────────
 # Sams Product OS — Interactive Setup
 # ─────────────────────────────────────────────────────────────────────────────
+#
+# ┌─────────────────────────────────────────────────────────────────────────┐
+# │ AGENT INSTRUCTIONS                                                      │
+# │                                                                         │
+# │ If you are an AI agent (e.g. Claude Code) reading this file:            │
+# │ Do NOT execute this script as bash. Instead, walk through the           │
+# │ setup interactively using your tools.                                   │
+# │                                                                         │
+# │ Follow these steps:                                                     │
+# │                                                                         │
+# │ 1. CREATE WORKSPACE STRUCTURE                                           │
+# │    - Create knowledge/ subdirs: about-me, company-context,              │
+# │      product-strategy, processes, product-analytics, references,        │
+# │      voice-samples, decisions, people, opportunities                    │
+# │    - Create tasks/ subdirs: _archived/                                  │
+# │    - Create projects/ folder                                            │
+# │    - Copy templates to their destinations (skip if file exists):        │
+# │        templates/about-me-template.md  → knowledge/about-me/about-me.md│
+# │        templates/company-overview-template.md                           │
+# │                          → knowledge/company-context/company-overview.md│
+# │        templates/goals-template.md     → GOALS.md                      │
+# │        templates/backlog-template.md   → tasks/BACKLOG.md              │
+# │        templates/active-template.md    → tasks/ACTIVE.md               │
+# │                                                                         │
+# │ 2. ASK THE USER THESE QUESTIONS ONE AT A TIME:                          │
+# │    Q1: "What's your current role?"                                      │
+# │        e.g. Product Manager, Senior Engineer, Founder, VP               │
+# │    Q2: "What's your primary professional focus right now?"              │
+# │        e.g. Launching a new product, scaling the team, hitting OKRs    │
+# │    Q3: "What are your 2–4 goals this quarter?"                          │
+# │        e.g. Ship mobile redesign, improve activation by 20%             │
+# │                                                                         │
+# │ 3. GENERATE GOALS.md                                                    │
+# │    Use answers to populate GOALS.md using templates/goals-template.md  │
+# │                                                                         │
+# │ 4. SUMMARIZE                                                            │
+# │    Tell the user what was created and suggest next steps:               │
+# │    - Fill in knowledge/about-me/about-me.md with your background        │
+# │    - Brain dump into tasks/BACKLOG.md                                   │
+# │    - Run /process-backlog to triage                                     │
+# └─────────────────────────────────────────────────────────────────────────┘
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 
