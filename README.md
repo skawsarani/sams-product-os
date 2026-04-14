@@ -15,7 +15,7 @@
 Sams Product OS is an AI-powered personal operating system to organize my PM workspace
 
 - **Three-Bucket Workflow** - Backlog → Active → Archive keeps you focused
-- **Backlog Processing** - Brain dump → Organized tasks/initiatives
+- **Backlog Processing** - Brain dump → Organized tasks/opportunities/references
 - **Document Generation** - Specs, briefs, PRDs from conversation
 - **Research Synthesis** - Transform interviews into insights
 - **Voice Training** - Match your writing style
@@ -64,7 +64,7 @@ Creates your workspace, sets up knowledge base directories, seeds starter files,
 
 AI categorizes into:
 - **Tasks** → stay in `tasks/BACKLOG.md` (organized under topic headers)
-- **Initiatives** → `initiatives/` (strategic ideas to explore)
+- **Opportunities** → `knowledge/opportunities/` (observed problems and ideas to explore)
 - **References** → `knowledge/references/` (useful context)
 
 **Plan your week:**
@@ -82,9 +82,9 @@ Move items from `tasks/BACKLOG.md` into `tasks/ACTIVE.md`:
 
 ```
 sams-product-os/
-├── tasks/          # Simple backlog → active → archive flow
+├── tasks/          # BACKLOG.md (brain dump), ACTIVE.md (this week), _archived/ (monthly logs)
 ├── knowledge/      # Persistent reference material & agent-learned context
-├── initiatives/    # Strategic ideas to explore
+├── projects/       # Committed discrete work — one file per project
 ├── meetings/       # Meeting notes and transcripts
 ├── templates/      # Document structures for consistent outputs
 ├── _temp/          # Scratch work and files in transit
@@ -115,6 +115,7 @@ Files you create once and update as things change. The AI reads these to underst
 | `references/` | Competitive research, articles, open requests |
 | `voice-samples/` | Writing samples for style matching (see [Voice Training](#voice-training)) |
 | `decisions/` | Decision log — one file per significant decision |
+| `opportunities/` | Observed problems and ideas to explore — groomed feature requests, market signals, patterns |
 | `people/` | *(Optional)* One file per person — direct reports, stakeholders, key peers. Useful at manager/director/VP level. |
 
 AI reads files in priority order: `about-me/` → `product-strategy/` → `company-context/` → `frameworks/` → task-relevant folders.
@@ -141,7 +142,7 @@ See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 - `tasks/_archived/`
 - `GOALS.md`
 - `VOICE-GUIDE.md`
-- Content in `knowledge/`, `tasks/`, `meetings/`, `initiatives/`, `_temp/`
+- Content in `knowledge/`, `tasks/`, `meetings/`, `projects/`, `_temp/`
 
 ---
 
@@ -223,7 +224,7 @@ This is the base project with core skills built in. Install additional skills fr
 ### Built-in Skills
 
 **Process Backlog (`process-backlog` skill):**
-- Process `tasks/BACKLOG.md` into organized tasks, initiatives, references
+- Process `tasks/BACKLOG.md` into organized tasks, opportunities, references
 - Deduplication and goal-alignment checks
 
 **Daily Pulse (`daily-pulse` skill):**

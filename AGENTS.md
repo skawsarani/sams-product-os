@@ -31,9 +31,9 @@ Never skip either method. Note if QMD is unavailable and fall back to Grep only.
 
 | Path | Contents |
 |------|----------|
-| `knowledge/` | Reference context (about you, company, strategy, people, decisions) + agent-learned domain context. See `knowledge/INDEX.md`. |
+| `knowledge/` | Reference context (about you, company, strategy, people, decisions, opportunities) + agent-learned domain context. See `knowledge/INDEX.md`. |
+| `projects/` | Committed discrete work — one file per project with objective, research, and outputs |
 | `meetings/` | Meeting transcripts and notes |
-| `initiatives/` | Strategic initiatives and groomed requests |
 | `tasks/ACTIVE.md` | This week's focus: In Progress, Up Next, Waiting On |
 | `tasks/BACKLOG.md` | Brain dump inbox — topic-organized, not yet committed |
 | `tasks/_archived/` | Monthly retrospective logs (`YYYY-MM.md`) |

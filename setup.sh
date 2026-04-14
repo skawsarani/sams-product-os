@@ -182,6 +182,7 @@ step_knowledge_dirs() {
     voice-samples
     decisions
     people
+    opportunities
   )
 
   for dir in "${dirs[@]}"; do
@@ -244,6 +245,15 @@ step_template_files() {
     "tasks/ACTIVE.md" \
     "tasks/ACTIVE.md"
 
+  # projects/ — committed discrete work
+  mkdir -p "$REPO_DIR/projects"
+  if [[ ! -f "$REPO_DIR/projects/.gitkeep" ]]; then
+    touch "$REPO_DIR/projects/.gitkeep"
+    print_success "Created projects/"
+  else
+    print_skip "projects/"
+  fi
+
   # tasks/_archived/ — monthly retrospective logs
   mkdir -p "$REPO_DIR/tasks/_archived"
   if [[ ! -f "$REPO_DIR/tasks/_archived/.gitkeep" ]]; then
@@ -279,6 +289,7 @@ Last updated: $(date +%Y-%m-%d)
 | `references/` | Articles, open requests, research docs |
 | `voice-samples/` | Writing samples for AI voice matching |
 | `decisions/` | Decision log — one file per significant decision |
+| `opportunities/` | Observed problems and ideas to explore — groomed feature requests, market signals, patterns |
 | `people/` | *(Optional)* One file per person — direct reports, stakeholders, key peers |
 
 ---
@@ -403,11 +414,11 @@ step_verification() {
   echo -e "  ${BOLD}Knowledge Base${RESET}"
   local dir_count
   dir_count=$(find "$REPO_DIR/knowledge" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
-  if [[ "$dir_count" -ge 10 ]]; then
+  if [[ "$dir_count" -ge 11 ]]; then
     print_success "knowledge/ subdirectories ($dir_count dirs)"
     ((pass++))
   else
-    print_error "knowledge/ subdirectories (found $dir_count, expected 10)"
+    print_error "knowledge/ subdirectories (found $dir_count, expected 11)"
     ((fail++))
   fi
 

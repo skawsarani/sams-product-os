@@ -32,6 +32,16 @@ Each domain folder uses three files:
 
 Never wait for a System Review to update the index. Update at the moment of creation. Never recreate INDEX.md from scratch — always edit in place.
 
+## Opportunities
+
+`knowledge/opportunities/` holds one file per opportunity — things you've observed and want to monitor or explore. This includes groomed feature requests, patterns spotted in research, and market observations.
+
+Use `templates/opportunity-template.md` when creating a new opportunity file.
+
+**When to surface:** If the user is exploring a problem space, researching a topic, or processing backlog items — check for relevant opportunities and surface them as context.
+
+**This folder is not for committed work.** When an opportunity moves to active pursuit, a project is created in `projects/`. Note the link in both files.
+
 ## People
 
 `knowledge/people/` holds one file per person — direct reports, key stakeholders, cross-functional peers, executives you work with regularly.
