@@ -290,12 +290,7 @@ step_template_files() {
 
   # projects/ — committed discrete work
   mkdir -p "$REPO_DIR/projects"
-  if [[ ! -f "$REPO_DIR/projects/.gitkeep" ]]; then
-    touch "$REPO_DIR/projects/.gitkeep"
-    print_success "Created projects/"
-  else
-    print_skip "projects/"
-  fi
+  print_success "Created projects/"
 
   # tasks/_archived/ — monthly retrospective logs
   mkdir -p "$REPO_DIR/tasks/_archived"
