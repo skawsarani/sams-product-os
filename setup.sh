@@ -79,76 +79,34 @@ ask_yn() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 1: Platform Check
-# ─────────────────────────────────────────────────────────────────────────────
-
-step_platform_check() {
-  print_header "Step 1: Platform Check"
-
-  local os
-  os="$(uname -s)"
-
-  if [[ "$os" == "Darwin" ]]; then
-    IS_MACOS=true
-    print_success "macOS detected — full automated setup available"
-  else
-    IS_MACOS=false
-    print_warning "Non-macOS detected ($os) — some steps require manual installation"
-    echo ""
-    echo -e "  Install Node.js manually before continuing: https://nodejs.org"
-    echo ""
-    echo -e "  ${DIM}Press Enter to continue with the rest of setup...${RESET}"
-    read -r
-  fi
-}
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Step 2: Prerequisites
+# Step 1: Prerequisites
 # ─────────────────────────────────────────────────────────────────────────────
 
 step_prerequisites() {
-  print_header "Step 2: Prerequisites"
+  print_header "Step 1: Prerequisites"
 
   # Claude Code CLI
   if command -v claude &>/dev/null; then
     print_success "claude"
   else
-    print_warning "claude not found — install Claude Code CLI to use this product OS or install plugins from the marketplace"
+    print_warning "claude not found — install from https://claude.ai/code"
   fi
 
-  if [[ "$IS_MACOS" == true ]]; then
-    # Check Homebrew
-    if ! command -v brew &>/dev/null; then
-      print_error "Homebrew not found — install from https://brew.sh then re-run setup"
-      exit 1
-    fi
-    print_success "Homebrew"
-
-    # npm / Node.js
-    if command -v npm &>/dev/null; then
-      print_skip "npm"
-    else
-      echo -e "  ${DIM}Installing Node.js (includes npm)...${RESET}"
-      brew install node
-      print_success "Node.js / npm installed"
-    fi
-
+  # Node.js / npm — needed for QMD search (optional)
+  if command -v npm &>/dev/null; then
+    print_success "npm (Node.js)"
   else
-    # Non-macOS: just check what's available
-    if command -v npm &>/dev/null; then
-      print_success "npm"
-    else
-      print_warning "npm not found — install Node.js from https://nodejs.org"
-    fi
+    print_warning "npm not found — install Node.js to enable QMD search: https://nodejs.org"
+    print_info "QMD is optional — the agent falls back to file search without it"
   fi
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 3: QMD Search Engine
+# Step 2: QMD Search Engine
 # ─────────────────────────────────────────────────────────────────────────────
 
 step_qmd() {
-  print_header "Step 3: QMD Search Engine"
+  print_header "Step 2: QMD Search Engine"
 
   if ! command -v npm &>/dev/null; then
     print_warning "npm not available — skipping QMD installation"
@@ -207,11 +165,11 @@ step_qmd() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 4: Knowledge Base Directories
+# Step 3: Knowledge Base Directories
 # ─────────────────────────────────────────────────────────────────────────────
 
 step_knowledge_dirs() {
-  print_header "Step 4: Knowledge Base Directories"
+  print_header "Step 3: Knowledge Base Directories"
 
   local dirs=(
     about-me
@@ -239,7 +197,7 @@ step_knowledge_dirs() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 5: Template Files
+# Step 4: Template Files
 # ─────────────────────────────────────────────────────────────────────────────
 
 copy_template() {
@@ -259,7 +217,7 @@ copy_template() {
 }
 
 step_template_files() {
-  print_header "Step 5: Template Files"
+  print_header "Step 4: Template Files"
 
   copy_template \
     "templates/about-me-template.md" \
@@ -338,11 +296,11 @@ INDEX_EOF
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 6: Skills / Plugin Marketplace (Optional)
+# Step 5: Skills / Plugin Marketplace (Optional)
 # ─────────────────────────────────────────────────────────────────────────────
 
 step_plugins() {
-  print_header "Step 6: Skills / Plugin Marketplace (Optional)"
+  print_header "Step 5: Skills / Plugin Marketplace (Optional)"
 
   local marketplace_installed=false
   local has_claude=false
@@ -406,11 +364,11 @@ step_plugins() {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Step 7: Verification
+# Step 6: Verification
 # ─────────────────────────────────────────────────────────────────────────────
 
 step_verification() {
-  print_header "Step 7: Verification"
+  print_header "Step 6: Verification"
 
   local pass=0
   local fail=0
@@ -437,8 +395,7 @@ step_verification() {
     print_success "qmd"
     ((pass++))
   else
-    print_error "qmd not found — run: npm install -g @tobilu/qmd"
-    ((fail++))
+    print_warning "qmd not found (optional) — run: npm install -g @tobilu/qmd"
   fi
 
   # Knowledge base
@@ -446,11 +403,11 @@ step_verification() {
   echo -e "  ${BOLD}Knowledge Base${RESET}"
   local dir_count
   dir_count=$(find "$REPO_DIR/knowledge" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
-  if [[ "$dir_count" -ge 8 ]]; then
+  if [[ "$dir_count" -ge 10 ]]; then
     print_success "knowledge/ subdirectories ($dir_count dirs)"
     ((pass++))
   else
-    print_error "knowledge/ subdirectories (found $dir_count, expected 8)"
+    print_error "knowledge/ subdirectories (found $dir_count, expected 10)"
     ((fail++))
   fi
 
@@ -527,7 +484,6 @@ print_next_steps() {
 
 main() {
   print_banner
-  step_platform_check
   step_prerequisites
   step_qmd
   step_knowledge_dirs

@@ -33,8 +33,8 @@ cd sams-product-os
 
 ### 2. Prerequisites
 
-- **macOS**: Install [Homebrew](https://brew.sh) — the setup script handles the rest
-- **Other platforms**: Install [Node.js](https://nodejs.org) manually (required for [QMD](https://github.com/tobi/qmd) search)
+- **[Claude Code](https://claude.ai/code)** — required to use this system
+- **[Node.js](https://nodejs.org)** — optional, needed for [QMD](https://github.com/tobi/qmd) semantic search. The agent falls back to file search without it.
 
 ### 3. Run Setup
 
@@ -42,7 +42,7 @@ cd sams-product-os
 ./setup.sh
 ```
 
-The interactive setup will install dependencies (including [QMD](https://github.com/tobi/qmd) for fast knowledge base search), create your workspace, and verify everything works. It will also walk you through optional plugin installation.
+Creates your workspace, sets up knowledge base directories, seeds starter files, and optionally installs QMD and plugins.
 
 ### 4. Start Using It
 
@@ -132,9 +132,7 @@ See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 ## What Gets Committed vs. Gitignored
 
 **Committed (shared structure):**
-- Directory structure
-- Documentation, templates, `.claude/skills/`
-- `.claude/skills/` folder (AI agent capabilities)
+- Directory structure, templates, `.claude/skills/`
 - `AGENTS.md` and subdirectory `AGENTS.md` + `CLAUDE.md` files (agent instructions for each folder)
 
 **Gitignored (your data):**
