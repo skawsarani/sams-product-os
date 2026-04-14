@@ -90,7 +90,7 @@ Senior PM with 8 years experience in B2B SaaS. Previously eng background.
 - Perfect is the enemy of good - 80% solution now > 100% solution later
 
 **Frameworks I Use**:
-- RICE for prioritization (see `knowledge/frameworks/rice-scoring.md`)
+- RICE for prioritization
 - Jobs-to-be-Done for understanding user needs
 - Value vs Effort matrix for quick decisions
 

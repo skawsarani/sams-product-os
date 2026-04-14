@@ -110,7 +110,6 @@ Files you create once and update as things change. The AI reads these to underst
 | `about-me/` | Role, background, working style, strengths |
 | `company-context/` | Mission, products, team, org structure |
 | `product-strategy/` | Vision, strategic pillars, roadmap, OKRs |
-| `frameworks/` | PM methodologies you use (RICE, JTBD, etc.) |
 | `processes/` | How your team works, sprint cadence, decision-making |
 | `references/` | Competitive research, articles, open requests |
 | `voice-samples/` | Writing samples for style matching (see [Voice Training](#voice-training)) |
@@ -118,7 +117,7 @@ Files you create once and update as things change. The AI reads these to underst
 | `opportunities/` | Observed problems and ideas to explore — groomed feature requests, market signals, patterns |
 | `people/` | *(Optional)* One file per person — direct reports, stakeholders, key peers. Useful at manager/director/VP level. |
 
-AI reads files in priority order: `about-me/` → `product-strategy/` → `company-context/` → `frameworks/` → task-relevant folders.
+AI reads files in priority order: `about-me/` → `product-strategy/` → `company-context/` → task-relevant folders.
 
 Reference files explicitly with `@knowledge/product-strategy/current-strategy.md`.
 

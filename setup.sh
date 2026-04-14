@@ -175,7 +175,6 @@ step_knowledge_dirs() {
     about-me
     company-context
     product-strategy
-    frameworks
     processes
     product-analytics
     references
@@ -282,7 +281,6 @@ Last updated: $(date +%Y-%m-%d)
 |--------|----------|
 | `about-me/` | Role, background, working style, 360 feedback |
 | `company-context/` | Company overview, product info, competitors, org structure |
-| `frameworks/` | PM methodologies, mental models |
 | `processes/` | How the team works, sprint cadence, release flow |
 | `product-analytics/` | KPIs, metrics definitions, performance data |
 | `product-strategy/` | Current strategy, vision, roadmap |
