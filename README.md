@@ -6,7 +6,7 @@
 [![Star this repo](https://img.shields.io/github/stars/samkawsarani/sams-product-os?style=social)](https://github.com/samkawsarani/sams-product-os)
 
 
-*Quick links:* [Quick Start](#quick-start) · [Directory Structure](#directory-structure) · [Context Setup](#context-setup) · [Core Workflow](#core-workflow) · [Common Commands](#common-commands) · [Best Practices](#best-practices)
+*Quick links:* [Quick Start](#quick-start) · [Directory Structure](#directory-structure) · [Context Setup](#context-setup) · [Core Workflow](#core-workflow) · [Tasks](#tasks) · [Projects](#projects) · [Common Commands](#common-commands) · [Best Practices](#best-practices)
 
 ---
 
@@ -143,6 +143,7 @@ See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 - `GOALS.md`
 - `VOICE-GUIDE.md`
 - Content in `knowledge/`, `tasks/`, `meetings/`, `projects/`, `_temp/`
+- Note: `AGENTS.md` and `CLAUDE.md` inside any folder are always tracked
 
 ---
 
@@ -214,6 +215,37 @@ Tasks live in three files — no individual task files, no frontmatter, no prior
 **Weekly:**
 - `/process-backlog` — classify and clean the backlog
 - `/weekly-review` — review progress, plan next week, log to archive
+
+---
+
+## Projects
+
+A project is committed discrete work — a clear objective, connected to a goal, with real outputs. One file per project in `projects/`.
+
+**Create a project:**
+```
+Copy templates/project-brief-template.md to projects/{slug}.md
+```
+
+Each project file has:
+```markdown
+# Checkout Redesign
+
+**Goal:** [Which goal from GOALS.md does this serve?]
+**Status:** Active | On Hold | Complete
+**Started:** YYYY-MM-DD
+
+## Objective
+## Target Customer
+## Success
+## What I Believe
+## What I Need to Research
+## Solution Directions
+## Risks to Validate
+## Updates
+```
+
+Active projects generate tasks — reference the project file when adding related items to `tasks/ACTIVE.md` or `tasks/BACKLOG.md`.
 
 ---
 
