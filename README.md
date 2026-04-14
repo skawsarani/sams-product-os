@@ -253,18 +253,23 @@ This is the base project with core skills built in. Install additional skills fr
 
 ### Built-in Skills
 
-**Process Backlog (`process-backlog` skill):**
+**Process Backlog (`/process-backlog`):**
 - Process `tasks/BACKLOG.md` into organized tasks, opportunities, references
 - Deduplication and goal-alignment checks
 
-**Daily Pulse (`daily-pulse` skill):**
-- `/daily-pulse`: morning briefing — calendar + active task priorities
+**Daily Pulse (`/daily-pulse`):**
+- Morning briefing — calendar + active task priorities
 - `/daily-pulse tomorrow`: tomorrow look-ahead
 - `/daily-pulse week`: week overview
 
-**Weekly Review (`weekly-review` skill):**
-- `/weekly-review`: reflect on past week, plan next week, log to archive
+**Weekly Review (`/weekly-review`):**
+- Reflect on past week, plan next week, log to archive
 - `/weekly-review quick`: condensed version
+
+**Weekly Update (`/weekly-update`):**
+- Draft a stakeholder update email
+- Uses Linear projects and initiatives if MCP is connected, falls back to `tasks/ACTIVE.md`
+- Reads `knowledge/people/` for stakeholder preferences
 
 ### Plugin Marketplace
 
@@ -292,6 +297,7 @@ Browse and install additional skills (analytics, grooming, research, writing, an
 **Weekly:**
 - `/process-backlog` — Classify and clean the backlog
 - `/weekly-review` — Reflect, plan, archive
+- `/weekly-update` — Draft stakeholder update email
 
 ---
 
