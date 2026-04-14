@@ -82,17 +82,17 @@ Move items from `tasks/BACKLOG.md` into `tasks/ACTIVE.md`:
 
 ```
 sams-product-os/
-├── tasks/          # BACKLOG.md (brain dump), ACTIVE.md (this week), _archived/ (monthly logs)
-├── knowledge/      # about you, company, strategy, people, decisions + agent-learned context
-├── initiatives/    # strategic ideas to explore
-├── meetings/       # notes and transcripts
-├── templates/      # document starters
-├── _temp/          # scratch work and files in transit
+├── tasks/          # Simple backlog → active → archive flow
+├── knowledge/      # Persistent reference material & agent-learned context
+├── initiatives/    # Strategic ideas to explore
+├── meetings/       # Meeting notes and transcripts
+├── templates/      # Document structures for consistent outputs
+├── _temp/          # Scratch work and files in transit
 ├── tools/          # API integrations and custom tooling
-├── .claude/skills/ # slash commands and agent capabilities
-├── GOALS.md        # quarterly goals and ownership areas
-├── AGENTS.md       # agent instructions
-└── setup.sh        # interactive setup
+├── .claude/skills/ # Slash commands and agent capabilities
+├── GOALS.md        # Quarterly goals and ownership areas
+├── AGENTS.md       # Agent instructions
+└── setup.sh        # Interactive setup
 ```
 
 ---
@@ -123,7 +123,7 @@ Reference files explicitly with `@knowledge/product-strategy/current-strategy.md
 
 ### Domain Learning (maintained by your agent)
 
-As you work, your agent builds up learned knowledge in domain-specific folders (e.g., `knowledge/interac/`, `knowledge/checkout-flow/`). Each domain folder holds three files: `knowledge.md` (facts), `hypotheses.md` (patterns under observation), and `rules.md` (confirmed — applied by default). The agent creates these automatically; you never pre-populate them. See `knowledge/AGENTS.md` for the full knowledge architecture and maintenance rules.
+As you work, your agent builds up learned knowledge in domain-specific folders (e.g., `knowledge/payments/`, `knowledge/checkout-flow/`). Each domain folder holds three files: `knowledge.md` (facts), `hypotheses.md` (patterns under observation), and `rules.md` (confirmed — applied by default). The agent creates these automatically; you never pre-populate them. See `knowledge/AGENTS.md` for the full knowledge architecture and maintenance rules.
 
 See `knowledge/INDEX.md` for a directory of what's in your knowledge folder.
 
@@ -417,16 +417,6 @@ Contributions should:
 - Include documentation
 - Follow the existing patterns
 - Test with your AI assistant before submitting
-
----
-
-## Acknowledgements
-
-This project was inspired by the work of several amazing builders in the space. Special thanks to:
-
-- [Aman Khan](<https://github.com/amanaiproduct>) - PersonalOS
-- [Tal Raviv](https://www.talraviv.co) - LinkedIn Content + Articles
-- [Carl Velloti](https://github.com/carlvellotti/carls-product-os) - carls-product-os, cursor-pm-course, claude-code-everyone-course
 
 ---
 
