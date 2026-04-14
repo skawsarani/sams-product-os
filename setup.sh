@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Sams Product OS — Interactive Setup
-# ─────────────────────────────────────────────────────────────────────────────
+#
+# Sams Product OS — Setup Script
+# Creates workspace structure, seeds starter files, installs optional tooling.
 #
 # ┌─────────────────────────────────────────────────────────────────────────┐
 # │ AGENT INSTRUCTIONS                                                      │
@@ -45,6 +43,11 @@ set -euo pipefail
 # │    - Brain dump into tasks/BACKLOG.md                                   │
 # │    - Run /process-backlog to triage                                     │
 # └─────────────────────────────────────────────────────────────────────────┘
+set -euo pipefail
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Sams Product OS — Interactive Setup
+# ─────────────────────────────────────────────────────────────────────────────
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 
