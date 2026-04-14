@@ -1,7 +1,7 @@
 ---
 name: weekly-update
 model: sonnet
-description: Drafts a stakeholder update email summarizing project progress, blockers, and next week's priorities. Uses Linear projects and initiatives if MCP is connected, otherwise falls back to tasks/ACTIVE.md. Invoked via /weekly-update or "draft stakeholder update", "write my Friday update", "weekly email".
+description: Drafts a stakeholder update email summarizing project progress, blockers, and next week's priorities. Combines Linear projects and initiatives (if MCP is connected) with tasks/ACTIVE.md, projects/, and GOALS.md. Invoked via /weekly-update or "draft stakeholder update", "write my Friday update", "weekly email".
 allowed-tools: Glob, Read, Write, Bash(qmd *), mcp__linear__*
 argument-hint: '[optional: name or role of recipient, e.g. "for CEO" or "for board"]'
 ---
@@ -27,18 +27,20 @@ Read `knowledge/people/` for any matching stakeholder preference files. Note wha
 
 ## Step 2: Gather Progress Data
 
-**Try Linear first.** If Linear MCP tools are available:
+Always read from all available sources and merge:
+
+**From Linear** (if MCP is connected):
 - Pull **project status** — name, status (on track / at risk / behind), % complete, owner
 - Pull **initiative status** — name, health, which projects roll up under it
 - Note any projects that slipped, were completed, or changed status this week
 
-**If Linear is not available**, fall back to:
-- Read `tasks/ACTIVE.md` — extract completed (`- [x]`), in progress (`- [ ]`), and Waiting On items
-- Read `projects/` — scan any active project briefs for current status
+**From this repo** (always):
+- Read `tasks/ACTIVE.md` — completed (`- [x]`), in progress (`- [ ]`), and Waiting On items
+- Read `projects/` — scan active project briefs for context and current status
+- Read `GOALS.md` — map all progress to quarterly goals
+- Read `meetings/` — scan recent notes for decisions or outcomes worth surfacing
 
-Also read:
-- `GOALS.md` — map progress to quarterly goals
-- `meetings/` — scan recent meeting notes for relevant decisions or outcomes worth surfacing
+Merge both sources — Linear gives project/initiative health, repo gives task-level detail and goal alignment. Note if Linear is unavailable.
 
 ---
 
