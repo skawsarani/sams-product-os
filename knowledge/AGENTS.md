@@ -4,7 +4,7 @@
 
 `knowledge/` has two kinds of content. The authoritative list is in `knowledge/INDEX.md`:
 - **Reference Context** — curated folders you set up once (about-me, company-context, etc.)
-- **Domain Learning** — agent-authored folders created from real work (e.g., `knowledge/interac/`, `knowledge/checkout-flow/`)
+- **Domain Learning** — agent-authored folders created from real work (e.g., `knowledge/onboarding/`, `knowledge/checkout-flow/`)
 
 ### Domain Learning Folders
 
